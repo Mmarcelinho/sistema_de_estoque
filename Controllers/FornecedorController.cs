@@ -2,11 +2,13 @@ namespace ApiEstoque.Controllers
 {
     public class FornecedorController : ControllerBase
     {
+        [Produces(typeof(FornecedorOutput))]
+        [ProducesResponseType(typeof(FornecedorOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("/fornecedor")]
         public async Task<ActionResult<List<FornecedorOutput>>> ObterTodos([FromServices] DataContext context)
         {
-
-            var fornecedor = await context.Fornecedor.Select(x => new FornecedorOutput
+            var listaFornecedor = await context.Fornecedor.Select(x => new FornecedorOutput
              (
               x.Id,
               x.Nome,
@@ -21,19 +23,29 @@ namespace ApiEstoque.Controllers
              ))
             .ToListAsync();
 
-            return Ok(fornecedor);
+            if (listaFornecedor.Count == 0)
+                return NotFound();
 
+            return Ok(listaFornecedor);
         }
 
-        [HttpGet("/fornecedor/{id}")]
+
+        [Produces(typeof(FornecedorOutput))]
+        [ProducesResponseType(typeof(FornecedorOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("/fornecedor/id/{id:int}")]
         public async Task<IActionResult> ObterPorId([FromServices] DataContext context, int id)
         {
 
             if (id == 0)
                 return BadRequest();
 
-            return await context.Fornecedor.FindAsync(id)
-            is Fornecedor fornecedor ? Ok(new FornecedorOutput
+            var fornecedor = await context.Fornecedor.FindAsync(id);
+
+            if (fornecedor == null)
+                return NotFound($"Não existe fornecedor com o id {id}");
+
+            return Ok(new FornecedorOutput
             (
              fornecedor.Id,
              fornecedor.Nome,
@@ -46,17 +58,20 @@ namespace ApiEstoque.Controllers
              fornecedor.Inscricao,
              fornecedor.CidadeId
 
-            )) : NotFound();
+            ));
         }
 
-        [HttpGet("/cidade/fornecedor/{id}")]
+
+        [Produces(typeof(ListFornecedorViewModels))]
+        [ProducesResponseType(typeof(ListFornecedorViewModels), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("/cidade/fornecedor/id/{id:int}")]
         public async Task<ActionResult<List<ListFornecedorViewModels>>> ObterPorIdUmParaMuitos([FromServices] DataContext context, int id)
         {
-
             if (id == 0)
                 return BadRequest();
 
-            var fornecedorCidade = await context.Fornecedor
+            var listaCidadeDeFornecedores = await context.Fornecedor
             .Where(x => x.Cidade.Id == id)
             .Select(x => new ListFornecedorViewModels
             (
@@ -71,19 +86,89 @@ namespace ApiEstoque.Controllers
              x.Inscricao,
              x.CidadeId,
              x.Cidade.Nome
-
             )).ToListAsync();
 
-            if (fornecedorCidade == null)
-                return NotFound();
+            if (listaCidadeDeFornecedores.Count == 0)
+                return NotFound($"Não existe cidade com o id {id}");
 
-            return Ok(fornecedorCidade);
+            return Ok(listaCidadeDeFornecedores);
         }
 
+
+        [Produces(typeof(FornecedorOutput))]
+        [ProducesResponseType(typeof(FornecedorOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("/fornecedor/nome/{nome:alpha}")]
+        public async Task<ActionResult<List<FornecedorOutput>>> ObterPorNome([FromServices] DataContext context, string nome)
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+                return BadRequest();
+
+            var listaFornecedor = await context.Fornecedor
+            .Include(x => x.Cidade)
+            .Where(n => n.Nome.Contains(nome))
+            .Select(x => new ListFornecedorViewModels
+            (
+             x.Id,
+             x.Nome,
+             x.Endereco,
+             x.Numero,
+             x.Bairro,
+             x.Cep,
+             x.Contato,
+             x.Cnpj,
+             x.Inscricao,
+             x.CidadeId,
+             x.Cidade.Nome
+            )).ToListAsync();
+
+            if (listaFornecedor.Count == 0)
+                return NotFound($"Não existem fornecedores com o nome {nome}");
+
+            return Ok(listaFornecedor);
+        }
+
+
+        [Produces(typeof(FornecedorOutput))]
+        [ProducesResponseType(typeof(FornecedorOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("/cidade/fornecedor/nome/{nome:alpha}")]
+        public async Task<ActionResult<List<ListFornecedorViewModels>>> ObterPorNomeUmParaMuitos([FromServices] DataContext context, string nome)
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+                return BadRequest();
+
+            var listaCidadeDeFornecedores = await context.Fornecedor
+            .Where(x => x.Cidade.Nome.Contains(nome))
+            .Select(x => new ListFornecedorViewModels
+            (
+             x.Id,
+             x.Nome,
+             x.Endereco,
+             x.Numero,
+             x.Bairro,
+             x.Cep,
+             x.Contato,
+             x.Cnpj,
+             x.Inscricao,
+             x.CidadeId,
+             x.Cidade.Nome
+            )).ToListAsync();
+
+            if (listaCidadeDeFornecedores.Count == 0)
+            return NotFound($"Não existem cidades com o nome {nome}");
+
+            return Ok(listaCidadeDeFornecedores);
+        }
+
+
+        [Produces(typeof(FornecedorOutput))]
+        [ProducesResponseType(typeof(FornecedorOutput), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost("/fornecedor")]
         public async Task<IActionResult> Criar([FromServices] DataContext context, [FromBody] FornecedorInput model)
         {
-
             if (!ModelState.IsValid)
                 return BadRequest();
 
@@ -117,14 +202,18 @@ namespace ApiEstoque.Controllers
              fornecedor.Inscricao,
              fornecedor.CidadeId
 
-            )) : BadRequest("Houve um problema ao salvar o registro");
-
+            )) : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
-        [HttpPut("/fornecedor/{id}")]
+
+        [Produces(typeof(FornecedorOutput))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPut("/fornecedor/id/{id:int}")]
         public async Task<IActionResult> Atualizar([FromServices] DataContext context, [FromBody] FornecedorInput model, int id)
         {
-
             if (id == 0)
                 return BadRequest();
 
@@ -153,11 +242,15 @@ namespace ApiEstoque.Controllers
             context.Fornecedor.Update(fornecedor);
             var result = await context.SaveChangesAsync();
 
-            return result > 0 ? NoContent() : BadRequest("Houve um problema ao salvar o registro");
-
+            return result > 0 ? NoContent() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
-        [HttpDelete("/fornecedor/{id}")]
+        [Produces(typeof(FornecedorOutput))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpDelete("/fornecedor/id/{id:int}")]
         public async Task<IActionResult> Remover([FromServices] DataContext context, int id)
         {
 
@@ -172,7 +265,7 @@ namespace ApiEstoque.Controllers
             context.Fornecedor.Remove(fornecedor);
             var result = await context.SaveChangesAsync();
 
-            return result > 0 ? NoContent() : BadRequest("Houve um problema ao salvar o registro");
+            return result > 0 ? NoContent() : StatusCode(StatusCodes.Status500InternalServerError);
 
         }
 

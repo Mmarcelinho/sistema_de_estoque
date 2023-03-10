@@ -11,8 +11,8 @@ namespace ApiEstoque.ViewModels.CidadeViewModels;
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "Campo obrigátorio.")]
-        [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
-        [MaxLength(14, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
+        [MinLength(2, ErrorMessage = "Informe o dado corretamente.")]
+        [MaxLength(2, ErrorMessage = "Informe o dado corretamente.")]
         public string Uf { get; set; }
         
     }

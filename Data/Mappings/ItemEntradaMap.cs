@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+namespace ApiEstoque.Data.Mappings;
 
-namespace ApiEstoque.Data.Mappings
-{
     public class ItemEntradaMap : IEntityTypeConfiguration<ItemEntrada>
     {
         public void Configure(EntityTypeBuilder<ItemEntrada> builder)
@@ -37,9 +32,5 @@ namespace ApiEstoque.Data.Mappings
                .HasForeignKey(x => x.ProdutoId)
                .OnDelete(DeleteBehavior.Cascade);
 
-
-
-
         }
     }
-}

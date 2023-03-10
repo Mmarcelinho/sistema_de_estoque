@@ -1,12 +1,14 @@
 namespace ApiEstoque.Controllers;
+public class LojaController : ControllerBase
+{
 
-    public class LojaController:ControllerBase
-    {
-        [HttpGet("/loja")]
+    [Produces(typeof(LojaOutput))]
+    [ProducesResponseType(typeof(LojaOutput), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("/loja")]
     public async Task<ActionResult<List<LojaOutput>>> ObterTodos([FromServices] DataContext Context)
     {
-
-        var loja = await Context.Loja
+        var listaLoja = await Context.Loja
         .Select(x => new LojaOutput
          (
           x.Id,
@@ -17,24 +19,31 @@ namespace ApiEstoque.Controllers;
           x.Telefone,
           x.Inscricao,
           x.Cnpj,
-          x.CidadeId 
+          x.CidadeId
+         )).ToListAsync();
 
-         ))
-        .ToListAsync();
+        if (listaLoja.Count == 0)
+            return NotFound();
 
-        return Ok(loja);
-
+        return Ok(listaLoja);
     }
 
-    [HttpGet("/loja/{id}")]
+
+    [Produces(typeof(LojaOutput))]
+    [ProducesResponseType(typeof(LojaOutput), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("/loja/id/{id:int}")]
     public async Task<IActionResult> ObterPorId([FromServices] DataContext context, int id)
     {
-
         if (id == 0)
             return BadRequest();
 
-        return await context.Loja.FindAsync(id)
-        is Loja loja ? Ok(new LojaOutput
+        var loja = await context.Loja.FindAsync(id);
+
+        if (loja == null)
+            return NotFound();
+
+        return Ok(new LojaOutput
         (
          loja.Id,
          loja.Nome,
@@ -45,18 +54,20 @@ namespace ApiEstoque.Controllers;
          loja.Inscricao,
          loja.Cnpj,
          loja.CidadeId
-
-        )) : NotFound();
+        ));
     }
 
-    [HttpGet("/cidade/loja/{id}")]
+
+    [Produces(typeof(ListLojaViewModels))]
+    [ProducesResponseType(typeof(ListLojaViewModels), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("/cidade/loja/id/{id:int}")]
     public async Task<ActionResult<List<ListLojaViewModels>>> ObterPorIdUmParaMuitos([FromServices] DataContext context, int id)
     {
-
         if (id == 0)
             return BadRequest();
 
-        var lojaCidade = await context.Loja
+        var listCidadeDeLojas = await context.Loja
         .Where(x => x.Cidade.Id == id)
         .Select(x => new ListLojaViewModels
         (
@@ -73,16 +84,85 @@ namespace ApiEstoque.Controllers;
 
         )).ToListAsync();
 
-        if (lojaCidade == null)
+        if (listCidadeDeLojas.Count == 0)
             return NotFound();
 
-        return Ok(lojaCidade);
+        return Ok(listCidadeDeLojas);
     }
 
+
+    [Produces(typeof(ListLojaViewModels))]
+    [ProducesResponseType(typeof(ListLojaViewModels), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("/loja/nome/{nome:alpha}")]
+    public async Task<ActionResult<List<ListLojaViewModels>>> ObterPorNome([FromServices] DataContext context, string nome)
+    {
+        if (string.IsNullOrWhiteSpace(nome))
+            return BadRequest();
+
+        var listaLoja = await context.Loja
+        .Where(n => n.Nome.Contains(nome))
+        .Select(x => new ListLojaViewModels
+        (
+          x.Id,
+          x.Nome,
+          x.Endereco,
+          x.Numero,
+          x.Bairro,
+          x.Telefone,
+          x.Inscricao,
+          x.Cnpj,
+          x.CidadeId,
+          x.Cidade.Nome
+        )).ToListAsync();
+
+        if (listaLoja.Count == 0)
+            return NotFound($"Não existem lojas com o nome {nome}");
+
+        return Ok(listaLoja);
+    }
+
+
+    [Produces(typeof(ListLojaViewModels))]
+    [ProducesResponseType(typeof(ListLojaViewModels), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("cidade/loja/nome/{nome:alpha}")]
+    public async Task<ActionResult<List<ListLojaViewModels>>> ObterPorNomeV2([FromServices] DataContext context, string nome)
+    {
+        if (string.IsNullOrWhiteSpace(nome))
+            return BadRequest();
+
+        var listaCidadeDeLojas = await context.Loja
+        .Where(n => n.Cidade.Nome.Contains(nome))
+        .Select(x => new ListLojaViewModels
+        (
+          x.Id,
+          x.Nome,
+          x.Endereco,
+          x.Numero,
+          x.Bairro,
+          x.Telefone,
+          x.Inscricao,
+          x.Cnpj,
+          x.CidadeId,
+          x.Cidade.Nome
+
+        )).ToListAsync();
+
+        if (listaCidadeDeLojas.Count == 0)
+            return NotFound($"Não existem cidades com o nome {nome}");
+
+        return Ok(listaCidadeDeLojas);
+    }
+
+
+    [Produces(typeof(LojaOutput))]
+    [ProducesResponseType(typeof(LojaOutput), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [HttpPost("/loja")]
     public async Task<IActionResult> Criar([FromServices] DataContext context, [FromBody] LojaInput model)
     {
-
         if (!ModelState.IsValid)
             return BadRequest();
 
@@ -115,14 +195,18 @@ namespace ApiEstoque.Controllers;
          loja.Cnpj,
          loja.CidadeId
 
-        )) : BadRequest("Houve um problema ao salvar o registro");
-
+        )) : StatusCode(StatusCodes.Status500InternalServerError);
     }
 
-    [HttpPut("/loja/{id}")]
+
+    [Produces(typeof(LojaOutput))]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [HttpPut("/loja/id/{id:int}")]
     public async Task<IActionResult> Atualizar([FromServices] DataContext context, [FromBody] LojaInput model, int id)
     {
-
         if (id == 0)
             return BadRequest();
 
@@ -151,14 +235,18 @@ namespace ApiEstoque.Controllers;
         context.Loja.Update(loja);
         var result = await context.SaveChangesAsync();
 
-        return result > 0 ? NoContent() : BadRequest("Houve um problema ao salvar o registro");
-
+        return result > 0 ? NoContent() : StatusCode(StatusCodes.Status500InternalServerError);
     }
 
-    [HttpDelete("/loja/{id}")]
+
+    [Produces(typeof(LojaOutput))]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [HttpDelete("/loja/id/{id:int}")]
     public async Task<IActionResult> Remover([FromServices] DataContext context, int id)
     {
-
         if (id == 0)
             return BadRequest();
 
@@ -170,8 +258,7 @@ namespace ApiEstoque.Controllers;
         context.Loja.Remove(loja);
         var result = await context.SaveChangesAsync();
 
-        return result > 0 ? NoContent() : BadRequest("Houve um problema ao salvar o registro");
+        return result > 0 ? NoContent() : StatusCode(StatusCodes.Status500InternalServerError);
+    }
 
-    }
-        
-    }
+}

@@ -25,8 +25,8 @@ public class LojaInput
     public string Bairro { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 14 digitos.")]
-    [MaxLength(14, ErrorMessage = "Mínimo de 0 a 14 digitos.")]
+    [MinLength(11, ErrorMessage = "Informe o dado corretamente.")]
+    [MaxLength(15, ErrorMessage = "Informe o dado corretamente.")]
     public string Telefone { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
@@ -34,9 +34,8 @@ public class LojaInput
     [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
     public string Inscricao { get; set; }
 
-    [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 18 digitos.")]
-    [MaxLength(18, ErrorMessage = "Mínimo de 0 a 18 digitos.")]
+    [MinLength(14, ErrorMessage = "Informe o dado corretamente.")]
+    [MaxLength(18, ErrorMessage = "Informe o dado corretamente.")]
     public string Cnpj { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]

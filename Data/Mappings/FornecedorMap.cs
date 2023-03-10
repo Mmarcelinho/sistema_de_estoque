@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+namespace ApiEstoque.Data.Mappings;
 
-namespace ApiEstoque.Data.Mappings
-{
     public class FornecedorMap : IEntityTypeConfiguration<Fornecedor>
     {
         public void Configure(EntityTypeBuilder<Fornecedor> builder)
@@ -54,4 +49,3 @@ namespace ApiEstoque.Data.Mappings
         }
 
     }
-}

@@ -2,6 +2,10 @@ namespace ApiEstoque.Models;
 
 public class Fornecedor
 {
+    public Fornecedor(){
+
+    }
+
     public Fornecedor(int id, string nome, string endereco, int numero, string bairro, string cep, string contato, string cnpj, string inscricao, int cidadeId)
     {
         this.Id = id;
@@ -16,29 +20,32 @@ public class Fornecedor
         this.CidadeId = cidadeId;
 
     }
-    public int Id { get; set; }
 
-    public string Nome { get; set; }
 
-    public string Endereco { get; set; }
+    public int Id { get; private set; }
 
-    public int Numero { get; set; }
+    public string Nome { get; private set; }
 
-    public string Bairro { get; set; }
+    public string Endereco { get; private set; }
 
-    public string Cep { get; set; }
+    public int Numero { get; private set; }
 
-    public string Contato { get; set; }
+    public string Bairro { get; private set; }
 
-    public string Cnpj { get; set; }
+    public string Cep { get; private set; }
 
-    public string Inscricao { get; set; }
+    public string Contato { get; private set; }
 
-    public int CidadeId { get; set; }
+    public string Cnpj { get; private set; }
 
-    public Cidade Cidade { get; set; } = null!;
+    public string Inscricao { get; private set; }
 
-    public ICollection<Entrada> Entrada { get; set; } = null!;
+    public int CidadeId { get; private set; }
 
-    public ICollection<Produto> Produto { get; set; } = null!;
+    public Cidade Cidade { get; private set; } = null!;
+
+    public ICollection<Entrada> Entrada { get; private set; } = null!;
+
+    public ICollection<Produto> Produto { get; private set; } = null!;
+
 }

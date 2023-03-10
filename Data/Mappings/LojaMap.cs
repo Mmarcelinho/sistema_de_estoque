@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+namespace ApiEstoque.Data.Mappings;
 
-namespace ApiEstoque.Data.Mappings
-{
     public class LojaMap : IEntityTypeConfiguration<Loja>
     {
         public void Configure(EntityTypeBuilder<Loja> builder)
@@ -49,4 +44,3 @@ namespace ApiEstoque.Data.Mappings
 
         }
     }
-}

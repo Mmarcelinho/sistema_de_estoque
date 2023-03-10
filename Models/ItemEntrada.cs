@@ -12,19 +12,19 @@ public class ItemEntrada
         this.ProdutoId = produtoId;
 
     }
-    public int Id { get; set; }
+    public int Id { get; private set; }
 
-    public string Lote { get; set; }
+    public string Lote { get; private set; }
 
-    public int Quantidade { get; set; }
+    public int Quantidade { get; private set; }
 
-    public double Valor { get; set; }
+    public double Valor { get; private set; }
 
-    public int EntradaId { get; set; }
+    public int EntradaId { get; private set; }
 
-    public int ProdutoId { get; set; }
+    public int ProdutoId { get; private set; }
 
-    public Entrada Entrada { get; set; } = null!;
+    public Entrada Entrada { get; private set; } = null!;
 
-    public Produto Produto { get; set; } = null!;
+    public Produto Produto { get; private set; } = null!;
 }

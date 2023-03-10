@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiEstoque.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230303054525_DataEstoque")]
-    partial class DataEstoque
+    [Migration("20230308205239_BancoEstoquev0.1")]
+    partial class BancoEstoquev01
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

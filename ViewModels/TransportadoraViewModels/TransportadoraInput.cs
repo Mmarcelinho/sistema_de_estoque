@@ -15,7 +15,8 @@ public class TransportadoraInput
     [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
     public string Endereco { get; set; }
 
-
+    [Required(ErrorMessage = "Campo Obrigátorio.")]
+    [Range(0, int.MaxValue)]
     public int Numero { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
@@ -23,14 +24,13 @@ public class TransportadoraInput
     [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
     public string Bairro { get; set; }
 
-    [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 14 digitos.")]
-    [MaxLength(14, ErrorMessage = "Mínimo de 0 a 14 digitos.")]
+    [Required(ErrorMessage = "Campo Obrigátorio")]
+    [MinLength(8, ErrorMessage = "Informe o dado corretamente.")]
+    [MaxLength(9, ErrorMessage = "Informe o dado corretamente.")]
     public string Cep { get; set; }
 
-    [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 18 digitos.")]
-    [MaxLength(18, ErrorMessage = "Mínimo de 0 a 18 digitos.")]
+    [MinLength(14, ErrorMessage = "Informe o dado corretamente.")]
+    [MaxLength(18, ErrorMessage = "Informe o dado corretamente.")]
     public string Cnpj { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
@@ -38,14 +38,15 @@ public class TransportadoraInput
     [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
     public string Inscricao { get; set; }
 
+    [EmailAddress]
     [Required(ErrorMessage = "Campo Obrigátorio.")]
     [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
     [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
     public string Contato { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 14 digitos.")]
-    [MaxLength(14, ErrorMessage = "Mínimo de 0 a 14 digitos.")]
+    [MinLength(11, ErrorMessage = "Informe o dado corretamente.")]
+    [MaxLength(15, ErrorMessage = "Informe o dado corretamente.")]
     public string Telefone { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]

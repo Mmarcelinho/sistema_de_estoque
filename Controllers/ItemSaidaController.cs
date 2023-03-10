@@ -1,12 +1,14 @@
 namespace ApiEstoque.Controllers;
 
 public class ItemSaidaController : ControllerBase
-{
+{   
+    [Produces(typeof(ItemSaidaOutput))]
+    [ProducesResponseType(typeof(ItemSaidaOutput), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("/itemSaida")]
     public async Task<ActionResult<List<ItemSaidaOutput>>> ObterTodos([FromServices] DataContext Context)
     {
-
-        var itemSaida = await Context.ItemSaida.Select(x => new ItemSaidaOutput
+        var listaItemSaida = await Context.ItemSaida.Select(x => new ItemSaidaOutput
          (
           x.Id,
           x.Lote,
@@ -14,23 +16,31 @@ public class ItemSaidaController : ControllerBase
           x.Valor,
           x.SaidaId,
           x.ProdutoId
-
          ))
         .ToListAsync();
 
-        return Ok(itemSaida);
+        if(listaItemSaida.Count == 0)
+            return NotFound();
 
+        return Ok(listaItemSaida);
     }
 
-    [HttpGet("/itemSaida/{id}")]
+
+    [Produces(typeof(ItemSaidaOutput))]
+    [ProducesResponseType(typeof(ItemSaidaOutput), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("/itemSaida/id/{id:int}")]
     public async Task<IActionResult> ObterPorId([FromServices] DataContext context, int id)
     {
-
         if (id == 0)
             return BadRequest();
 
-        return await context.ItemSaida.FindAsync(id)
-        is ItemSaida itemSaida ? Ok(new ItemSaidaOutput
+        var itemSaida = await context.ItemSaida.FindAsync(id);
+
+        if(itemSaida == null)
+            return NotFound();
+
+        return Ok(new ItemSaidaOutput
         (
          itemSaida.Id,
          itemSaida.Lote,
@@ -38,18 +48,20 @@ public class ItemSaidaController : ControllerBase
          itemSaida.Valor,
          itemSaida.SaidaId,
          itemSaida.ProdutoId
-
-        )) : NotFound();
+        ));
     }
 
-    [HttpGet("/saida/itemSaida/{id}")]
+
+    [Produces(typeof(ListItemSaidaViewModels))]
+    [ProducesResponseType(typeof(ListItemSaidaViewModels), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("/saida/itemSaida/id/{id:int}")]
     public async Task<ActionResult<List<ListItemSaidaViewModels>>> ObterPorIdUmParaMuitos([FromServices] DataContext context, int id)
     {
-
         if (id == 0)
             return BadRequest();
 
-        var itemSaidaSaida = await context.ItemSaida
+        var listaSaidaDeItensSaida = await context.ItemSaida
         .Where(x => x.Saida.Id == id)
         .Select(x => new ListItemSaidaViewModels
         (
@@ -64,20 +76,23 @@ public class ItemSaidaController : ControllerBase
 
         )).ToListAsync();
 
-        if (itemSaidaSaida == null)
+        if (listaSaidaDeItensSaida.Count == 0)
             return NotFound();
 
-        return Ok(itemSaidaSaida);
+        return Ok(listaSaidaDeItensSaida);
     }
 
-    [HttpGet("/produto/itemSaida/{id}")]
+
+    [Produces(typeof(ListItemSaidaViewModels))]
+    [ProducesResponseType(typeof(ListItemSaidaViewModels), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("/produto/itemSaida/id/{id:int}")]
     public async Task<ActionResult<List<ListItemSaidaViewModels>>> ObterPorIdUmParaMuitosv2([FromServices] DataContext context, int id)
     {
-
         if (id == 0)
             return BadRequest();
 
-        var itemSaidaSaida = await context.ItemSaida
+        var listaProdutoDeItensSaida = await context.ItemSaida
         .Where(x => x.Produto.Id == id)
         .Select(x => new ListItemSaidaViewModels
         (
@@ -92,16 +107,52 @@ public class ItemSaidaController : ControllerBase
 
         )).ToListAsync();
 
-        if (itemSaidaSaida == null)
+        if (listaProdutoDeItensSaida.Count == 0)
             return NotFound();
 
-        return Ok(itemSaidaSaida);
+        return Ok(listaProdutoDeItensSaida);
     }
 
+
+    [Produces(typeof(ListItemSaidaViewModels))]
+    [ProducesResponseType(typeof(ListItemSaidaViewModels), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("/produto/itemSaida/nome/{nome:alpha}")]
+    public async Task<ActionResult<List<ListItemSaidaViewModels>>> ObterPorNomeUmParaMuitos([FromServices] DataContext context, string nome)
+    {
+
+        if (string.IsNullOrWhiteSpace(nome))
+            return BadRequest();
+
+        var listaProdutoDeItensSaida = await context.ItemSaida
+        .Where(x => x.Produto.Nome.Contains(nome))
+        .Select(x => new ListItemSaidaViewModels
+        (
+          x.Id,
+          x.Lote,
+          x.Quantidade,
+          x.Valor,
+          x.SaidaId,
+          x.ProdutoId,
+          x.Saida.Total,
+          x.Produto.Nome
+
+        )).ToListAsync();
+
+        if (listaProdutoDeItensSaida.Count == 0)
+            return NotFound();
+
+        return Ok(listaProdutoDeItensSaida);
+    }
+
+
+    [Produces(typeof(ItemSaidaOutput))]
+    [ProducesResponseType(typeof(ItemSaidaOutput), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [HttpPost("/itemSaida")]
     public async Task<IActionResult> Criar([FromServices] DataContext context, [FromBody] ItemSaidaInput model)
     {
-
         if (!ModelState.IsValid)
             return BadRequest();
 
@@ -127,14 +178,18 @@ public class ItemSaidaController : ControllerBase
          itemSaida.SaidaId,
          itemSaida.ProdutoId
 
-        )) : BadRequest("Houve um problema ao salvar o registro");
-
+        )) : StatusCode(StatusCodes.Status500InternalServerError);
     }
 
-    [HttpPut("/itemSaida/{id}")]
+    
+    [Produces(typeof(ItemSaidaOutput))]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [HttpPut("/itemSaida/id/{id:int}")]
     public async Task<IActionResult> Atualizar([FromServices] DataContext context, [FromBody] ItemSaidaInput model, int id)
     {
-
         if (id == 0)
             return BadRequest();
 
@@ -159,14 +214,18 @@ public class ItemSaidaController : ControllerBase
         context.ItemSaida.Update(itemSaida);
         var result = await context.SaveChangesAsync();
 
-        return result > 0 ? NoContent() : BadRequest("Houve um problema ao salvar o registro");
-
+        return result > 0 ? NoContent() : StatusCode(StatusCodes.Status500InternalServerError);
     }
 
-    [HttpDelete("/itemSaida/{id}")]
+
+    [Produces(typeof(ItemSaidaOutput))]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [HttpDelete("/itemSaida/id/{id:int}")]
     public async Task<IActionResult> Remover([FromServices] DataContext context, int id)
     {
-
         if (id == 0)
             return BadRequest();
 
@@ -178,8 +237,7 @@ public class ItemSaidaController : ControllerBase
         context.ItemSaida.Remove(itemSaida);
         var result = await context.SaveChangesAsync();
 
-        return result > 0 ? NoContent() : BadRequest("Houve um problema ao salvar o registro");
-
+        return result > 0 ? NoContent() : StatusCode(StatusCodes.Status500InternalServerError);
     }
 
 

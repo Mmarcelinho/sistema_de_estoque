@@ -2,6 +2,20 @@ namespace ApiEstoque.ViewModels.FornecedorViewModels;
 
 public class ListFornecedorViewModels
 {
+    public ListFornecedorViewModels(int id, string nome, string endereco, int numero, string bairro, string cep, string contato, string cnpj, string inscricao, int cidadeId)
+    {
+        Id = id;
+        Nome = nome;
+        Endereco = endereco;
+        Numero = numero;
+        Bairro = bairro;
+        Cep = cep;
+        Contato = contato;
+        Cnpj = cnpj;
+        Inscricao = inscricao;
+        CidadeId = cidadeId;
+    }
+
     public ListFornecedorViewModels(int id, string nome, string endereco, int numero, string bairro, string cep, string contato, string cnpj, string inscricao, int cidadeId, string cidade)
     {
         this.Id = id;

@@ -25,16 +25,18 @@ public class FornecedorInput
     public string Bairro { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 9 digitos")]
-    [MaxLength(9, ErrorMessage = "Mínimo de 0 a 9 digitos")]
+    [MinLength(8, ErrorMessage = "Informe o dado corretamente.")]
+    [MaxLength(9, ErrorMessage = "Informe o dado corretamente.")]
     public string Cep { get; set; }
 
+    [EmailAddress]
+    [Required(ErrorMessage = "Campo Obrigátorio")]
     [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
     [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
     public string Contato { get; set; }
 
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
-    [MaxLength(18, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
+    [MinLength(14, ErrorMessage = "Informe o dado corretamente.")]
+    [MaxLength(18, ErrorMessage = "Informe o dado corretamente.")]
     public string Cnpj { get; set; }
 
     [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]

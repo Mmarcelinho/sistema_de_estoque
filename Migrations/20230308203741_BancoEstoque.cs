@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ApiEstoque.Migrations
 {
     /// <inheritdoc />
-    public partial class DataEstoque : Migration
+    public partial class BancoEstoque : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
