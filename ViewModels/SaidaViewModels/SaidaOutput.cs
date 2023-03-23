@@ -4,14 +4,14 @@ public class SaidaOutput
 {
     public SaidaOutput(int id, double total, double frete, double imposto, int lojaId, int transportadoraId)
     {
-        this.Id = id;
-        this.Total = total;
-        this.Frete = frete;
-        this.Imposto = imposto;
-        this.LojaId = lojaId;
-        this.TransportadoraId = transportadoraId;
-
+        Id = id;
+        Total = total;
+        Frete = frete;
+        Imposto = imposto;
+        LojaId = lojaId;
+        TransportadoraId = transportadoraId;
     }
+
     public int Id { get; private set; }
 
     public double Total { get; private set; }
@@ -23,5 +23,4 @@ public class SaidaOutput
     public int LojaId { get; private set; }
 
     public int TransportadoraId { get; private set; }
-
 }

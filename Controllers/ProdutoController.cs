@@ -9,7 +9,7 @@ public class ProdutoController : ControllerBase
     {
         var listaProduto = await context.Produto.Select(x => new ProdutoOutput(x.Id, x.Nome, x.Descricao, x.Peso, x.Controlado, x.QuantMinima)).ToListAsync();
 
-        if (listaProduto.Count == 0)
+        if (!listaProduto.Any())
             return NotFound();
 
         return Ok(listaProduto);
@@ -27,7 +27,7 @@ public class ProdutoController : ControllerBase
 
         var produto = await context.Produto.FindAsync(id);
 
-        if (produto == null)
+        if (produto is null)
             return NotFound();
 
         return Ok(new ProdutoOutput
@@ -64,7 +64,7 @@ public class ProdutoController : ControllerBase
 
             )).ToListAsync();
 
-        if (listaProduto.Count == 0)
+        if (!listaProduto.Any())
             return NotFound($"Não existem produtos com o nome {nome}");
 
         return Ok(listaProduto);
@@ -79,7 +79,7 @@ public class ProdutoController : ControllerBase
     public async Task<IActionResult> Criar([FromServices] DataContext context, [FromBody] ProdutoInput model)
     {
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var produto = new Produto
         (
@@ -118,11 +118,11 @@ public class ProdutoController : ControllerBase
             return BadRequest();
 
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var produto = await context.Produto.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-        if (produto == null)
+        if (produto is null)
             return NotFound();
 
         produto = new Produto
@@ -153,7 +153,7 @@ public class ProdutoController : ControllerBase
 
         var produto = await context.Produto.FindAsync(id);
 
-        if (produto == null)
+        if (produto is null)
             return NotFound();
 
         context.Produto.Remove(produto);

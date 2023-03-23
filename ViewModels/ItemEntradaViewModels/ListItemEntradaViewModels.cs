@@ -4,16 +4,16 @@ public class ListItemEntradaViewModels
 {
     public ListItemEntradaViewModels(int id, string lote, int quantidade, double valor, int entradaId, int produtoId, int entrada, string produto)
     {
-        this.Id = id;
-        this.Lote = lote;
-        this.Quantidade = quantidade;
-        this.Valor = valor;
-        this.EntradaId = entradaId;
-        this.ProdutoId = produtoId;
-        this.Entrada = entrada;
-        this.Produto = produto;
-
+     Id = id;
+     Lote = lote;
+     Quantidade = quantidade;
+     Valor = valor;
+     EntradaId = entradaId;
+     ProdutoId = produtoId;
+     Entrada = entrada;
+     Produto = produto;
     }
+    
     public int Id { get; private set; }
 
     public string Lote { get; private set; }

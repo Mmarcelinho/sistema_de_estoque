@@ -4,18 +4,18 @@ namespace ApiEstoque.ViewModels.FornecedorViewModels;
     {
         public FornecedorOutput(int id, string nome, string endereco, int numero, string bairro, string cep, string contato, string cnpj, string inscricao, int cidadeId)
         {
-            this.Id = id;
-            this.Nome = nome;
-            this.Endereco = endereco;
-            this.Numero = numero;
-            this.Bairro = bairro;
-            this.Cep = cep;
-            this.Contato = contato;
-            this.Cnpj = cnpj;
-            this.Inscricao = inscricao;
-            this.CidadeId = cidadeId;
-
+         Id = id;
+         Nome = nome;
+         Endereco = endereco;
+         Numero = numero;
+         Bairro = bairro;
+         Cep = cep;
+         Contato = contato;
+         Cnpj = cnpj;
+         Inscricao = inscricao;
+         CidadeId = cidadeId;
         }
+        
         public int Id { get; private set; }
 
         public string Nome { get; private set; }

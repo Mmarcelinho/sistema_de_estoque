@@ -4,16 +4,16 @@ public class ListSaidaViewModels
 {
     public ListSaidaViewModels(int id, double total, double frete, double imposto, int lojaId, int transportadoraId, string loja, string transportadora)
     {
-        this.Id = id;
-        this.Total = total;
-        this.Frete = frete;
-        this.Imposto = imposto;
-        this.LojaId = lojaId;
-        this.TransportadoraId = transportadoraId;
-        this.Loja = loja;
-        this.Transportadora = transportadora;
-
+        Id = id;
+        Total = total;
+        Frete = frete;
+        Imposto = imposto;
+        LojaId = lojaId;
+        TransportadoraId = transportadoraId;
+        Loja = loja;
+        Transportadora = transportadora;
     }
+
     public int Id { get; private set; }
 
     public double Total { get; private set; }
@@ -29,7 +29,4 @@ public class ListSaidaViewModels
     public string Loja { get; private set; }
 
     public string Transportadora { get; private set; }
-
-
-
 }

@@ -5,15 +5,14 @@ public class Cidade
 
      public Cidade(string nome, string uf)
     {
-   
-        this.Nome = nome;
-        this.Uf = uf;
+        Nome = nome;
+        Uf = uf;
     }
     public Cidade(int id, string nome, string uf)
     {
-        this.Id = id;
-        this.Nome = nome;
-        this.Uf = uf;
+        Id = id;
+        Nome = nome;
+        Uf = uf;
 
     }
     public int Id { get; private set; }

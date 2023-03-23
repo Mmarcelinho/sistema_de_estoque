@@ -4,17 +4,16 @@ public class Entrada
 {
     public Entrada(int id, DateTime dataPedido, DateTime dataEntrada, double total, double frete, int numeroNotaFiscal, double imposto, int transportadoraId)
     {
-        this.Id = id;
-        this.DataPedido = dataPedido;
-        this.DataEntrada = dataEntrada;
-        this.Total = total;
-        this.Frete = frete;
-        this.NumeroNotaFiscal = numeroNotaFiscal;
-        this.Imposto = imposto;
-        this.TransportadoraId = transportadoraId;
-   
-
+        Id = id;
+        DataPedido = dataPedido;
+        DataEntrada = dataEntrada;
+        Total = total;
+        Frete = frete;
+        NumeroNotaFiscal = numeroNotaFiscal;
+        Imposto = imposto;
+        TransportadoraId = transportadoraId;
     }
+    
     public int Id { get; private set; }
 
     public DateTime DataPedido { get; private set; }

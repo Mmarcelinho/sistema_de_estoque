@@ -11,10 +11,10 @@ public class CategoriaController : ControllerBase
     {
         var listaCategoria = await context.Categoria.Select(x => new CategoriaOutput(x.Id, x.Titulo)).ToListAsync();
 
-        if (listaCategoria.Count == 0)
+        if (!listaCategoria.Any())
             return NotFound();
 
-        return Ok(listaCategoria);
+            return Ok(listaCategoria);
     }
 
 
@@ -29,7 +29,7 @@ public class CategoriaController : ControllerBase
 
         var categoria = await context.Categoria.FindAsync(id);
 
-        if (categoria == null)
+        if (categoria is null)
             return NotFound();
 
         return Ok(new CategoriaOutput(categoria.Id, categoria.Titulo));
@@ -50,7 +50,7 @@ public class CategoriaController : ControllerBase
         .Select(x => new CategoriaOutput(x.Id, x.Titulo))
         .ToListAsync();
 
-        if (listaCategoria.Count == 0)
+        if (!listaCategoria.Any())
             return NotFound($"Não existem categorias com o nome {nome}");
 
         return Ok(listaCategoria);
@@ -65,7 +65,7 @@ public class CategoriaController : ControllerBase
     public async Task<IActionResult> Criar([FromServices] DataContext context, [FromBody] CategoriaInput model)
     {
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var categoria = new Categoria(model.Id, model.Titulo);
 
@@ -88,11 +88,11 @@ public class CategoriaController : ControllerBase
             return BadRequest();
 
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var categoria = await context.Categoria.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-        if (categoria == null)
+        if (categoria is null)
             return NotFound($"Não existe categoria com o id {id}");
 
         categoria = new Categoria(categoria.Id, model.Titulo);
@@ -117,7 +117,7 @@ public class CategoriaController : ControllerBase
 
         var categoria = await context.Categoria.FindAsync(id);
 
-        if (categoria == null)
+        if (categoria is null)
             return NotFound($"Não existe categoria com o id {id}");
 
         context.Categoria.Remove(categoria);

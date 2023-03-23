@@ -11,7 +11,7 @@ public class CidadeController : ControllerBase
     {
         var listaCidade = await context.Cidade.Select(x => new CidadeOutput(x.Id, x.Nome, x.Uf)).ToListAsync();
 
-        if (listaCidade.Count == 0)
+        if (!listaCidade.Any())
             return NotFound();
 
         return Ok(listaCidade);
@@ -26,7 +26,7 @@ public class CidadeController : ControllerBase
     {
         var cidade = await context.Cidade.FindAsync(id);
 
-        if (cidade == null)
+        if (cidade is null)
             return NotFound();
 
         return Ok(new CidadeOutput(cidade.Id, cidade.Nome, cidade.Uf));
@@ -47,7 +47,7 @@ public class CidadeController : ControllerBase
         .Select(x => new CidadeOutput(x.Id, x.Nome, x.Uf))
         .ToListAsync();
 
-        if (listaCidade.Count == 0)
+        if (!listaCidade.Any())
             return NotFound($"Não existem cidades com o nome {nome}");
     
         return Ok(listaCidade);
@@ -62,7 +62,7 @@ public class CidadeController : ControllerBase
     public async Task<IActionResult> Criar([FromServices] DataContext context, [FromBody] CidadeInput model)
     {
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var cidade = new Cidade(model.Id, model.Nome, model.Uf);
 
@@ -82,11 +82,11 @@ public class CidadeController : ControllerBase
     public async Task<IActionResult> Atualizar([FromServices] DataContext context, [FromBody] CidadeInput model, int id)
     {
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var cidade = await context.Cidade.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-        if (cidade == null)
+        if (cidade is null)
             return NotFound();
 
         cidade = new Cidade(cidade.Id, model.Nome, model.Uf);
@@ -110,7 +110,7 @@ public class CidadeController : ControllerBase
 
         var cidade = await context.Cidade.FindAsync(id);
 
-        if (cidade == null)
+        if (cidade is null)
             return NotFound();
 
         context.Cidade.Remove(cidade);

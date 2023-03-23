@@ -17,10 +17,12 @@ public class AuthController : ControllerBase
         _appJwtSettings = appJwtSettings.Value;
     }
 
+    [Produces(typeof(RegisterUser))]
+    [ProducesResponseType(typeof(RegisterUser), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost("registro")]
     public async Task<ActionResult> Register([FromBody]RegisterUser registerUser)
     {
-
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
@@ -29,7 +31,6 @@ public class AuthController : ControllerBase
             UserName = registerUser.Email,
             Email = registerUser.Email,
             EmailConfirmed = true
-
         };
 
         var result = await _userManager.CreateAsync(user, registerUser.Password);
@@ -40,13 +41,14 @@ public class AuthController : ControllerBase
         }
 
         return BadRequest(result.Errors);
-
     }
 
+    [Produces(typeof(LoginUser))]
+    [ProducesResponseType(typeof(LoginUser), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost("login")]
     public async Task<ActionResult> Login([FromBody]LoginUser loginUser)
     {
-
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
@@ -56,14 +58,12 @@ public class AuthController : ControllerBase
             return Ok(loginUser.Email);
 
         if (result.IsLockedOut)
-            return BadRequest("This user is blocked");
+            return BadRequest("O usuário está bloqueado.");
 
-        return BadRequest("Incorrect user or password");
+        return BadRequest("Usuário ou senha incorretos.");
     }
-
     private string GetFullJwt(string email)
     {
-
         return new JwtBuilder()
         .WithUserManager(_userManager)
         .WithJwtSettings(_appJwtSettings)
@@ -73,10 +73,8 @@ public class AuthController : ControllerBase
         .WithUserRoles()
         .BuildToken();
     }
-
     private UserResponse GetUserResponse(string email)
     {
-
         return new JwtBuilder()
         .WithUserManager(_userManager)
         .WithJwtSettings(_appJwtSettings)

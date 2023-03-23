@@ -68,7 +68,7 @@ public class SaidaController : ControllerBase
          x.Transportadora.Nome
         )).ToListAsync();
 
-        if (listaLojaDeSaidas.Count == 0)
+        if (!listaLojaDeSaidas.Any())
             return NotFound($"Não existe loja com o id {id}");
 
         return Ok(listaLojaDeSaidas);
@@ -99,7 +99,7 @@ public class SaidaController : ControllerBase
 
         )).ToListAsync();
 
-        if (listaTransportadoraDeSaidas.Count == 0)
+        if (!listaTransportadoraDeSaidas.Any())
             return NotFound($"Não existe transportadora com o id {id}");
 
         return Ok(listaTransportadoraDeSaidas);
@@ -129,7 +129,7 @@ public class SaidaController : ControllerBase
           x.Transportadora.Nome
         )).ToListAsync();
 
-        if (listaLojaDeSaidas.Count == 0)
+        if (!listaLojaDeSaidas.Any())
             return NotFound($"Não existem lojas com o nome {nome}");
 
         return Ok(listaLojaDeSaidas);
@@ -160,7 +160,7 @@ public class SaidaController : ControllerBase
 
         )).ToListAsync();
 
-        if (listaTransportadoraDeSaidas.Count == 0)
+        if (!listaTransportadoraDeSaidas.Any())
             return NotFound($"Não existem transportadoras com o nome {nome}");
 
         return Ok(listaTransportadoraDeSaidas);
@@ -175,7 +175,7 @@ public class SaidaController : ControllerBase
     public async Task<IActionResult> Criar([FromServices] DataContext context, [FromBody] SaidaInput model)
     {
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var saida = new Saida
         (
@@ -214,11 +214,11 @@ public class SaidaController : ControllerBase
             return BadRequest();
 
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var saida = await context.Saida.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-        if (saida == null)
+        if (saida is null)
             return NotFound();
 
         saida = new Saida
@@ -251,7 +251,7 @@ public class SaidaController : ControllerBase
 
         var saida = await context.Saida.FindAsync(id);
 
-        if (saida == null)
+        if (saida is null)
             return NotFound();
 
         context.Saida.Remove(saida);

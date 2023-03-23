@@ -25,7 +25,7 @@ public class TransportadoraController : ControllerBase
          ))
         .ToListAsync();
 
-        if(listaTransportadora.Count == 0)
+        if(!listaTransportadora.Any())
         return NotFound();
 
         return Ok(listaTransportadora);
@@ -43,7 +43,7 @@ public class TransportadoraController : ControllerBase
 
         var transportadora = await context.Transportadora.FindAsync(id);
 
-        if(transportadora == null)
+        if(transportadora is null)
         return NotFound();
 
         return Ok(new TransportadoraOutput
@@ -90,7 +90,7 @@ public class TransportadoraController : ControllerBase
           x.Cidade.Nome
         )).ToListAsync();
 
-        if (listaCidadeDeTransportadoras.Count == 0)
+        if (!listaCidadeDeTransportadoras.Any())
             return NotFound();
 
         return Ok(listaCidadeDeTransportadoras);
@@ -125,7 +125,7 @@ public class TransportadoraController : ControllerBase
         ))
         .ToListAsync();
 
-        if (listaTransportadora == null)
+        if (listaTransportadora is null)
             return NotFound($"Não existem transportadoras com o nome {nome}");
 
         return Ok(listaTransportadora);
@@ -159,7 +159,7 @@ public class TransportadoraController : ControllerBase
           x.Cidade.Nome
         )).ToListAsync();
 
-        if (listaCidadeDeTransportadoras == null)
+        if (listaCidadeDeTransportadoras is null)
             return NotFound($"Não existem cidades com o nome {nome}");
 
         return Ok(listaCidadeDeTransportadoras);
@@ -174,7 +174,7 @@ public class TransportadoraController : ControllerBase
     public async Task<IActionResult> Criar([FromServices] DataContext context, [FromBody] TransportadoraInput model)
     {
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var transportadora = new Transportadora
         (
@@ -224,11 +224,11 @@ public class TransportadoraController : ControllerBase
             return BadRequest();
 
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var transportadora = await context.Transportadora.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-        if (transportadora == null)
+        if (transportadora is null)
             return NotFound();
 
         transportadora = new Transportadora
@@ -266,7 +266,7 @@ public class TransportadoraController : ControllerBase
 
         var transportadora = await context.Transportadora.FindAsync(id);
 
-        if (transportadora == null)
+        if (transportadora is null)
             return NotFound();
 
         context.Transportadora.Remove(transportadora);

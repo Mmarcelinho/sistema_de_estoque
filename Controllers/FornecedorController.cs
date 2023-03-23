@@ -23,7 +23,7 @@ namespace ApiEstoque.Controllers
              ))
             .ToListAsync();
 
-            if (listaFornecedor.Count == 0)
+            if (!listaFornecedor.Any())
                 return NotFound();
 
             return Ok(listaFornecedor);
@@ -42,7 +42,7 @@ namespace ApiEstoque.Controllers
 
             var fornecedor = await context.Fornecedor.FindAsync(id);
 
-            if (fornecedor == null)
+            if (fornecedor is null)
                 return NotFound($"Não existe fornecedor com o id {id}");
 
             return Ok(new FornecedorOutput
@@ -88,7 +88,7 @@ namespace ApiEstoque.Controllers
              x.Cidade.Nome
             )).ToListAsync();
 
-            if (listaCidadeDeFornecedores.Count == 0)
+            if (!listaCidadeDeFornecedores.Any())
                 return NotFound($"Não existe cidade com o id {id}");
 
             return Ok(listaCidadeDeFornecedores);
@@ -122,7 +122,7 @@ namespace ApiEstoque.Controllers
              x.Cidade.Nome
             )).ToListAsync();
 
-            if (listaFornecedor.Count == 0)
+            if (!listaFornecedor.Any())
                 return NotFound($"Não existem fornecedores com o nome {nome}");
 
             return Ok(listaFornecedor);
@@ -155,7 +155,7 @@ namespace ApiEstoque.Controllers
              x.Cidade.Nome
             )).ToListAsync();
 
-            if (listaCidadeDeFornecedores.Count == 0)
+            if (!listaCidadeDeFornecedores.Any())
             return NotFound($"Não existem cidades com o nome {nome}");
 
             return Ok(listaCidadeDeFornecedores);
@@ -170,7 +170,7 @@ namespace ApiEstoque.Controllers
         public async Task<IActionResult> Criar([FromServices] DataContext context, [FromBody] FornecedorInput model)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
             var fornecedor = new Fornecedor
             (
@@ -218,11 +218,11 @@ namespace ApiEstoque.Controllers
                 return BadRequest();
 
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
             var fornecedor = await context.Fornecedor.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-            if (fornecedor == null)
+            if (fornecedor is null)
                 return NotFound();
 
             fornecedor = new Fornecedor
@@ -259,7 +259,7 @@ namespace ApiEstoque.Controllers
 
             var fornecedor = await context.Fornecedor.FindAsync(id);
 
-            if (fornecedor == null)
+            if (fornecedor is null)
                 return NotFound();
 
             context.Fornecedor.Remove(fornecedor);

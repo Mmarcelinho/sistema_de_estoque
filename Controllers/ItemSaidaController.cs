@@ -19,7 +19,7 @@ public class ItemSaidaController : ControllerBase
          ))
         .ToListAsync();
 
-        if(listaItemSaida.Count == 0)
+        if(!listaItemSaida.Any())
             return NotFound();
 
         return Ok(listaItemSaida);
@@ -37,7 +37,7 @@ public class ItemSaidaController : ControllerBase
 
         var itemSaida = await context.ItemSaida.FindAsync(id);
 
-        if(itemSaida == null)
+        if(itemSaida is null)
             return NotFound();
 
         return Ok(new ItemSaidaOutput
@@ -76,7 +76,7 @@ public class ItemSaidaController : ControllerBase
 
         )).ToListAsync();
 
-        if (listaSaidaDeItensSaida.Count == 0)
+        if (!listaSaidaDeItensSaida.Any())
             return NotFound();
 
         return Ok(listaSaidaDeItensSaida);
@@ -107,7 +107,7 @@ public class ItemSaidaController : ControllerBase
 
         )).ToListAsync();
 
-        if (listaProdutoDeItensSaida.Count == 0)
+        if (!listaProdutoDeItensSaida.Any())
             return NotFound();
 
         return Ok(listaProdutoDeItensSaida);
@@ -120,7 +120,6 @@ public class ItemSaidaController : ControllerBase
     [HttpGet("/produto/itemSaida/nome/{nome:alpha}")]
     public async Task<ActionResult<List<ListItemSaidaViewModels>>> ObterPorNomeUmParaMuitos([FromServices] DataContext context, string nome)
     {
-
         if (string.IsNullOrWhiteSpace(nome))
             return BadRequest();
 
@@ -139,7 +138,7 @@ public class ItemSaidaController : ControllerBase
 
         )).ToListAsync();
 
-        if (listaProdutoDeItensSaida.Count == 0)
+        if (!listaProdutoDeItensSaida.Any())
             return NotFound();
 
         return Ok(listaProdutoDeItensSaida);
@@ -154,7 +153,7 @@ public class ItemSaidaController : ControllerBase
     public async Task<IActionResult> Criar([FromServices] DataContext context, [FromBody] ItemSaidaInput model)
     {
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var itemSaida = new ItemSaida
         (
@@ -194,11 +193,11 @@ public class ItemSaidaController : ControllerBase
             return BadRequest();
 
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var itemSaida = await context.ItemSaida.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-        if (itemSaida == null)
+        if (itemSaida is null)
             return NotFound();
 
         itemSaida = new ItemSaida
@@ -231,7 +230,7 @@ public class ItemSaidaController : ControllerBase
 
         var itemSaida = await context.ItemSaida.FindAsync(id);
 
-        if (itemSaida == null)
+        if (itemSaida is null)
             return NotFound();
 
         context.ItemSaida.Remove(itemSaida);

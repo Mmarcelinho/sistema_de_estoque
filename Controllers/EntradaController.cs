@@ -23,7 +23,7 @@ public class EntradaController : ControllerBase
         ))
         .ToListAsync();
 
-        if(listaEntrada.Count == 0)
+        if(!listaEntrada.Any())
         return NotFound();
 
         return Ok(listaEntrada);
@@ -41,7 +41,7 @@ public class EntradaController : ControllerBase
 
         var entrada = await context.Entrada.FindAsync(id);
 
-        if(entrada == null)
+        if(entrada is null)
         return NotFound();
 
         return Ok(new EntradaOutput
@@ -82,7 +82,7 @@ public class EntradaController : ControllerBase
 
         )).ToListAsync();
 
-        if (listaTransportadoraDeEntradas.Count == 0)
+        if (!listaTransportadoraDeEntradas.Any())
             return NotFound($"Não existe transportadora com o id {id}");
 
         return Ok(listaTransportadoraDeEntradas);
@@ -100,7 +100,7 @@ public class EntradaController : ControllerBase
 
         var entrada = await context.Entrada.Where(n => n.NumeroNotaFiscal == notaFiscal).FirstOrDefaultAsync();
 
-        if(entrada == null)
+        if(entrada is null)
         return NotFound($"Não existe nota fiscal com os dígitos {notaFiscal}");
 
         return Ok(new EntradaOutput
@@ -141,7 +141,7 @@ public class EntradaController : ControllerBase
          x.Transportadora.Nome
         )).ToListAsync();
 
-        if (listaTransportadoraDeEntradas.Count == 0)
+        if (!listaTransportadoraDeEntradas.Any())
             return NotFound($"Não existem transportadoras com o nome {nome}");
 
         return Ok(listaTransportadoraDeEntradas);
@@ -156,7 +156,7 @@ public class EntradaController : ControllerBase
     public async Task<IActionResult> Criar([FromServices] DataContext context, [FromBody] EntradaInput model)
     {
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var entrada = new Entrada
         (
@@ -200,11 +200,11 @@ public class EntradaController : ControllerBase
             return BadRequest();
 
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var entrada = await context.Entrada.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-        if (entrada == null)
+        if (entrada is null)
             return NotFound();
 
         entrada = new Entrada
@@ -238,7 +238,7 @@ public class EntradaController : ControllerBase
 
         var entrada = await context.Entrada.FindAsync(id);
 
-        if (entrada == null)
+        if (entrada is null)
             return NotFound();
 
         context.Entrada.Remove(entrada);

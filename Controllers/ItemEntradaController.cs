@@ -21,7 +21,7 @@ public class ItemEntradaController : ControllerBase
          ))
         .ToListAsync();
 
-        if (listaItemEntrada.Count == 0)
+        if (!listaItemEntrada.Any())
             return NotFound($"Não existem itens");
 
         return Ok(listaItemEntrada);
@@ -39,7 +39,7 @@ public class ItemEntradaController : ControllerBase
 
         var itemEntrada = await context.ItemEntrada.FindAsync(id);
 
-        if (itemEntrada == null)
+        if (itemEntrada is null)
             return NotFound($"Não existe itens com o id {id}");
 
         return Ok(new ItemEntradaOutput
@@ -169,7 +169,7 @@ public class ItemEntradaController : ControllerBase
           x.Produto.Nome
         )).ToListAsync();
 
-        if (listaProdutoDeItensEntrada.Count == 0)
+        if (!listaProdutoDeItensEntrada.Any())
             return NotFound($"Não existem produtos com o nome {nome}");
 
         return Ok(listaProdutoDeItensEntrada);
@@ -182,9 +182,8 @@ public class ItemEntradaController : ControllerBase
     [HttpPost("/itemEntrada")]
     public async Task<IActionResult> Criar([FromServices] DataContext context, [FromBody] ItemEntradaInput model)
     {
-
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var itemEntrada = new ItemEntrada
         (
@@ -209,7 +208,6 @@ public class ItemEntradaController : ControllerBase
          itemEntrada.ProdutoId
 
         )) : StatusCode(StatusCodes.Status500InternalServerError);
-
     }
 
     [Produces(typeof(ItemEntradaOutput))]
@@ -220,16 +218,15 @@ public class ItemEntradaController : ControllerBase
     [HttpPut("/itemEntrada/id/{id:int}")]
     public async Task<IActionResult> Atualizar([FromServices] DataContext context, [FromBody] ItemEntradaInput model, int id)
     {
-
         if (id == 0)
             return BadRequest();
 
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var itemEntrada = await context.ItemEntrada.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-        if (itemEntrada == null)
+        if (itemEntrada is null)
             return NotFound();
 
         itemEntrada = new ItemEntrada
@@ -246,8 +243,8 @@ public class ItemEntradaController : ControllerBase
         var result = await context.SaveChangesAsync();
 
         return result > 0 ? NoContent() : StatusCode(StatusCodes.Status500InternalServerError);
-
     }
+
 
     [Produces(typeof(ItemEntradaOutput))]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -262,13 +259,13 @@ public class ItemEntradaController : ControllerBase
 
         var itemEntrada = await context.ItemEntrada.FindAsync(id);
 
-        if (itemEntrada == null)
+        if (itemEntrada is null)
             return NotFound();
 
         context.ItemEntrada.Remove(itemEntrada);
         var result = await context.SaveChangesAsync();
 
         return result > 0 ? NoContent() : StatusCode(StatusCodes.Status500InternalServerError);
-
     }
+
 }

@@ -1,20 +1,20 @@
-namespace ApiEstoque.Models;
+ namespace ApiEstoque.Models;
 
 public class Loja
 {
     public Loja(int id, string nome, string endereco, int numero, string bairro, string telefone, string inscricao, string cnpj, int cidadeId)
     {
-        this.Id = id;
-        this.Nome = nome;
-        this.Endereco = endereco;
-        this.Numero = numero;
-        this.Bairro = bairro;
-        this.Telefone = telefone;
-        this.Inscricao = inscricao;
-        this.Cnpj = cnpj;
-        this.CidadeId = cidadeId;
-
+     Id = id;
+     Nome = nome;
+     Endereco = endereco;
+     Numero = numero;
+     Bairro = bairro;
+     Telefone = telefone;
+     Inscricao = inscricao;
+     Cnpj = cnpj;
+     CidadeId = cidadeId;
     }
+
     public int Id { get; private set; }
 
     public string Nome { get; private set; }
@@ -36,6 +36,4 @@ public class Loja
     public Cidade Cidade { get; private set; } = null!;
 
     public ICollection<Saida> Saida { get; private set; } = null!;
-
-
 }

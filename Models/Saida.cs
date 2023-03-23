@@ -1,16 +1,15 @@
-namespace ApiEstoque.Models;
+ namespace ApiEstoque.Models;
 
 public class Saida
 {
     public Saida(int id, double total, double frete, double imposto, int lojaId, int transportadoraId)
     {
-        this.Id = id;
-        this.Total = total;
-        this.Frete = frete;
-        this.Imposto = imposto;
-        this.LojaId = lojaId;
-        this.TransportadoraId = transportadoraId;
-
+     Id = id;
+     Total = total;
+     Frete = frete;
+     Imposto = imposto;
+     LojaId = lojaId;
+     TransportadoraId = transportadoraId;
     }
     
     public int Id { get; private set; }
@@ -30,5 +29,4 @@ public class Saida
     public Transportadora Transportadora { get; private set; } = null!;
 
     public ICollection<ItemSaida> ItemSaida { get; private set; } = null!;
-
 }

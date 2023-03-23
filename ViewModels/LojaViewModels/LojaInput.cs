@@ -6,13 +6,13 @@ public class LojaInput
     public int Id { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
-    [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
+    [MinLength(0, ErrorMessage = "Mínimo de 0 caracteres.")]
+    [MaxLength(50, ErrorMessage = "Máximo de 50 caracteres.")]
     public string Nome { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
-    [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
+    [MinLength(0, ErrorMessage = "Mínimo de 0 caracteres.")]
+    [MaxLength(50, ErrorMessage = "Máximo de 50 caracteres.")]
     public string Endereco { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
@@ -20,8 +20,8 @@ public class LojaInput
     public int Numero { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
-    [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
+    [MinLength(0, ErrorMessage = "Mínimo de 0 caracteres.")]
+    [MaxLength(50, ErrorMessage = "Máximo de 50 caracteres.")]
     public string Bairro { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
@@ -30,8 +30,8 @@ public class LojaInput
     public string Telefone { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
-    [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
+    [MinLength(0, ErrorMessage = "Mínimo de 0 caracteres.")]
+    [MaxLength(50, ErrorMessage = "Máximo de 50 caracteres.")]
     public string Inscricao { get; set; }
 
     [MinLength(14, ErrorMessage = "Informe o dado corretamente.")]

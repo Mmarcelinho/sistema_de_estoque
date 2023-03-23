@@ -5,15 +5,14 @@ namespace ApiEstoque.ViewModels.EntradaViewModels
 
         public EntradaOutput(int id, double total, DateTime dataPedido, DateTime dataEntrada, double frete, int numeroNotaFiscal, double imposto, int transportadoraId)
         {
-            this.Id = id;
-            this.Total = total;
-            this.DataPedido = dataPedido;
-            this.DataEntrada = dataEntrada;
-            this.Frete = frete;
-            this.NumeroNotaFiscal = numeroNotaFiscal;
-            this.Imposto = imposto;
-            this.TransportadoraId = transportadoraId;
-
+            Id = id;
+            Total = total;
+            DataPedido = dataPedido;
+            DataEntrada = dataEntrada;
+            Frete = frete;
+            NumeroNotaFiscal = numeroNotaFiscal;
+            Imposto = imposto;
+            TransportadoraId = transportadoraId;
         }
         public int Id { get; private set; }
 
@@ -30,7 +29,5 @@ namespace ApiEstoque.ViewModels.EntradaViewModels
         public double Imposto { get; private set; }
 
         public int TransportadoraId { get; private set; }
-
-
     }
 }

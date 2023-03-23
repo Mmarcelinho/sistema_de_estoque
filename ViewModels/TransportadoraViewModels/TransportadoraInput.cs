@@ -6,13 +6,13 @@ public class TransportadoraInput
     public int Id { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
-    [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
+    [MinLength(0, ErrorMessage = "Mínimo de 0 caracteres.")]
+    [MaxLength(50, ErrorMessage = "Máximo de 50 caracteres.")]
     public string Nome { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
-    [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
+    [MinLength(0, ErrorMessage = "Mínimo de 0 caracteres.")]
+    [MaxLength(50, ErrorMessage = "Máximo de 50 caracteres.")]
     public string Endereco { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
@@ -20,8 +20,8 @@ public class TransportadoraInput
     public int Numero { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
-    [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
+    [MinLength(0, ErrorMessage = "Mínimo de 0 caracteres.")]
+    [MaxLength(50, ErrorMessage = "Máximo de 50 caracteres.")]
     public string Bairro { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio")]
@@ -34,14 +34,14 @@ public class TransportadoraInput
     public string Cnpj { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
-    [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
+    [MinLength(0, ErrorMessage = "Mínimo de 0 caracteres.")]
+    [MaxLength(50, ErrorMessage = "Máximo de 50 caracteres.")]
     public string Inscricao { get; set; }
 
-    [EmailAddress]
+    [EmailAddress(ErrorMessage = "O campo Contato não é um endereço de e-mail válido.")]
     [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
-    [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
+    [MinLength(0, ErrorMessage = "Mínimo de 0 caracteres.")]
+    [MaxLength(50, ErrorMessage = "Máximo de 50 caracteres.")]
     public string Contato { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]

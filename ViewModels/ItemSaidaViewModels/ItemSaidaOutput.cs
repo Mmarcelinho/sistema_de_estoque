@@ -1,17 +1,17 @@
-namespace ApiEstoque.ViewModels.ItemSaidaViewModels;
+ namespace ApiEstoque.ViewModels.ItemSaidaViewModels;
 
 public class ItemSaidaOutput
 {
     public ItemSaidaOutput(int id, string lote, int quantidade, double valor, int saidaId, int produtoId)
     {
-        this.Id = id;
-        this.Lote = lote;
-        this.Quantidade = quantidade;
-        this.Valor = valor;
-        this.SaidaId = saidaId;
-        this.ProdutoId = produtoId;
-
+     Id = id;
+     Lote = lote;
+     Quantidade = quantidade;
+     Valor = valor;
+     SaidaId = saidaId;
+     ProdutoId = produtoId;
     }
+    
     public int Id { get; private set; }
 
     public string Lote { get; private set; }

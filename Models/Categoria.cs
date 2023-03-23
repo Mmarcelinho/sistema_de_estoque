@@ -4,8 +4,8 @@ public class Categoria
 {
     public Categoria(int id, string titulo)
     {
-        this.Id = id;
-        this.Titulo = titulo;
+        Id = id;
+        Titulo = titulo;
     }
     public int Id { get; private set; }
 

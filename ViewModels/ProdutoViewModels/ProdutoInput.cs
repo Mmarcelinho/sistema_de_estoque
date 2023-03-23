@@ -6,13 +6,13 @@ public class ProdutoInput
     public int Id { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 20 caracteres.")]
-    [MaxLength(20, ErrorMessage = "Mínimo de 0 a 20 caracteres.")]
+    [MinLength(0, ErrorMessage = "Mínimo de 0 caracteres.")]
+    [MaxLength(20, ErrorMessage = "Máximo de 20 caracteres.")]
     public string Nome { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]
-    [MinLength(0, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
-    [MaxLength(50, ErrorMessage = "Mínimo de 0 a 50 caracteres.")]
+    [MinLength(0, ErrorMessage = "Mínimo de 0 caracteres.")]
+    [MaxLength(50, ErrorMessage = "Máximo de 50 caracteres.")]
     public string Descricao { get; set; }
 
     [Required(ErrorMessage = "Campo Obrigátorio.")]

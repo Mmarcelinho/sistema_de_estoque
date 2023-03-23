@@ -10,7 +10,6 @@ public class ProdutoOutput
         Peso = peso;
         Controlado = controlado;
         QuantMinima = quantMinima;
-
     }
     public int Id { get; private set; }
 

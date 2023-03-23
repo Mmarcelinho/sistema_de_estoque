@@ -22,7 +22,7 @@ public class LojaController : ControllerBase
           x.CidadeId
          )).ToListAsync();
 
-        if (listaLoja.Count == 0)
+        if (!listaLoja.Any())
             return NotFound();
 
         return Ok(listaLoja);
@@ -40,7 +40,7 @@ public class LojaController : ControllerBase
 
         var loja = await context.Loja.FindAsync(id);
 
-        if (loja == null)
+        if (loja is null)
             return NotFound();
 
         return Ok(new LojaOutput
@@ -84,7 +84,7 @@ public class LojaController : ControllerBase
 
         )).ToListAsync();
 
-        if (listCidadeDeLojas.Count == 0)
+        if (!listCidadeDeLojas.Any())
             return NotFound();
 
         return Ok(listCidadeDeLojas);
@@ -116,7 +116,7 @@ public class LojaController : ControllerBase
           x.Cidade.Nome
         )).ToListAsync();
 
-        if (listaLoja.Count == 0)
+        if (!listaLoja.Any())
             return NotFound($"Não existem lojas com o nome {nome}");
 
         return Ok(listaLoja);
@@ -149,7 +149,7 @@ public class LojaController : ControllerBase
 
         )).ToListAsync();
 
-        if (listaCidadeDeLojas.Count == 0)
+        if (!listaCidadeDeLojas.Any())
             return NotFound($"Não existem cidades com o nome {nome}");
 
         return Ok(listaCidadeDeLojas);
@@ -164,7 +164,7 @@ public class LojaController : ControllerBase
     public async Task<IActionResult> Criar([FromServices] DataContext context, [FromBody] LojaInput model)
     {
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var loja = new Loja
         (
@@ -211,11 +211,11 @@ public class LojaController : ControllerBase
             return BadRequest();
 
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(ModelState);
 
         var loja = await context.Loja.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-        if (loja == null)
+        if (loja is null)
             return NotFound();
 
         loja = new Loja
@@ -252,7 +252,7 @@ public class LojaController : ControllerBase
 
         var loja = await context.Loja.FindAsync(id);
 
-        if (loja == null)
+        if (loja is null)
             return NotFound();
 
         context.Loja.Remove(loja);

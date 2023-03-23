@@ -4,19 +4,18 @@ public class ListTransportadoraViewModels
 {
     public ListTransportadoraViewModels(int id, string nome, string endereco, int numero, string bairro, string cep, string cnpj, string inscricao, string contato, string telefone, int cidadeId, string cidade)
     {
-        this.Id = id;
-        this.Nome = nome;
-        this.Endereco = endereco;
-        this.Numero = numero;
-        this.Bairro = bairro;
-        this.Cep = cep;
-        this.Cnpj = cnpj;
-        this.Inscricao = inscricao;
-        this.Contato = contato;
-        this.Telefone = telefone;
-        this.CidadeId = cidadeId;
-        this.Cidade = cidade;
-
+        Id = id;
+        Nome = nome;
+        Endereco = endereco;
+        Numero = numero;
+        Bairro = bairro;
+        Cep = cep;
+        Cnpj = cnpj;
+        Inscricao = inscricao;
+        Contato = contato;
+        Telefone = telefone;
+        CidadeId = cidadeId;
+        Cidade = cidade;
     }
     public int Id { get; private set; }
 
