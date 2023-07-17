@@ -19,7 +19,7 @@ public class ItemSaidaController : ControllerBase
          ))
         .ToListAsync();
 
-        if(!listaItemSaida.Any())
+        if(listaItemSaida.Count == 0)
             return NotFound();
 
         return Ok(listaItemSaida);
@@ -76,7 +76,7 @@ public class ItemSaidaController : ControllerBase
 
         )).ToListAsync();
 
-        if (!listaSaidaDeItensSaida.Any())
+        if (listaSaidaDeItensSaida.Count == 0)
             return NotFound();
 
         return Ok(listaSaidaDeItensSaida);
@@ -107,7 +107,7 @@ public class ItemSaidaController : ControllerBase
 
         )).ToListAsync();
 
-        if (!listaProdutoDeItensSaida.Any())
+        if (listaProdutoDeItensSaida.Count == 0)
             return NotFound();
 
         return Ok(listaProdutoDeItensSaida);
@@ -138,7 +138,7 @@ public class ItemSaidaController : ControllerBase
 
         )).ToListAsync();
 
-        if (!listaProdutoDeItensSaida.Any())
+        if (listaProdutoDeItensSaida.Count == 0)
             return NotFound();
 
         return Ok(listaProdutoDeItensSaida);

@@ -11,10 +11,6 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.Extensions.Options;
 global using Microsoft.OpenApi.Models;
-global using NetDevPack.Identity.Jwt;
-global using NetDevPack.Identity.Jwt.Model;
-global using NetDevPack.Identity.Model;
-
 
 global using ApiEstoque.Models;
 global using ApiEstoque.Data;

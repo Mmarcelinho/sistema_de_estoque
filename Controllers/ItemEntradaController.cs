@@ -21,7 +21,7 @@ public class ItemEntradaController : ControllerBase
          ))
         .ToListAsync();
 
-        if (!listaItemEntrada.Any())
+        if (listaItemEntrada.Count == 0)
             return NotFound($"Não existem itens");
 
         return Ok(listaItemEntrada);
@@ -169,7 +169,7 @@ public class ItemEntradaController : ControllerBase
           x.Produto.Nome
         )).ToListAsync();
 
-        if (!listaProdutoDeItensEntrada.Any())
+        if (listaProdutoDeItensEntrada.Count == 0)
             return NotFound($"Não existem produtos com o nome {nome}");
 
         return Ok(listaProdutoDeItensEntrada);

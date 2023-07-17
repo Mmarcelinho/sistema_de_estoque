@@ -4,16 +4,16 @@ public class ListLojaViewModels
 {
     public ListLojaViewModels(int id, string nome, string endereco, int numero, string bairro, string telefone, string inscricao, string cnpj, int cidadeId, string cidade)
     {
-        this.Id = id;
-        this.Nome = nome;
-        this.Endereco = endereco;
-        this.Numero = numero;
-        this.Bairro = bairro;
-        this.Telefone = telefone;
-        this.Inscricao = inscricao;
-        this.Cnpj = cnpj;
-        this.CidadeId = cidadeId;
-        this.Cidade = cidade;
+     Id = id;
+     Nome = nome;
+     Endereco = endereco;
+     Numero = numero;
+     Bairro = bairro;
+     Telefone = telefone;
+     Inscricao = inscricao;
+     Cnpj = cnpj;
+     CidadeId = cidadeId;
+     Cidade = cidade;
 
     }
     public int Id { get; private set; }

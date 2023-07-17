@@ -11,7 +11,7 @@ public class CidadeController : ControllerBase
     {
         var listaCidade = await context.Cidade.Select(x => new CidadeOutput(x.Id, x.Nome, x.Uf)).ToListAsync();
 
-        if (!listaCidade.Any())
+        if (listaCidade.Count == 0)
             return NotFound();
 
         return Ok(listaCidade);
@@ -47,7 +47,7 @@ public class CidadeController : ControllerBase
         .Select(x => new CidadeOutput(x.Id, x.Nome, x.Uf))
         .ToListAsync();
 
-        if (!listaCidade.Any())
+        if (listaCidade.Count == 0)
             return NotFound($"Não existem cidades com o nome {nome}");
     
         return Ok(listaCidade);

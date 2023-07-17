@@ -9,7 +9,7 @@ public class ProdutoController : ControllerBase
     {
         var listaProduto = await context.Produto.Select(x => new ProdutoOutput(x.Id, x.Nome, x.Descricao, x.Peso, x.Controlado, x.QuantMinima)).ToListAsync();
 
-        if (!listaProduto.Any())
+        if (listaProduto.Count == 0)
             return NotFound();
 
         return Ok(listaProduto);
@@ -64,7 +64,7 @@ public class ProdutoController : ControllerBase
 
             )).ToListAsync();
 
-        if (!listaProduto.Any())
+        if (listaProduto.Count == 0)
             return NotFound($"Não existem produtos com o nome {nome}");
 
         return Ok(listaProduto);

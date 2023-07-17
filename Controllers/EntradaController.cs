@@ -23,7 +23,7 @@ public class EntradaController : ControllerBase
         ))
         .ToListAsync();
 
-        if(!listaEntrada.Any())
+        if(listaEntrada.Count == 0)
         return NotFound();
 
         return Ok(listaEntrada);
@@ -82,7 +82,7 @@ public class EntradaController : ControllerBase
 
         )).ToListAsync();
 
-        if (!listaTransportadoraDeEntradas.Any())
+        if (listaTransportadoraDeEntradas.Count == 0)
             return NotFound($"Não existe transportadora com o id {id}");
 
         return Ok(listaTransportadoraDeEntradas);
@@ -141,7 +141,7 @@ public class EntradaController : ControllerBase
          x.Transportadora.Nome
         )).ToListAsync();
 
-        if (!listaTransportadoraDeEntradas.Any())
+        if (listaTransportadoraDeEntradas.Count == 0)
             return NotFound($"Não existem transportadoras com o nome {nome}");
 
         return Ok(listaTransportadoraDeEntradas);

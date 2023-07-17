@@ -11,7 +11,7 @@ public class CategoriaController : ControllerBase
     {
         var listaCategoria = await context.Categoria.Select(x => new CategoriaOutput(x.Id, x.Titulo)).ToListAsync();
 
-        if (!listaCategoria.Any())
+        if (listaCategoria.Count == 0)
             return NotFound();
 
             return Ok(listaCategoria);
@@ -50,7 +50,7 @@ public class CategoriaController : ControllerBase
         .Select(x => new CategoriaOutput(x.Id, x.Titulo))
         .ToListAsync();
 
-        if (!listaCategoria.Any())
+        if (listaCategoria.Count == 0)
             return NotFound($"Não existem categorias com o nome {nome}");
 
         return Ok(listaCategoria);

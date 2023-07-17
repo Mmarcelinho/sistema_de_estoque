@@ -23,7 +23,7 @@ namespace ApiEstoque.Controllers
              ))
             .ToListAsync();
 
-            if (!listaFornecedor.Any())
+            if (listaFornecedor.Count == 0)
                 return NotFound();
 
             return Ok(listaFornecedor);
@@ -88,7 +88,7 @@ namespace ApiEstoque.Controllers
              x.Cidade.Nome
             )).ToListAsync();
 
-            if (!listaCidadeDeFornecedores.Any())
+            if (listaCidadeDeFornecedores.Count == 0)
                 return NotFound($"Não existe cidade com o id {id}");
 
             return Ok(listaCidadeDeFornecedores);
@@ -122,7 +122,7 @@ namespace ApiEstoque.Controllers
              x.Cidade.Nome
             )).ToListAsync();
 
-            if (!listaFornecedor.Any())
+            if (listaFornecedor.Count == 0)
                 return NotFound($"Não existem fornecedores com o nome {nome}");
 
             return Ok(listaFornecedor);
@@ -155,7 +155,7 @@ namespace ApiEstoque.Controllers
              x.Cidade.Nome
             )).ToListAsync();
 
-            if (!listaCidadeDeFornecedores.Any())
+            if (listaCidadeDeFornecedores.Count == 0)
             return NotFound($"Não existem cidades com o nome {nome}");
 
             return Ok(listaCidadeDeFornecedores);

@@ -22,7 +22,7 @@ public class LojaController : ControllerBase
           x.CidadeId
          )).ToListAsync();
 
-        if (!listaLoja.Any())
+        if (listaLoja.Count == 0)
             return NotFound();
 
         return Ok(listaLoja);
@@ -84,7 +84,7 @@ public class LojaController : ControllerBase
 
         )).ToListAsync();
 
-        if (!listCidadeDeLojas.Any())
+        if (listCidadeDeLojas.Count == 0)
             return NotFound();
 
         return Ok(listCidadeDeLojas);
@@ -116,7 +116,7 @@ public class LojaController : ControllerBase
           x.Cidade.Nome
         )).ToListAsync();
 
-        if (!listaLoja.Any())
+        if (listaLoja.Count == 0)
             return NotFound($"Não existem lojas com o nome {nome}");
 
         return Ok(listaLoja);
@@ -149,7 +149,7 @@ public class LojaController : ControllerBase
 
         )).ToListAsync();
 
-        if (!listaCidadeDeLojas.Any())
+        if (listaCidadeDeLojas.Count == 0)
             return NotFound($"Não existem cidades com o nome {nome}");
 
         return Ok(listaCidadeDeLojas);

@@ -25,7 +25,7 @@ public class TransportadoraController : ControllerBase
          ))
         .ToListAsync();
 
-        if(!listaTransportadora.Any())
+        if(listaTransportadora.Count == 0)
         return NotFound();
 
         return Ok(listaTransportadora);
@@ -90,7 +90,7 @@ public class TransportadoraController : ControllerBase
           x.Cidade.Nome
         )).ToListAsync();
 
-        if (!listaCidadeDeTransportadoras.Any())
+        if (listaCidadeDeTransportadoras.Count == 0)
             return NotFound();
 
         return Ok(listaCidadeDeTransportadoras);

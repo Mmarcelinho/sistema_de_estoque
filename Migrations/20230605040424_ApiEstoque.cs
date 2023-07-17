@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ApiEstoque.Migrations
 {
     /// <inheritdoc />
-    public partial class BancoEstoque : Migration
+    public partial class ApiEstoque : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -122,6 +122,7 @@ namespace ApiEstoque.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Descricao = table.Column<string>(type: "varchar(50)", nullable: false),
                     Peso = table.Column<decimal>(type: "numeric(38,2)", nullable: false),
                     Controlado = table.Column<bool>(type: "bit", nullable: false),

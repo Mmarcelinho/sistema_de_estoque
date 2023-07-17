@@ -68,7 +68,7 @@ public class SaidaController : ControllerBase
          x.Transportadora.Nome
         )).ToListAsync();
 
-        if (!listaLojaDeSaidas.Any())
+        if (listaLojaDeSaidas.Count == 0)
             return NotFound($"Não existe loja com o id {id}");
 
         return Ok(listaLojaDeSaidas);
@@ -99,7 +99,7 @@ public class SaidaController : ControllerBase
 
         )).ToListAsync();
 
-        if (!listaTransportadoraDeSaidas.Any())
+        if (listaTransportadoraDeSaidas.Count == 0)
             return NotFound($"Não existe transportadora com o id {id}");
 
         return Ok(listaTransportadoraDeSaidas);
@@ -129,7 +129,7 @@ public class SaidaController : ControllerBase
           x.Transportadora.Nome
         )).ToListAsync();
 
-        if (!listaLojaDeSaidas.Any())
+        if (listaLojaDeSaidas.Count == 0)
             return NotFound($"Não existem lojas com o nome {nome}");
 
         return Ok(listaLojaDeSaidas);
@@ -160,7 +160,7 @@ public class SaidaController : ControllerBase
 
         )).ToListAsync();
 
-        if (!listaTransportadoraDeSaidas.Any())
+        if (listaTransportadoraDeSaidas.Count == 0)
             return NotFound($"Não existem transportadoras com o nome {nome}");
 
         return Ok(listaTransportadoraDeSaidas);

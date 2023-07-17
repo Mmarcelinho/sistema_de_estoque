@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiEstoque.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230308205239_BancoEstoquev0.1")]
-    partial class BancoEstoquev01
+    [Migration("20230605040424_ApiEstoque")]
+    partial class ApiEstoque
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -284,6 +284,10 @@ namespace ApiEstoque.Migrations
 
                     b.Property<int?>("FornecedorId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Peso")
                         .HasColumnType("numeric(38,2)");
