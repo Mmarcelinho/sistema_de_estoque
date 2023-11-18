@@ -3,4 +3,7 @@ using Estoque.Domain.Interfaces.Repositories.Shared;
 
 namespace Estoque.Domain.Interfaces.Repositories;
 
-    public interface ICategoriaRepository : IRepositoryBase<Categoria> { }
+    public interface ICategoriaRepository : IRepositoryBase<Categoria>
+    { 
+         Task<Categoria?> ObterPorTituloAsync(string titulo);
+    }

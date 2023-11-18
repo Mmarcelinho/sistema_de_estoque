@@ -1,8 +1,10 @@
+using Estoque.Domain.Entities.Shared;
+
 namespace Estoque.Domain.Entities;
 
 public class ItemEntrada : Entity
 {
-    public ItemEntrada(int id, string lote, int quantidade, double valor, int idEntrada, int idProduto)
+    public ItemEntrada(int id, string lote, int quantidade, decimal valor, int idEntrada, int idProduto)
     {
      Id = id;
      Lote = lote;

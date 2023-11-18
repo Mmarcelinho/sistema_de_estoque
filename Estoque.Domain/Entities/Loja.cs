@@ -1,3 +1,5 @@
+using Estoque.Domain.Entities.Shared;
+
 namespace Estoque.Domain.Entities;
 
 public class Loja : Entity

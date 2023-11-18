@@ -1,10 +1,10 @@
-using System;
+using Estoque.Domain.Entities.Shared;
 
 namespace Estoque.Domain.Entities;
 
 public class Entrada : Entity
 {
-    public Entrada(int id, DateTime dataPedido, double total, double frete, int numeroNotaFiscal, double imposto, int idTransportadora)
+    public Entrada(int id, DateTime dataPedido, decimal total, decimal frete, int numeroNotaFiscal, decimal imposto, int idTransportadora)
     {
         Id = id;
         DataPedido = DateTime.Now;

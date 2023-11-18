@@ -1,8 +1,10 @@
+using Estoque.Domain.Entities.Shared;
+
 namespace Estoque.Domain.Entities;
 
 public class Saida : Entity
 {
-    public Saida(int id, double total, double frete, double imposto, int lojaId, int idTransportadora)
+    public Saida(int id, double total, double frete, double imposto, int idLoja, int idTransportadora)
     {
      Id = id;
      Total = total;

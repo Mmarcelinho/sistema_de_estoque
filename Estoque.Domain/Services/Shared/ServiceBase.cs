@@ -4,26 +4,18 @@ using Estoque.Domain.Interfaces.Services.Shared;
 
 namespace Estoque.Domain.Services.Shared;
 
-public abstract class ServiceBase : IServiceBase<TEntity> where TEntity : Entity
+public abstract class ServiceBase<TEntity> : IServiceBase<TEntity> where TEntity : Entity
 {
     private readonly IRepositoryBase<TEntity> _repositoryBase;
 
-    public ServiceBase(IRepositoryBase<TEntity> repositoryBase) => _repositoryBase = repositoryBase;
+    public ServiceBase(IRepositoryBase<TEntity> repositoryBase) => 
+    _repositoryBase = repositoryBase;
 
     public virtual async Task<IEnumerable<TEntity>> ObterTodosAsync() =>
-   await _repositoryBase.ObterTodosAsync();
+    await _repositoryBase.ObterTodosAsync();
 
     public virtual async Task<TEntity?> ObterPorIdAsync(int id) =>
         await _repositoryBase.ObterPorIdAsync(id);
-
-    public virtual async Task<TEntity?> ObterPorNomeAsync(int id) =>
-    await _repositoryBase.ObterPorNomeAsync(id);
-
-    public virtual async Task<TEntity?> ObterPorIdUmParaMuitosAsync(int id) =>
-    await _repositoryBase.ObterPorIdUmParaMuitosAsyncAsync(id);
-
-    public virtual async Task<TEntity?> ObterPorNomeUmParaMuitosAsync(int id) =>
-    await _repositoryBase.ObterPorNomeUmParaMuitosAsyncAsync(id);
 
     public virtual async Task<object> AdicionarAsync(TEntity objeto) =>
         await _repositoryBase.AdicionarAsync(objeto);
