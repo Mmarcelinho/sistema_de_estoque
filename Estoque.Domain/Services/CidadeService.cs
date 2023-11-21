@@ -7,5 +7,11 @@ namespace Estoque.Domain.Services;
 
     public class CidadeService : ServiceBase<Cidade>, ICidadeService
     {
-        public CidadeService(ICidadeRepository cidadeRepository) : base(cidadeRepository) { }
+          private readonly ICidadeRepository _cidadeRepository;
+        public CidadeService(ICidadeRepository cidadeRepository) : base(cidadeRepository) =>
+        
+            _cidadeRepository = cidadeRepository;
+        
+        public async Task<Cidade?> ObterPorNomeAsync(string nome) =>
+        await _cidadeRepository.ObterPorNomeAsync(nome);
     }

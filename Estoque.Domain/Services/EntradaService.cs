@@ -7,5 +7,9 @@ namespace Estoque.Domain.Services;
 
     public class EntradaService : ServiceBase<Entrada>, IEntradaService
     {
-        public EntradaService(IEntradaRepository entradaRepository) : base(entradaRepository) { }
+        private readonly IEntradaRepository _entradaRepository;
+        public EntradaService(IEntradaRepository entradaRepository) : base(entradaRepository) => _entradaRepository = entradaRepository;
+        
+        public async Task<IEnumerable<Entrada?>> ObterPorIdEntradasDeTransportadoraAsync(int id) =>
+        await _entradaRepository.ObterPorIdEntradasDeTransportadoraAsync(id);
     }

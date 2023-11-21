@@ -7,5 +7,11 @@ namespace Estoque.Domain.Services;
 
     public class ProdutoService : ServiceBase<Produto>, IProdutoService
     {
-        public ProdutoService(IProdutoRepository produtoRepository) : base(produtoRepository) { }
+        private readonly IProdutoRepository _produtoRepository;
+        public ProdutoService(IProdutoRepository produtoRepository) : base(produtoRepository) =>
+        
+        _produtoRepository = produtoRepository;
+
+        public async Task<Produto?> ObterPorNomeAsync(string nome) =>
+        await _produtoRepository.ObterPorNomeAsync(nome);
     }
