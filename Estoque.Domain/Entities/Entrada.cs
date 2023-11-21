@@ -4,7 +4,7 @@ namespace Estoque.Domain.Entities;
 
 public class Entrada : Entity
 {
-    public Entrada(int id, DateTime dataPedido, decimal total, decimal frete, int numeroNotaFiscal, decimal imposto, int idTransportadora)
+    public Entrada(int id,decimal total, decimal frete, int numeroNotaFiscal, decimal imposto, int idTransportadora)
     {
         Id = id;
         DataPedido = DateTime.Now;
@@ -30,7 +30,7 @@ public class Entrada : Entity
 
     public int IdTransportadora { get; private set; }
 
-    public Transportadora Transportadora { get; private set; }
+    public Transportadora Transportadora { get; private set; } = null!;
 
     public ICollection<ItemEntrada> ItemEntradas { get; private set; } = null!;
 

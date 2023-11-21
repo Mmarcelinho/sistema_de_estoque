@@ -16,8 +16,6 @@ public class CidadeMap : IEntityTypeConfiguration<Cidade>
          builder.Property(x => x.Uf)
         .HasColumnType("char(14)")
         .IsRequired();
-
-       
     }
 
 }
