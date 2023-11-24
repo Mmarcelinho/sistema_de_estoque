@@ -4,14 +4,14 @@ using Estoque.Data.Repositories;
 using Estoque.Domain.Interfaces.Repositories;
 using Estoque.Domain.Interfaces.Service;
 using Estoque.Domain.Services;
+
 namespace Estoque.Api.IoC;
 
 public static class NativeInjectorConfig
 {
     public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<DataContext>(options => options.UseSqlServer(configuration.GetConnectionString("")));
-
+        services.AddDbContext<DataContext>(options => options.UseSqlServer(configuration.GetConnectionString("ApiEstoque")));
 
         services.AddScoped<ICategoriaRepository, CategoriaRepository>();
         services.AddScoped<ICategoriaService, CategoriaService>();
