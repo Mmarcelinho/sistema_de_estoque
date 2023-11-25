@@ -1,69 +1,76 @@
-using Microsoft.AspNetCore.Mvc;
+using Carter;
 using Estoque.Domain.Interfaces.Service;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
 
 namespace Estoque.Api.Controllers.v1;
 
-[ApiController]
-[Route("api/v1/[controller]")]
-public class CategoriaController : ControllerBase
+public class CategoriaEndpoints : ICarterModule
 {
-    private readonly ICategoriaService _categoriaService;
-    public CategoriaController(ICategoriaService categoriaService) =>
-    _categoriaService = categoriaService;
+    public void AddRoutes(IEndpointRouteBuilder app)
+    {
+        var group = app.MapGroup("api/categorias");
+        group.MapGet("", ObterTodos).WithName(nameof(ObterTodos));
+        group.MapGet("{id:int}", ObterPorId).WithName(nameof(ObterPorId));
+        group.MapGet("{titulo:alpha}", ObterPorTitulo).WithName(nameof(ObterPorTitulo));
+        group.MapPost("", Inserir).WithName(nameof(Inserir));
+        group.MapPut("", Atualizar).WithName(nameof(Atualizar));
+        group.MapDelete("{id:int}", Remover).WithName(nameof(Remover));
+    }
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<CategoriaResponse>>> ObterTodos()
+    public static async Task<IResult> ObterTodos(ICategoriaService _categoriaService)
     {
         var categorias = await _categoriaService.ObterTodosAsync();
         var categoriasResponse = categorias.Select(categoria => categoria.ConverterParaResponse());
-        return Ok(categoriasResponse);
+        return Results.Ok(categoriasResponse);
     }
 
-    [HttpGet("{id:int}")]
-    public async Task<ActionResult<CategoriaResponse>> ObterPorId(int id)
+    public static async Task<IResult> ObterPorId(
+    int id,
+    ICategoriaService _categoriaService)
     {
         var categoria = await _categoriaService.ObterPorIdAsync(id);
         if (categoria is null)
-            return NotFound();
+            return Results.NotFound();
 
         var categoriaResponse = CategoriaMap.ConverterParaResponse(categoria);
-        return Ok(categoriaResponse);
+        return Results.Ok(categoriaResponse);
     }
 
-    [HttpGet("{titulo:alpha}")]
-    public async Task<ActionResult<CategoriaResponse>> ObterPorTitulo(string titulo)
+    public static async Task<IResult> ObterPorTitulo(
+    string titulo,
+    ICategoriaService _categoriaService)
     {
         var categoria = await _categoriaService.ObterPorTituloAsync(titulo);
         if (categoria is null)
-            return NotFound();
+            return Results.NotFound();
 
         var categoriaResponse = CategoriaMap.ConverterParaResponse(categoria);
-        return Ok(categoriaResponse);
+        return Results.Ok(categoriaResponse);
     }
 
-    [HttpPost]
-    public async Task<ActionResult<int>> Inserir(InsercaoCategoriaRequest insercaoCategoria)
+    public static async Task<IResult> Inserir(InsercaoCategoriaRequest insercaoCategoria,
+    ICategoriaService _categoriaService)
     {
         var categoria = CategoriaMap.ConverterParaEntidade(insercaoCategoria);
         var id = (int)await _categoriaService.AdicionarAsync(categoria);
-        return CreatedAtAction(nameof(ObterPorId), new { id = id }, id);
+        return Results.CreatedAtRoute(nameof(ObterPorId), new { id = id }, id);
     }
 
-    [HttpPut]
-    public async Task<ActionResult> Atualizar(AtualizacaoCategoriaRequest atualizacaoCategoria)
+
+    public static async Task<IResult> Atualizar(AtualizacaoCategoriaRequest atualizacaoCategoria,
+    ICategoriaService _categoriaService)
     {
         var categoria = CategoriaMap.ConverterParaEntidade(atualizacaoCategoria);
         await _categoriaService.AtualizarAsync(categoria);
-        return NoContent();
+        return Results.NoContent();
     }
 
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> Remover(int id)
-    {  
+    public static async Task<IResult> Remover(
+    int id,
+    ICategoriaService _categoriaService)
+    {
         await _categoriaService.RemoverPorIdAsync(id);
-        return NoContent();
+        return Results.NoContent();
     }
-
 }
