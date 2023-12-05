@@ -10,22 +10,34 @@ public class CategoriaEndpoints : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("api/categorias");
-        group.MapGet("", ObterTodos).WithName(nameof(ObterTodos));
-        group.MapGet("{id:int}", ObterPorId).WithName(nameof(ObterPorId));
-        group.MapGet("{titulo:alpha}", ObterPorTitulo).WithName(nameof(ObterPorTitulo));
-        group.MapPost("", Inserir).WithName(nameof(Inserir));
-        group.MapPut("", Atualizar).WithName(nameof(Atualizar));
-        group.MapDelete("{id:int}", Remover).WithName(nameof(Remover));
+
+        group.MapGet("",ObterCategorias)
+        .WithName(nameof(ObterCategorias));
+
+        group.MapGet("{id:int}",ObterCategoriaPorId)
+        .WithName(nameof(ObterCategoriaPorId));
+
+        group.MapGet("{titulo:alpha}",ObterCategoriaPorTitulo)
+        .WithName(nameof(ObterCategoriaPorTitulo));
+
+        group.MapPost("",InserirCategoria)
+        .WithName(nameof(InserirCategoria));
+
+        group.MapPut("",AtualizarCategoria)
+        .WithName(nameof(AtualizarCategoria));
+
+        group.MapDelete("{id:int}",RemoverCategoria)
+        .WithName(nameof(RemoverCategoria));
     }
 
-    public static async Task<IResult> ObterTodos(ICategoriaService _categoriaService)
+    public static async Task<IResult> ObterCategorias(ICategoriaService _categoriaService)
     {
         var categorias = await _categoriaService.ObterTodosAsync();
         var categoriasResponse = categorias.Select(categoria => categoria.ConverterParaResponse());
         return Results.Ok(categoriasResponse);
     }
 
-    public static async Task<IResult> ObterPorId(
+    public static async Task<IResult> ObterCategoriaPorId(
     int id,
     ICategoriaService _categoriaService)
     {
@@ -37,7 +49,7 @@ public class CategoriaEndpoints : ICarterModule
         return Results.Ok(categoriaResponse);
     }
 
-    public static async Task<IResult> ObterPorTitulo(
+    public static async Task<IResult> ObterCategoriaPorTitulo(
     string titulo,
     ICategoriaService _categoriaService)
     {
@@ -49,16 +61,16 @@ public class CategoriaEndpoints : ICarterModule
         return Results.Ok(categoriaResponse);
     }
 
-    public static async Task<IResult> Inserir(InsercaoCategoriaRequest insercaoCategoria,
+    public static async Task<IResult> InserirCategoria(InsercaoCategoriaRequest insercaoCategoria,
     ICategoriaService _categoriaService)
     {
         var categoria = CategoriaMap.ConverterParaEntidade(insercaoCategoria);
         var id = (int)await _categoriaService.AdicionarAsync(categoria);
-        return Results.CreatedAtRoute(nameof(ObterPorId), new { id = id }, id);
+        return Results.CreatedAtRoute(nameof(ObterCategoriaPorId), new { id = id }, id);
     }
 
 
-    public static async Task<IResult> Atualizar(AtualizacaoCategoriaRequest atualizacaoCategoria,
+    public static async Task<IResult> AtualizarCategoria(AtualizacaoCategoriaRequest atualizacaoCategoria,
     ICategoriaService _categoriaService)
     {
         var categoria = CategoriaMap.ConverterParaEntidade(atualizacaoCategoria);
@@ -66,7 +78,7 @@ public class CategoriaEndpoints : ICarterModule
         return Results.NoContent();
     }
 
-    public static async Task<IResult> Remover(
+    public static async Task<IResult> RemoverCategoria(
     int id,
     ICategoriaService _categoriaService)
     {
