@@ -26,7 +26,7 @@ public static class EntradaMap
         atualizacaoEntrada.IdTransportadora);
 
 
-    public static EntradaResponse ConverterParaReponse(this Entrada entrada) =>
+    public static EntradaResponse ConverterParaResponse(this Entrada entrada) =>
      new EntradaResponse
      (
         entrada.Id,

@@ -3,7 +3,7 @@ using Estoque.Domain.Interfaces.Service;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
 
-namespace Estoque.Api.Controllers.v1;
+namespace Estoque.Api.Endpoints.v1;
 
 public class CategoriaEndpoints : ICarterModule
 {
@@ -11,22 +11,34 @@ public class CategoriaEndpoints : ICarterModule
     {
         var group = app.MapGroup("api/categorias");
 
-        group.MapGet("",ObterCategorias)
+        group.MapGet("", ObterCategorias)
+        .Produces<CategoriaResponse>(StatusCodes.Status200OK)
+        .Produces<CategoriaResponse>(StatusCodes.Status404NotFound)
         .WithName(nameof(ObterCategorias));
 
-        group.MapGet("{id:int}",ObterCategoriaPorId)
+        group.MapGet("{id:int}", ObterCategoriaPorId)
+         .Produces<CategoriaResponse>(StatusCodes.Status200OK)
+        .Produces<CategoriaResponse>(StatusCodes.Status404NotFound)
         .WithName(nameof(ObterCategoriaPorId));
 
-        group.MapGet("{titulo:alpha}",ObterCategoriaPorTitulo)
+        group.MapGet("{titulo:alpha}", ObterCategoriaPorTitulo)
+        .Produces<CategoriaResponse>(StatusCodes.Status200OK)
+        .Produces<CategoriaResponse>(StatusCodes.Status404NotFound)
         .WithName(nameof(ObterCategoriaPorTitulo));
 
-        group.MapPost("",InserirCategoria)
+        group.MapPost("", InserirCategoria)
+        .Produces<CategoriaResponse>(StatusCodes.Status201Created)
+        .Produces<CategoriaResponse>(StatusCodes.Status400BadRequest)
         .WithName(nameof(InserirCategoria));
 
-        group.MapPut("",AtualizarCategoria)
+        group.MapPut("", AtualizarCategoria)
+        .Produces<CategoriaResponse>(StatusCodes.Status204NoContent)
+        .Produces<CategoriaResponse>(StatusCodes.Status400BadRequest)
         .WithName(nameof(AtualizarCategoria));
 
-        group.MapDelete("{id:int}",RemoverCategoria)
+        group.MapDelete("{id:int}", RemoverCategoria)
+        .Produces<CategoriaResponse>(StatusCodes.Status204NoContent)
+        .Produces<CategoriaResponse>(StatusCodes.Status400BadRequest)
         .WithName(nameof(RemoverCategoria));
     }
 

@@ -1,10 +1,10 @@
 using Carter;
 using Estoque.Domain.Interfaces.Service;
+using Estoque.Domain.Entities;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
-using System.Threading.Tasks;
 
-namespace Estoque.Api.Controllers.v1;
+namespace Estoque.Api.Endpoints.v1;
 
     public class CidadeEndpoints : ICarterModule
     {
@@ -13,19 +13,33 @@ namespace Estoque.Api.Controllers.v1;
             var group = app.MapGroup("api/cidades");
 
             group.MapGet("",ObterCidades)
+            .Produces<CidadeResponse>(StatusCodes.Status200OK)
+            .Produces<CidadeResponse>(StatusCodes.Status404NotFound)
             .WithName(nameof(ObterCidades));
-
+          
              group.MapGet("{id:int}",ObterCidadePorId)
+            .Produces<CidadeResponse>(StatusCodes.Status200OK)
+            .Produces<CidadeResponse>(StatusCodes.Status404NotFound)
             .WithName(nameof(ObterCidadePorId));
 
-
+            group.MapGet("{nome:alpha}",ObterCidadePorNome)
+            .Produces<CidadeResponse>(StatusCodes.Status200OK)
+            .Produces<CidadeResponse>(StatusCodes.Status404NotFound)
+            .WithName(nameof(ObterCidadePorNome));
+            
             group.MapPost("",InserirCidade)
+            .Produces<CidadeResponse>(StatusCodes.Status201Created)
+            .Produces<CidadeResponse>(StatusCodes.Status400BadRequest)
             .WithName(nameof(InserirCidade));
 
             group.MapPut("",AtualizarCidade)
+            .Produces<CidadeResponse>(StatusCodes.Status204NoContent)
+            .Produces<CidadeResponse>(StatusCodes.Status400BadRequest)
             .WithName(nameof(AtualizarCidade));
 
             group.MapDelete("{id:int}",RemoverCidade)
+            .Produces<CidadeResponse>(StatusCodes.Status204NoContent)
+            .Produces<CidadeResponse>(StatusCodes.Status400BadRequest)
             .WithName(nameof(RemoverCidade));
         }
 
@@ -41,6 +55,18 @@ namespace Estoque.Api.Controllers.v1;
     ICidadeService _cidadeService)
     {
         var cidade = await _cidadeService.ObterPorIdAsync(id);
+        if (cidade is null)
+            return Results.NotFound();
+
+        var cidadeResponse = CidadeMap.ConverterParaResponse(cidade);
+        return Results.Ok(cidadeResponse);
+    }
+
+    public static async Task<IResult> ObterCidadePorNome(
+    string nome,
+    ICidadeService _cidadeService)
+    {
+        var cidade = await _cidadeService.ObterPorNomeAsync(nome);
         if (cidade is null)
             return Results.NotFound();
 
