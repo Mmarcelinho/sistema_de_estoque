@@ -42,10 +42,14 @@ public class CategoriaEndpoints : ICarterModule
         .WithName(nameof(RemoverCategoria));
     }
 
-    public static async Task<IResult> ObterCategorias(ICategoriaService _categoriaService)
+    public static async Task<IResult> ObterCategorias(
+    ICategoriaService _categoriaService)
     {
         var categorias = await _categoriaService.ObterTodosAsync();
-        var categoriasResponse = categorias.Select(categoria => categoria.ConverterParaResponse());
+
+        var categoriasResponse = categorias.Select(categoria => 
+        categoria.ConverterParaResponse());
+
         return Results.Ok(categoriasResponse);
     }
 
@@ -54,10 +58,12 @@ public class CategoriaEndpoints : ICarterModule
     ICategoriaService _categoriaService)
     {
         var categoria = await _categoriaService.ObterPorIdAsync(id);
+
         if (categoria is null)
             return Results.NotFound();
 
         var categoriaResponse = CategoriaMap.ConverterParaResponse(categoria);
+
         return Results.Ok(categoriaResponse);
     }
 
@@ -66,27 +72,35 @@ public class CategoriaEndpoints : ICarterModule
     ICategoriaService _categoriaService)
     {
         var categoria = await _categoriaService.ObterPorTituloAsync(titulo);
+
         if (categoria is null)
             return Results.NotFound();
 
         var categoriaResponse = CategoriaMap.ConverterParaResponse(categoria);
+
         return Results.Ok(categoriaResponse);
     }
 
-    public static async Task<IResult> InserirCategoria(InsercaoCategoriaRequest insercaoCategoria,
+    public static async Task<IResult> InserirCategoria(
+    InsercaoCategoriaRequest insercaoCategoria,
     ICategoriaService _categoriaService)
     {
         var categoria = CategoriaMap.ConverterParaEntidade(insercaoCategoria);
+
         var id = (int)await _categoriaService.AdicionarAsync(categoria);
+
         return Results.CreatedAtRoute(nameof(ObterCategoriaPorId), new { id = id }, id);
     }
 
 
-    public static async Task<IResult> AtualizarCategoria(AtualizacaoCategoriaRequest atualizacaoCategoria,
+    public static async Task<IResult> AtualizarCategoria(
+    AtualizacaoCategoriaRequest atualizacaoCategoria,
     ICategoriaService _categoriaService)
     {
         var categoria = CategoriaMap.ConverterParaEntidade(atualizacaoCategoria);
+
         await _categoriaService.AtualizarAsync(categoria);
+
         return Results.NoContent();
     }
 
@@ -95,6 +109,7 @@ public class CategoriaEndpoints : ICarterModule
     ICategoriaService _categoriaService)
     {
         await _categoriaService.RemoverPorIdAsync(id);
+        
         return Results.NoContent();
     }
 }

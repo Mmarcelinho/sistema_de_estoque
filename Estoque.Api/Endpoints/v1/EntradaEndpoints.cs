@@ -45,7 +45,10 @@ public class EntradaEndpoints : ICarterModule
     public static async Task<IResult> ObterEntradas(IEntradaService _entradaService)
     {
         var entradas = await _entradaService.ObterTodosAsync();
-        var entradasResponse = entradas.Select(entrada => entrada.ConverterParaResponse());
+
+        var entradasResponse = entradas.Select(entrada => 
+        entrada.ConverterParaResponse());
+
         return Results.Ok(entradasResponse);
     }
 
@@ -54,6 +57,7 @@ public class EntradaEndpoints : ICarterModule
     IEntradaService _entradaService)
     {
         var entrada = await _entradaService.ObterPorIdAsync(id);
+
         if (entrada is null)
             return Results.NotFound();
 
@@ -66,24 +70,33 @@ public class EntradaEndpoints : ICarterModule
     IEntradaService _entradaService)
     {
         var entradas = await _entradaService.ObterPorIdEntradasDeTransportadoraAsync(id);
-         var entradasResponse = entradas.Select(entrada => entrada.ConverterParaResponse());
+
+         var entradasResponse = entradas.Select(entrada =>
+        entrada.ConverterParaResponse());
+
         return Results.Ok(entradasResponse);
     }
 
-    public static async Task<IResult> InserirEntrada(InsercaoEntradaRequest insercaoEntrada,
+    public static async Task<IResult> InserirEntrada(
+    InsercaoEntradaRequest insercaoEntrada,
     IEntradaService _entradaService)
     {
         var entrada = EntradaMap.ConverterParaEntidade(insercaoEntrada);
+
         var id = (int)await _entradaService.AdicionarAsync(entrada);
+
         return Results.CreatedAtRoute(nameof(ObterEntradaPorId), new { id = id }, id);
     }
 
 
-    public static async Task<IResult> AtualizarEntrada(AtualizacaoEntradaRequest atualizacaoEntrada,
+    public static async Task<IResult> AtualizarEntrada(
+    AtualizacaoEntradaRequest atualizacaoEntrada,
     IEntradaService _entradaService)
     {
         var entrada = EntradaMap.ConverterParaEntidade(atualizacaoEntrada);
+
         await _entradaService.AtualizarAsync(entrada);
+
         return Results.NoContent();
     }
 
@@ -92,6 +105,7 @@ public class EntradaEndpoints : ICarterModule
     IEntradaService _entradaService)
     {
         await _entradaService.RemoverPorIdAsync(id);
+
         return Results.NoContent();
     }
 }
