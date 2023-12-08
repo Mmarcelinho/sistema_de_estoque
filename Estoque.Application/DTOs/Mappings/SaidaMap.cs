@@ -27,7 +27,7 @@ namespace Estoque.Application.DTOs.Mappings;
           atualizacaoSaida.IdTransportadora
         );
 
-        public static SaidaResponse ConverterParaResponse(Saida saida) =>
+        public static SaidaResponse ConverterParaResponse(this Saida saida) =>
         new
         (
             saida.Id,
