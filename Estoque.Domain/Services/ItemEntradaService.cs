@@ -13,11 +13,11 @@ public class ItemEntradaService : ServiceBase<ItemEntrada>, IItemEntradaService
         _itemEntradaRepository = itemEntradaRepository;
     }
 
-    public async Task<IEnumerable<ItemEntrada?>> ObterPorIdItemEntradasDeEntradaAsync(int id) =>
-    await _itemEntradaRepository.ObterPorIdItemEntradasDeEntradaAsync(id);
-
     public async Task<IEnumerable<ItemEntrada?>> ObterPorNfItemEntradasDeEntradaAsync(int NumeroNotaFiscal) =>
     await _itemEntradaRepository.ObterPorNfItemEntradasDeEntradaAsync(NumeroNotaFiscal);
+
+    public async Task<IEnumerable<ItemEntrada?>> ObterPorIdItemEntradasDeEntradaAsync(int id) =>
+    await _itemEntradaRepository.ObterPorIdItemEntradasDeEntradaAsync(id);
 
     public async Task<IEnumerable<ItemEntrada?>> ObterPorIdItemEntradasDeProdutoAsync(int id) =>
     await _itemEntradaRepository.ObterPorIdItemEntradasDeProdutoAsync(id);
