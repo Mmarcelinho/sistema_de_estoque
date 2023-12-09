@@ -12,4 +12,7 @@ namespace Estoque.Domain.Services;
         
         public async Task<IEnumerable<Entrada?>> ObterPorIdEntradasDeTransportadoraAsync(int id) =>
         await _entradaRepository.ObterPorIdEntradasDeTransportadoraAsync(id);
+
+        public async Task<IEnumerable<Entrada?>> ObterPorNomeEntradasDeTransportadoraAsync(string nome) =>
+        await _entradaRepository.ObterPorNomeEntradasDeTransportadoraAsync(nome);
     }

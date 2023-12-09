@@ -26,20 +26,20 @@ public class SaidaEndpoints : ICarterModule
         .Produces<SaidaResponse>(StatusCodes.Status404NotFound)
         .WithName(nameof(ObterPorIdSaidasDeTransportadora));
 
-        group.MapGet("/transportadora/saidas/{nome:alpha}", ObterPorIdSaidasDeTransportadora)
+        group.MapGet("/transportadora/saidas/{nome:alpha}", ObterPorNomeSaidasDeTransportadora)
         .Produces<SaidaResponse>(StatusCodes.Status200OK)
         .Produces<SaidaResponse>(StatusCodes.Status404NotFound)
-        .WithName(nameof(ObterPorIdSaidasDeTransportadora));
+        .WithName(nameof(ObterPorNomeSaidasDeTransportadora));
 
         group.MapGet("/transportadora/saidas/{id:int}", ObterPorIdSaidasDeLoja)
         .Produces<SaidaResponse>(StatusCodes.Status200OK)
         .Produces<SaidaResponse>(StatusCodes.Status404NotFound)
         .WithName(nameof(ObterPorIdSaidasDeTransportadora));
 
-        group.MapGet("/transportadora/saidas/{nome:alpha}", ObterPorIdSaidasDeLoja)
+        group.MapGet("/transportadora/saidas/{nome:alpha}", ObterPorNomeSaidasDeLoja)
         .Produces<SaidaResponse>(StatusCodes.Status200OK)
         .Produces<SaidaResponse>(StatusCodes.Status404NotFound)
-        .WithName(nameof(ObterPorIdSaidasDeTransportadora));
+        .WithName(nameof(ObterPorNomeSaidasDeTransportadora));
 
         group.MapPost("", InserirSaida)
         .Produces<SaidaResponse>(StatusCodes.Status201Created)

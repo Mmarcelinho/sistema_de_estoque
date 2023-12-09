@@ -22,9 +22,14 @@ public class EntradaEndpoints : ICarterModule
         .WithName(nameof(ObterEntradaPorId));
 
         group.MapGet("/transportadora/entradas/{id:int}", ObterPorIdEntradasDeTransportadora)
-         .Produces<EntradaResponse>(StatusCodes.Status200OK)
+        .Produces<EntradaResponse>(StatusCodes.Status200OK)
         .Produces<EntradaResponse>(StatusCodes.Status404NotFound)
         .WithName(nameof(ObterPorIdEntradasDeTransportadora));
+
+         group.MapGet("/transportadora/entradas/{nome:alpha}", ObterPorNomeEntradasDeTransportadora)
+         .Produces<EntradaResponse>(StatusCodes.Status200OK)
+        .Produces<EntradaResponse>(StatusCodes.Status404NotFound)
+        .WithName(nameof(ObterPorNomeEntradasDeTransportadora));
 
         group.MapPost("", InserirEntrada)
         .Produces<EntradaResponse>(StatusCodes.Status201Created)
@@ -70,6 +75,18 @@ public class EntradaEndpoints : ICarterModule
     IEntradaService _entradaService)
     {
         var entradas = await _entradaService.ObterPorIdEntradasDeTransportadoraAsync(id);
+
+         var entradasResponse = entradas.Select(entrada =>
+        entrada.ConverterParaResponse());
+
+        return Results.Ok(entradasResponse);
+    }
+
+     public static async Task<IResult> ObterPorNomeEntradasDeTransportadora(
+    string nome,
+    IEntradaService _entradaService)
+    {
+        var entradas = await _entradaService.ObterPorNomeEntradasDeTransportadoraAsync(nome);
 
          var entradasResponse = entradas.Select(entrada =>
         entrada.ConverterParaResponse());

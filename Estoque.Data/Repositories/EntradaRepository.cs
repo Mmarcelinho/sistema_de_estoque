@@ -28,4 +28,12 @@ public class EntradaRepository(DataContext dataContext) : RepositoryBase<Entrada
         .Where(e => e.IdTransportadora == id)
         .ToListAsync();
     }
+
+    public async Task<IEnumerable<Entrada?>> ObterPorNomeEntradasDeTransportadoraAsync(string nome)
+    {
+        return await Context.Entradas
+        .Include(e => e.Transportadora)
+        .Where(e => e.Transportadora.Nome == nome)
+        .ToListAsync();
+    }
 }
