@@ -17,7 +17,7 @@ public class CategoriaEndpoints : ICarterModule
         .WithName(nameof(ObterCategorias));
 
         group.MapGet("{id:int}", ObterCategoriaPorId)
-         .Produces<CategoriaResponse>(StatusCodes.Status200OK)
+        .Produces<CategoriaResponse>(StatusCodes.Status200OK)
         .Produces<CategoriaResponse>(StatusCodes.Status404NotFound)
         .WithName(nameof(ObterCategoriaPorId));
 
