@@ -39,6 +39,7 @@ public class DbInMemory
             {
                 CategoriaFakeData(id);
                 CidadeFakeData(id);
+                ProdutoFakeData(id);
             });
             _dataContext.SaveChanges();
         }
@@ -53,5 +54,10 @@ public class DbInMemory
     private void CidadeFakeData(int id)
     {
         _dataContext.Cidades.Add(new Cidade(id, $"Cidade{id}","BA"));
+    }
+
+    private void ProdutoFakeData(int id)
+    {
+        _dataContext.Produtos.Add(new Produto(id, $"Produto{id}", "Produto",2*id,true,id));
     }
 }

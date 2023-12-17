@@ -28,5 +28,14 @@ public class Produto : Entity
 
     public ICollection<ItemSaida> ItemSaidas { get; private set; } = null!;
 
+    public void AtualizarProduto(string nome, string descricao, double peso, bool controlado, int quantMinima)
+    {
+      Nome = nome;
+      Descricao = descricao;
+      Peso = peso;
+      Controlado = controlado;
+      QuantMinima = quantMinima;
+    }
+
 
 }

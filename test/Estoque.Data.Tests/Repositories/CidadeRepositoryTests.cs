@@ -39,7 +39,7 @@ public class CidadeRepositoryTests
     }
 
     [Fact]
-    public async Task ObterPorTituloAsync_Deve_Retornar_Registro_Com_O_Nome_Especificado()
+    public async Task ObterPorNomeAsync_Deve_Retornar_Registro_Com_O_Nome_Especificado()
     {
         var nome = "Cidade3";
         var cidade = await _cidadeRepository.ObterPorNomeAsync(nome);
