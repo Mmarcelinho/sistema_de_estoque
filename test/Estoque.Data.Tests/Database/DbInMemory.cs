@@ -38,6 +38,7 @@ public class DbInMemory
             ids.ToList().ForEach(id =>
             {
                 CategoriaFakeData(id);
+                CidadeFakeData(id);
             });
             _dataContext.SaveChanges();
         }
@@ -47,5 +48,10 @@ public class DbInMemory
     private void CategoriaFakeData(int id)
     {
         _dataContext.Categorias.Add(new Categoria(id, $"Categoria{id}"));
+    }
+
+    private void CidadeFakeData(int id)
+    {
+        _dataContext.Cidades.Add(new Cidade(id, $"Cidade{id}","BA"));
     }
 }

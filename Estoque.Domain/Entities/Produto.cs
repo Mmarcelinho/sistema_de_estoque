@@ -27,4 +27,6 @@ public class Produto : Entity
     public ICollection<ItemEntrada> ItemEntradas { get; private set; } = null!;
 
     public ICollection<ItemSaida> ItemSaidas { get; private set; } = null!;
+
+
 }

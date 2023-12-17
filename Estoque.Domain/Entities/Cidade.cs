@@ -21,4 +21,6 @@ public class Cidade : Entity
 
     public ICollection<Transportadora> Transportadoras { get; private set; } = null!;
 
+    public void AtualizarCidade(string nome, string uf) { Nome = nome; Uf = uf; }
+
 }

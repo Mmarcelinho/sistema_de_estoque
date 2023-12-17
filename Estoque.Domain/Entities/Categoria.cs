@@ -13,4 +13,6 @@ public class Categoria : Entity
     public string Titulo { get; private set; }
 
     public ICollection<Produto> Produtos { get; private set; } = null!;
+
+    public void AtualizarCategoria(string titulo) => Titulo = titulo;
 }

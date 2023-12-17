@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Estoque.Data\Estoque.Data.csproj" />
     <ProjectReference Include="..\..\Estoque.Domain\Estoque.Domain.csproj" />
+    <ProjectReference Include="..\..\Estoque.Application\Estoque.Application.csproj" />
   </ItemGroup>
 
 </Project>
