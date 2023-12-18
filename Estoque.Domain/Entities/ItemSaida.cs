@@ -27,4 +27,13 @@ public class ItemSaida : Entity
     public Saida Saida { get; private set; } = null!;
 
     public Produto Produto { get; private set; } = null!;
+
+     public void AtualizarItemSaida(string lote, int quantidade, decimal valor, int idSaida, int idProduto)
+    {
+      Lote = lote;
+      Quantidade = quantidade;
+      Valor = valor;
+      IdSaida =  idSaida;
+      IdProduto = idProduto; 
+    }
 }

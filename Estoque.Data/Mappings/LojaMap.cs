@@ -43,7 +43,7 @@ namespace Estoque.Data.Mappings;
             builder.HasOne(x => x.Cidade)
             .WithMany(x => x.Lojas)
            .HasForeignKey(x => x.IdCidade)
-           .OnDelete(DeleteBehavior.NoAction);
+           .OnDelete(DeleteBehavior.Cascade);
 
 
         }

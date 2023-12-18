@@ -27,4 +27,13 @@ public class ItemEntrada : Entity
     public Entrada Entrada { get; private set; } = null!;
 
     public Produto Produto { get; private set; } = null!;
+
+     public void AtualizarItemEntrada(string lote, int quantidade, decimal valor, int idEntrada, int idProduto)
+    {
+     Lote = lote;
+     Quantidade = quantidade;
+     Valor = valor;
+     IdEntrada = idEntrada;
+     IdProduto = idProduto;
+    }
 }

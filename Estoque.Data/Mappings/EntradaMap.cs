@@ -39,7 +39,7 @@ namespace Estoque.Data.Mappings;
          builder.HasOne(x => x.Transportadora)
          .WithMany(x => x.Entradas)
             .HasForeignKey(x => x.IdTransportadora)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
 
         
     }

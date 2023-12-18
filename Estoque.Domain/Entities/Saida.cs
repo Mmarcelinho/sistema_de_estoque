@@ -29,4 +29,13 @@ public class Saida : Entity
     public Transportadora Transportadora { get; private set; } = null!;
 
     public ICollection<ItemSaida> ItemSaidas { get; private set; } = null!;
+
+    public void AtualizarSaida(double total, double frete, double imposto, int idLoja, int idTransportadora)
+    {
+     Total = total;
+     Frete = frete;
+     Imposto = imposto;
+     IdLoja = idLoja;
+     IdTransportadora = idTransportadora;
+    }
 }

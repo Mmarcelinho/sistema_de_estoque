@@ -44,4 +44,18 @@ public class Transportadora : Entity
     public ICollection<Entrada> Entradas { get; private set; } = null!;
 
     public ICollection<Saida> Saidas { get; private set; } = null!;
+
+     public void AtualizarTransportadora(string nome, string endereco, int numero, string bairro, string cep, string cnpj, string inscricao, string contato, string telefone, int idCidade)
+    {
+     Nome = nome;
+     Endereco = endereco;
+     Numero = numero;
+     Bairro = bairro;
+     Cep = cep;
+     Cnpj = cnpj;
+     Inscricao = inscricao;
+     Contato = contato;
+     Telefone = telefone;
+     IdCidade = idCidade;
+    }
 }

@@ -36,4 +36,17 @@ public class Loja : Entity
     public Cidade Cidade { get; private set; } = null!;
 
     public ICollection<Saida> Saidas { get; private set; } = null!;
+
+     public void AtualizarLoja(string nome, string endereco, int numero, string bairro, string telefone, string inscricao, string cnpj, int idCidade)
+    {
+     Nome = nome;
+     Endereco = endereco;
+     Numero = numero;
+     Bairro = bairro;
+     Telefone = telefone;
+     Inscricao = inscricao;
+     Cnpj = cnpj;
+     IdCidade = idCidade;
+    }
+    
 }

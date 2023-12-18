@@ -28,13 +28,13 @@ namespace Estoque.Data.Mappings;
             builder.HasOne(x => x.Entrada)
             .WithMany(x => x.ItemEntradas)
                .HasForeignKey(x => x.IdEntrada)
-               .OnDelete(DeleteBehavior.NoAction);
+               .OnDelete(DeleteBehavior.Cascade);
 
 
             builder.HasOne(x => x.Produto)
             .WithMany(x => x.ItemEntradas)
                .HasForeignKey(x => x.IdProduto)
-               .OnDelete(DeleteBehavior.NoAction);
+               .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

@@ -39,7 +39,7 @@ public class TransportadoraMap : IEntityTypeConfiguration<Transportadora>
         builder.HasOne(x => x.Cidade)
        .WithMany(x => x.Transportadoras)
        .HasForeignKey(x => x.IdCidade)
-       .OnDelete(DeleteBehavior.NoAction);
+       .OnDelete(DeleteBehavior.Cascade);
     }
 
 }

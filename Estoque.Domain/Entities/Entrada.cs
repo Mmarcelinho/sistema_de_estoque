@@ -34,4 +34,15 @@ public class Entrada : Entity
 
     public ICollection<ItemEntrada> ItemEntradas { get; private set; } = null!;
 
+    public void AtualizarEntrada(decimal total, decimal frete, int numeroNotaFiscal, decimal imposto, int idTransportadora)
+    {
+        DataPedido = DateTime.Now;
+        DataEntrada = DateTime.Now;
+        Total = total;
+        Frete = frete;
+        NumeroNotaFiscal = numeroNotaFiscal;
+        Imposto = imposto;
+        IdTransportadora = idTransportadora;
+    }
+
 }

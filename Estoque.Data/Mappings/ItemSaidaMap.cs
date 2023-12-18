@@ -28,13 +28,13 @@ public class ItemSaidaMap : IEntityTypeConfiguration<ItemSaida>
         builder.HasOne(x => x.Saida)
         .WithMany(x => x.ItemSaidas)
            .HasForeignKey(x => x.IdSaida)
-           .OnDelete(DeleteBehavior.NoAction);
+           .OnDelete(DeleteBehavior.Cascade);
 
 
         builder.HasOne(x => x.Produto)
         .WithMany(x => x.ItemSaidas)
            .HasForeignKey(x => x.IdProduto)
-           .OnDelete(DeleteBehavior.NoAction);
+           .OnDelete(DeleteBehavior.Cascade);
 
 
     }

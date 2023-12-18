@@ -27,12 +27,12 @@ public class SaidaMap : IEntityTypeConfiguration<Saida>
         builder.HasOne(x => x.Loja)
        .WithMany(x => x.Saidas)
        .HasForeignKey(x => x.IdLoja)
-       .OnDelete(DeleteBehavior.NoAction);
+       .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(x => x.Transportadora)
         .WithMany(x => x.Saidas)
        .HasForeignKey(x => x.IdTransportadora)
-       .OnDelete(DeleteBehavior.NoAction);
+       .OnDelete(DeleteBehavior.Cascade);
 
     }
 

@@ -4,21 +4,22 @@ namespace Estoque.Domain.Entities;
 
 public class Fornecedor : Entity
 {
-    public Fornecedor(){
+    public Fornecedor()
+    {
 
     }
     public Fornecedor(int id, string nome, string endereco, int numero, string bairro, string cep, string contato, string cnpj, string inscricao, int idCidade)
     {
-     Id = id;
-     Nome = nome;
-     Endereco = endereco;
-     Numero = numero;
-     Bairro = bairro;
-     Cep = cep;
-     Contato = contato;
-     Cnpj = cnpj;
-     Inscricao = inscricao;
-     IdCidade = idCidade;
+        Id = id;
+        Nome = nome;
+        Endereco = endereco;
+        Numero = numero;
+        Bairro = bairro;
+        Cep = cep;
+        Contato = contato;
+        Cnpj = cnpj;
+        Inscricao = inscricao;
+        IdCidade = idCidade;
     }
 
     public string Nome { get; private set; }
@@ -44,5 +45,18 @@ public class Fornecedor : Entity
     public ICollection<Entrada> Entradas { get; private set; } = null!;
 
     public ICollection<Produto> Produtos { get; private set; } = null!;
+
+    public void AtualizarFornecedor(string nome, string endereco, int numero, string bairro, string cep, string contato, string cnpj, string inscricao, int idCidade)
+    {
+        Nome = nome;
+        Endereco = endereco;
+        Numero = numero;
+        Bairro = bairro;
+        Cep = cep;
+        Contato = contato;
+        Cnpj = cnpj;
+        Inscricao = inscricao;
+        IdCidade = idCidade;
+    }
 
 }
