@@ -39,13 +39,20 @@ public class EntradaRepositoryTests
     }
 
     [Fact]
-    public async Task ObterPorIdAsync_Deve_Retornar_Todos_Os_Registros_Com_O_IdEstrangeiro_Especificado()
+    public async Task ObterPorIdAsync_Deve_Retornar_Todas_As_Entradas_De_Transportadora_Com_O_Id_Especificado()
     {
         var id = 3;
         var entradas = await _entradaRepository.ObterPorIdEntradasDeTransportadoraAsync(id);
         entradas.Should().HaveCount(1);
     }
 
+    [Fact]
+    public async Task ObterPorNomeAsync_Deve_Retornar_Todas_As_Entradas_De_Transportadora_Com_O_Nome_Especificado()
+    {
+        var nome = "Transportadora3";
+        var entradas = await _entradaRepository.ObterPorNomeEntradasDeTransportadoraAsync(nome);
+        entradas.Should().HaveCount(1);
+    }
 
     [Fact]
     public async Task AdicionarAsync_Deve_Adicionar_Produto_E_Retornar_Id()

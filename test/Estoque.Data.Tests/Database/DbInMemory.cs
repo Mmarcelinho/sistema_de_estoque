@@ -72,7 +72,7 @@ public class DbInMemory
 
     private void EntradaFakeData(int id)
     {
-        _dataContext.Entradas.Add(new Entrada(id, 100 * id, 10 * id, 1234, 2 * id, id));
+        _dataContext.Entradas.Add(new Entrada(id, 100 * id, 10 * id, 1230+id, 2 * id, id));
     }
 
     private void FornecedorFakeData(int id)

@@ -39,13 +39,20 @@ public class FornecedorRepositoryTests
     }
 
     [Fact]
-    public async Task ObterPorIdAsync_Deve_Retornar_Todos_Os_Registros_Com_O_IdEstrangeiro_Especificado()
+    public async Task ObterPorIdAsync_Deve_Retornar_Todos_Os_Fornecedores_De_Cidade_Por_Id_Especificado()
     {
         var id = 3;
         var fornecedores = await _fornecedorRepository.ObterPorIdFornecedoresDeCidadeAsync(id);
         fornecedores.Should().HaveCount(1);
     }
 
+    [Fact]
+    public async Task ObterPorIdAsync_Deve_Retornar_Todos_Os_Fornecedores_De_Cidade_Por_Nome_Especificado()
+    {
+        var nome = "Cidade3";
+        var fornecedores = await _fornecedorRepository.ObterPorNomeFornecedoresDeCidadeAsync(nome);
+        fornecedores.Should().HaveCount(1);
+    }
 
     [Fact]
     public async Task AdicionarAsync_Deve_Adicionar_Produto_E_Retornar_Id()
