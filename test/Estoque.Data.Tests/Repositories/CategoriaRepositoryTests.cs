@@ -48,7 +48,7 @@ public class CategoriaRepositoryTests
     }
 
     [Fact]
-    public async Task AdicionarAsync_Deve_Adicionar_Produto_E_Retornar_Id()
+    public async Task AdicionarAsync_Deve_Adicionar_Categoria_E_Retornar_Id()
     {
         var categoria = new Categoria(5, "Categoria5");
         var id = await _categoriaRepository.AdicionarAsync(categoria);

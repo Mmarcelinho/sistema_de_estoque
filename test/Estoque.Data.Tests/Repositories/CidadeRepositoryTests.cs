@@ -47,7 +47,7 @@ public class CidadeRepositoryTests
     }
 
     [Fact]
-    public async Task AdicionarAsync_Deve_Adicionar_Produto_E_Retornar_Id()
+    public async Task AdicionarAsync_Deve_Adicionar_Cidade_E_Retornar_Id()
     {
         var cidade = new Cidade(5, "Cidade5", "RJ");
         var id = await _cidadeRepository.AdicionarAsync(cidade);

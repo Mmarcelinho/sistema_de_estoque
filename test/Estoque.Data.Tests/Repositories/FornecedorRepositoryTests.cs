@@ -55,7 +55,7 @@ public class FornecedorRepositoryTests
     }
 
     [Fact]
-    public async Task AdicionarAsync_Deve_Adicionar_Produto_E_Retornar_Id()
+    public async Task AdicionarAsync_Deve_Adicionar_Fornecedor_E_Retornar_Id()
     {
         var fornecedor = new Fornecedor(5, "Fornecedor5", "Endereco5", 5, "Bairro5", "12345", "12345678", "12345", "12345", 4);
         var id = await _fornecedorRepository.AdicionarAsync(fornecedor);

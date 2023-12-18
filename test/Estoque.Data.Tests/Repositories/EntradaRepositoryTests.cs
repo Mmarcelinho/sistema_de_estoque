@@ -55,7 +55,7 @@ public class EntradaRepositoryTests
     }
 
     [Fact]
-    public async Task AdicionarAsync_Deve_Adicionar_Produto_E_Retornar_Id()
+    public async Task AdicionarAsync_Deve_Adicionar_Entrada_E_Retornar_Id()
     {
         var entrada = new Entrada(5, 500, 50, 1234, 10, 4);
         var id = await _entradaRepository.AdicionarAsync(entrada);
