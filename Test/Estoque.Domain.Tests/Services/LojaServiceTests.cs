@@ -37,8 +37,8 @@ public class LojaServiceTests
             _loja
         });
 
-        var lojaes = await _lojaService.ObterTodosAsync();
-        lojaes.Should().HaveCount(3);
+        var lojas = await _lojaService.ObterTodosAsync();
+        lojas.Should().HaveCount(3);
     }
 
     [Fact]
@@ -62,8 +62,8 @@ public class LojaServiceTests
             _loja
         });
 
-        var lojaes = await _lojaService.ObterPorIdLojasDeCidadeAsync(id);
-        foreach (var loja in lojaes)
+        var lojas = await _lojaService.ObterPorIdLojasDeCidadeAsync(id);
+        foreach (var loja in lojas)
         {
             loja.IdCidade.Should().Be(id);
         }
