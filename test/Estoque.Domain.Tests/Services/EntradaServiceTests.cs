@@ -18,8 +18,6 @@ public class EntradaServiceTests
 
     private readonly Entrada _entrada;
 
-    private readonly Transportadora _transportadora;
-
     public EntradaServiceTests()
     {
         _entrada = new Entrada(1, 100, 10, 12345, 5, 1);
