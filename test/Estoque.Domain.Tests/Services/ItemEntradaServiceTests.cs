@@ -53,7 +53,7 @@ public class ItemEntradaServiceTests
 
 
     [Fact]
-    public async Task ObterPorIdAsync_Deve_Retornar_Todas_Os_ItemEntradas_De_Entrada_Com_O_Id_Especificado()
+    public async Task ObterPorIdAsync_Deve_Retornar_Todos_Os_ItemEntradas_De_Entrada_Com_O_Id_Especificado()
     {
         var id = 1;
         _itemEntradaRepository.ObterPorIdItemEntradasDeEntradaAsync(id)
@@ -71,7 +71,7 @@ public class ItemEntradaServiceTests
     }
 
     [Fact]
-    public async Task ObterPorIdAsync_Deve_Retornar_Todas_Os_ItemEntradas_De_Produto_Com_O_Id_Especificado()
+    public async Task ObterPorIdAsync_Deve_Retornar_Todos_Os_ItemEntradas_De_Produto_Com_O_Id_Especificado()
     {
         var id = 1;
         _itemEntradaRepository.ObterPorIdItemEntradasDeProdutoAsync(id)
