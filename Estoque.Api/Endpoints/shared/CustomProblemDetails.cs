@@ -4,36 +4,37 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Estoque.Api.Endpoints.shared;
 
-    public class CustomProblemDetails : ProblemDetails
+public class CustomProblemDetails : ProblemDetails
+{
+    public List<string> Errors { get; private set; }
+
+    public CustomProblemDetails(HttpStatusCode status, string? detail = null, IEnumerable<string>? errors = null) : this()
     {
-        public List<string> Errors { get; private set; }
-
-        public CustomProblemDetails(HttpStatusCode status, string? detail = null, IEnumerable<string>? errors = null) : this()
+        Title = status switch
         {
-            Title = status switch
-            {
-                HttpStatusCode.BadRequest => "Ocorreram um ou mais erros de validação.",
-                HttpStatusCode.InternalServerError => "Erro interno do servidor.",
-                _ => "Ocorreu um erro."
-            };
+            HttpStatusCode.BadRequest => "One or more validation errors occurred.",
+            HttpStatusCode.InternalServerError => "Internal server error.",
+            _ => "An error has occurred."
+        };
 
-            Status = (int)status;
-            Detail = detail;
-            
-            if(errors is not null)
-            {
-                if(errors.Count() == 1)
-                detail = errors.First();
-                else if (errors.Count() > 1)
-                Detail = "Ocorreram vários problemas.";
+        Status = (int)status;
+        Detail = detail;
 
-                Errors.AddRange(errors);
-            }
+        if (errors is not null)
+        {
+            if (errors.Count() == 1)
+                Detail = errors.First();
+            else if (errors.Count() > 1)
+                Detail = "Multiple problems have occurred.";
+
+            Errors.AddRange(errors);
         }
-
-        public CustomProblemDetails(HttpsStatusCode status, HttpRequest request, string? detail = null, IEnumerable<string>? errors = null) : this(status, detail, errors) =>
-        InsufficientExecutionStackException = request.Path;
-
-        private CustomProblemDetails() => 
-        Errors = new List<string>();
     }
+
+    public CustomProblemDetails(HttpStatusCode status, HttpRequest request, string? detail = null, IEnumerable<string>? errors = null) : this(status, detail, errors) =>
+        Instance = request.Path;
+
+    private CustomProblemDetails() =>
+        Errors = new List<string>();
+}
+

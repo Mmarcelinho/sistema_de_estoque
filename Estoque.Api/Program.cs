@@ -1,8 +1,11 @@
 using Carter;
+using Hellang.Middleware.ProblemDetails;
+using Estoque.Api.Extensions;
 using Estoque.Api.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddApiProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
@@ -17,6 +20,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseProblemDetails();
 app.MapControllers();
 app.MapCarter();
 app.UseHttpsRedirection();

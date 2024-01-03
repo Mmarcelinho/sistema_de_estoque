@@ -1,13 +1,13 @@
 using Hellang.Middleware.ProblemDetails;
 using Hellang.Middleware.ProblemDetails.Mvc;
+using ProblemDetailsOptions = Hellang.Middleware.ProblemDetails.ProblemDetailsOptions;
 
 namespace Estoque.Api.Extensions;
-
 public static class ProblemDetailsSetup
 {
     public static void AddApiProblemDetails(this IServiceCollection services)
     {
-        services.AddApiProblemDetails(options =>
+        services.AddProblemDetails(options =>
         {
             options.IncludeExceptionDetails = (ctx, ex) =>
             {
@@ -22,7 +22,7 @@ public static class ProblemDetailsSetup
             options.MapToStatusCode<HttpRequestException>(StatusCodes.Status503ServiceUnavailable);
             options.MapToStatusCode<Exception>(StatusCodes.Status500InternalServerError);
         })
-        .AddApiProblemDetailsConventions();
+        .AddProblemDetailsConventions();
     }
 
     public static void MapExceptionToStatusCodeWithMessage<TException>(this ProblemDetailsOptions options, int statusCode) where TException : Exception
