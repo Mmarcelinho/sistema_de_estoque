@@ -9,6 +9,7 @@ builder.Services.AddApiProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthentication(builder.Configuration);
 builder.Services.RegisterServices(builder.Configuration);
 builder.Services.AddCarter();
 
@@ -24,6 +25,8 @@ app.UseProblemDetails();
 app.MapControllers();
 app.MapCarter();
 app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();
 
