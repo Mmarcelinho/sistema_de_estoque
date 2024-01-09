@@ -4,6 +4,10 @@ using Estoque.Data.Repositories;
 using Estoque.Domain.Interfaces.Repositories;
 using Estoque.Domain.Interfaces.Service;
 using Estoque.Domain.Services;
+using Microsoft.AspNetCore.Identity;
+using Estoque.Identity.Data;
+using Estoque.Identity.Services;
+using Estoque.Application.Interfaces.Services;
 
 namespace Estoque.Api.IoC;
 
@@ -12,6 +16,15 @@ public static class NativeInjectorConfig
     public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<DataContext>(options => options.UseSqlServer(configuration.GetConnectionString("ApiEstoque")));
+
+        services.AddDbContext<IdentityDataContext>(options => options.UseSqlServer(configuration.GetConnectionString("ApiEstoque")));
+
+        services.AddDefaultIdentity<IdentityUser>()
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<IdentityDataContext>()
+            .AddDefaultTokenProviders();
+
+        services.AddScoped<IIdentityService, IdentityService>();
 
         services.AddScoped<ICategoriaRepository, CategoriaRepository>();
         services.AddScoped<ICategoriaService, CategoriaService>();

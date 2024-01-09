@@ -5,10 +5,10 @@ using Estoque.Api.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddApiProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddApiProblemDetails();
 builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwagger();
 builder.Services.AddAuthentication(builder.Configuration);
 builder.Services.RegisterServices(builder.Configuration);
 builder.Services.AddCarter();

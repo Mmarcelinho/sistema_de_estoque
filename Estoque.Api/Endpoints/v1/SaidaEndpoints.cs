@@ -9,7 +9,7 @@ public class SaidaEndpoints : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("api/entradas");
+        var group = app.MapGroup("api/saidas");
 
         group.MapGet("", ObterSaidas)
         .Produces<SaidaResponse>(StatusCodes.Status200OK)
@@ -31,15 +31,15 @@ public class SaidaEndpoints : ICarterModule
         .Produces<SaidaResponse>(StatusCodes.Status404NotFound)
         .WithName(nameof(ObterPorNomeSaidasDeTransportadora));
 
-        group.MapGet("/transportadora/saidas/{id:int}", ObterPorIdSaidasDeLoja)
+        group.MapGet("/loja/saidas/{id:int}", ObterPorIdSaidasDeLoja)
         .Produces<SaidaResponse>(StatusCodes.Status200OK)
         .Produces<SaidaResponse>(StatusCodes.Status404NotFound)
-        .WithName(nameof(ObterPorIdSaidasDeTransportadora));
+        .WithName(nameof(ObterPorIdSaidasDeLoja));
 
-        group.MapGet("/transportadora/saidas/{nome:alpha}", ObterPorNomeSaidasDeLoja)
+        group.MapGet("/loja/saidas/{nome:alpha}", ObterPorNomeSaidasDeLoja)
         .Produces<SaidaResponse>(StatusCodes.Status200OK)
         .Produces<SaidaResponse>(StatusCodes.Status404NotFound)
-        .WithName(nameof(ObterPorNomeSaidasDeTransportadora));
+        .WithName(nameof(ObterPorNomeSaidasDeLoja));
 
         group.MapPost("", InserirSaida)
         .Produces<SaidaResponse>(StatusCodes.Status201Created)
