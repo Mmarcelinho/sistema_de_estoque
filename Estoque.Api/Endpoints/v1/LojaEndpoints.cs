@@ -92,8 +92,10 @@ public class LojaEndpoints : ICarterModule
     {
         var lojas = await _LojaService.ObterPorIdLojasDeCidadeAsync(id);
 
+#pragma warning disable CS8604 // Possível argumento de referência nula.
          var lojasResponse = lojas.Select(loja => 
          loja.ConverterParaResponse());
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(lojasResponse);
     }

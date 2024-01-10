@@ -73,8 +73,10 @@ public class FornecedorEndpoints : ICarterModule
     {
         var fornecedores = await _fornecedorService.ObterPorIdFornecedoresDeCidadeAsync(id);
 
+#pragma warning disable CS8604 // Possível argumento de referência nula.
          var fornecedoresResponse = fornecedores.Select(fornecedor => 
          fornecedor.ConverterParaResponse());
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(fornecedoresResponse);
     }

@@ -86,8 +86,10 @@ public class SaidaEndpoints : ICarterModule
     {
         var saidas = await _saidaService.ObterPorIdSaidasDeTransportadoraAsync(id);
 
+#pragma warning disable CS8604 // Possível argumento de referência nula.
         var saidasResponse = saidas.Select(saida =>
        saida.ConverterParaResponse());
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(saidasResponse);
     }
@@ -98,8 +100,10 @@ public class SaidaEndpoints : ICarterModule
     {
         var saidas = await _saidaService.ObterPorNomeSaidasDeTransportadoraAsync(nome);
 
+#pragma warning disable CS8604 // Possível argumento de referência nula.
         var saidasResponse = saidas.Select(saida =>
        saida.ConverterParaResponse());
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(saidasResponse);
     }
@@ -110,8 +114,10 @@ public class SaidaEndpoints : ICarterModule
     {
         var saidas = await _saidaService.ObterPorIdSaidasDeLojaAsync(id);
 
+#pragma warning disable CS8604 // Possível argumento de referência nula.
         var saidasResponse = saidas.Select(saida =>
        saida.ConverterParaResponse());
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(saidasResponse);
     }
@@ -122,8 +128,10 @@ public class SaidaEndpoints : ICarterModule
     {
         var saidas = await _saidaService.ObterPorNomeSaidasDeLojaAsync(nome);
 
+#pragma warning disable CS8604 // Possível argumento de referência nula.
         var saidasResponse = saidas.Select(saida =>
        saida.ConverterParaResponse());
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(saidasResponse);
     }

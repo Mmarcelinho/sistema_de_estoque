@@ -98,8 +98,10 @@ public class ItemEntradaEndpoints : ICarterModule
     {
         var itemEntradas = await _itemEntradaService.ObterPorIdItemEntradasDeEntradaAsync(id);
 
+#pragma warning disable CS8604 // Possível argumento de referência nula.
          var itemEntradasResponse = itemEntradas.Select(itemEntrada => 
          itemEntrada.ConverterParaResponse());
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(itemEntradasResponse);
     }
@@ -110,8 +112,10 @@ public class ItemEntradaEndpoints : ICarterModule
     {
         var itemEntradas = await _itemEntradaService.ObterPorIdItemEntradasDeProdutoAsync(id);
 
+#pragma warning disable CS8604 // Possível argumento de referência nula.
          var itemEntradasResponse = itemEntradas.Select(itemEntrada => 
          itemEntrada.ConverterParaResponse());
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(itemEntradasResponse);
     }

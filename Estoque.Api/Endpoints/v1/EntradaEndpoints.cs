@@ -76,8 +76,10 @@ public class EntradaEndpoints : ICarterModule
     {
         var entradas = await _entradaService.ObterPorIdEntradasDeTransportadoraAsync(id);
 
+#pragma warning disable CS8604 // Possível argumento de referência nula.
          var entradasResponse = entradas.Select(entrada =>
         entrada.ConverterParaResponse());
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(entradasResponse);
     }
@@ -88,8 +90,10 @@ public class EntradaEndpoints : ICarterModule
     {
         var entradas = await _entradaService.ObterPorNomeEntradasDeTransportadoraAsync(nome);
 
+#pragma warning disable CS8604 // Possível argumento de referência nula.
          var entradasResponse = entradas.Select(entrada =>
         entrada.ConverterParaResponse());
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(entradasResponse);
     }

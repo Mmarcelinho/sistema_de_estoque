@@ -22,11 +22,13 @@ namespace Estoque.Api.Attributes;
         {
             var user = context.HttpContext.User as ClaimsPrincipal;
 
+#pragma warning disable CS8602 // Desreferência de uma referência possivelmente nula.
             if(user == null || !user.Identity.IsAuthenticated)
             {
                context.Result = new UnauthorizedResult();
                return; 
             }
+#pragma warning restore CS8602 // Desreferência de uma referência possivelmente nula.
 
             if(!user.HasClaim(_claim.Type, _claim.Value))
             context.Result = new ForbidResult();

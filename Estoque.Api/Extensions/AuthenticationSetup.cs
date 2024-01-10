@@ -14,12 +14,18 @@ namespace Estoque.Api.Extensions;
         public static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtAppSettingOptions = configuration.GetSection(nameof(JwtOptions));
+#pragma warning disable CS8604 // Possível argumento de referência nula.
             var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration.GetSection("JwtOptions:SecurityKey").Value));
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
              services.Configure<JwtOptions>(options =>
             {
+#pragma warning disable CS8601 // Possível atribuição de referência nula.
                 options.Issuer = jwtAppSettingOptions[nameof(JwtOptions.Issuer)];
+#pragma warning restore CS8601 // Possível atribuição de referência nula.
+#pragma warning disable CS8601 // Possível atribuição de referência nula.
                 options.Audience = jwtAppSettingOptions[nameof(JwtOptions.Audience)];
+#pragma warning restore CS8601 // Possível atribuição de referência nula.
                 options.SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512);
                 options.AccessTokenExpiration = int.Parse(jwtAppSettingOptions[nameof(JwtOptions.AccessTokenExpiration)] ?? "0");
                 options.RefreshTokenExpiration = int.Parse(jwtAppSettingOptions[nameof(JwtOptions.RefreshTokenExpiration)] ?? "0");
