@@ -2,6 +2,7 @@ using Carter;
 using Estoque.Domain.Interfaces.Service;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
+using MiniValidation;
 
 namespace Estoque.Api.Endpoints.v1;
 
@@ -73,10 +74,8 @@ public class FornecedorEndpoints : ICarterModule
     {
         var fornecedores = await _fornecedorService.ObterPorIdFornecedoresDeCidadeAsync(id);
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
          var fornecedoresResponse = fornecedores.Select(fornecedor => 
          fornecedor.ConverterParaResponse());
-#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(fornecedoresResponse);
     }
@@ -85,6 +84,9 @@ public class FornecedorEndpoints : ICarterModule
     InsercaoFornecedorRequest insercaoFornecedor,
     IFornecedorService _fornecedorService)
     {
+        if (!MiniValidator.TryValidate(insercaoFornecedor, out var errors))
+            return Results.ValidationProblem(errors);
+
         var fornecedor = FornecedorMap.ConverterParaEntidade(insercaoFornecedor);
 
         var id = (int)await _fornecedorService.AdicionarAsync(fornecedor);
@@ -92,11 +94,13 @@ public class FornecedorEndpoints : ICarterModule
         return Results.CreatedAtRoute(nameof(ObterFornecedorPorId), new { id = id }, id);
     }
 
-
     public static async Task<IResult> AtualizarFornecedor(
     AtualizacaoFornecedorRequest atualizacaoFornecedor,
     IFornecedorService _fornecedorService)
     {
+        if (!MiniValidator.TryValidate(atualizacaoFornecedor, out var errors))
+            return Results.ValidationProblem(errors);
+
         var fornecedor = FornecedorMap.ConverterParaEntidade(atualizacaoFornecedor);
 
         await _fornecedorService.AtualizarAsync(fornecedor);
