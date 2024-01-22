@@ -1,28 +1,46 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Estoque.Application.DTOs.Entities;
 
     public record InsercaoLojaRequest
     (
         int Id,
+        [Required]
         string Nome,
+        [Required]
         string Endereco,
+        [Required]
         int Numero,
+        [Required]
         string Bairro,
+        [Required]
         string Telefone,
+        [Required]
         string Inscricao,
+        [Required]
         string Cnpj,
+        [Required]
         int IdCidade
     );
 
     public record AtualizacaoLojaRequest
     (
         int Id,
+        [Required]
         string Nome,
+        [Required]
         string Endereco,
+        [Required]
         int Numero,
+        [Required]
         string Bairro,
+        [Required]
         string Telefone,
+        [Required]
         string Inscricao,
+        [Required]
         string Cnpj,
+        [Required]
         int IdCidade
     );
 

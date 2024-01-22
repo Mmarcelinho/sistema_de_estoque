@@ -2,6 +2,7 @@ using Carter;
 using Estoque.Domain.Interfaces.Service;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
+using MiniValidation;
 
 namespace Estoque.Api.Endpoints.v1;
 
@@ -92,10 +93,8 @@ public class LojaEndpoints : ICarterModule
     {
         var lojas = await _LojaService.ObterPorIdLojasDeCidadeAsync(id);
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
          var lojasResponse = lojas.Select(loja => 
          loja.ConverterParaResponse());
-#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(lojasResponse);
     }
@@ -104,6 +103,9 @@ public class LojaEndpoints : ICarterModule
     InsercaoLojaRequest insercaoLoja,
     ILojaService _lojaService)
     {
+        if (!MiniValidator.TryValidate(insercaoLoja, out var errors))
+            return Results.ValidationProblem(errors);
+
         var loja = LojaMap.ConverterParaEntidade(insercaoLoja);
 
         var id = (int)await _lojaService.AdicionarAsync(loja);
@@ -116,6 +118,9 @@ public class LojaEndpoints : ICarterModule
     AtualizacaoLojaRequest atualizacaoLoja,
     ILojaService _lojaService)
     {
+        if (!MiniValidator.TryValidate(atualizacaoLoja, out var errors))
+            return Results.ValidationProblem(errors);
+
         var loja = LojaMap.ConverterParaEntidade(atualizacaoLoja);
 
         await _lojaService.AtualizarAsync(loja);
