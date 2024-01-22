@@ -2,6 +2,9 @@ using Carter;
 using Estoque.Domain.Interfaces.Service;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
+using Estoque.Api.Attributes;
+using Estoque.Identity.Constants;
+using MiniValidation;
 
 namespace Estoque.Api.Endpoints.v1;
 
@@ -85,6 +88,9 @@ public class CategoriaEndpoints : ICarterModule
     InsercaoCategoriaRequest insercaoCategoria,
     ICategoriaService _categoriaService)
     {
+        if (!MiniValidator.TryValidate(insercaoCategoria, out var errors))
+            return Results.ValidationProblem(errors);
+
         var categoria = CategoriaMap.ConverterParaEntidade(insercaoCategoria);
 
         var id = (int)await _categoriaService.AdicionarAsync(categoria);
@@ -97,6 +103,9 @@ public class CategoriaEndpoints : ICarterModule
     AtualizacaoCategoriaRequest atualizacaoCategoria,
     ICategoriaService _categoriaService)
     {
+        if (!MiniValidator.TryValidate(atualizacaoCategoria, out var errors))
+            return Results.ValidationProblem(errors);
+
         var categoria = CategoriaMap.ConverterParaEntidade(atualizacaoCategoria);
 
         await _categoriaService.AtualizarAsync(categoria);

@@ -30,9 +30,6 @@ public class UsuarioEndpoints : ICarterModule
 
     public static async Task<IResult> Cadastrar(IIdentityService _identityService, UsuarioCadastroRequest usuarioCadastro, HttpContext context)
     {
-        if (usuarioCadastro is null)
-            return Results.BadRequest();
-
         var resultado = await _identityService.CadastrarUsuario(usuarioCadastro);
         if (resultado.Sucesso)
             return Results.Ok(resultado);
@@ -47,9 +44,6 @@ public class UsuarioEndpoints : ICarterModule
 
     public static async Task<IResult> Login(IIdentityService _identityService, UsuarioLoginRequest usuarioLogin)
     {
-        if(usuarioLogin is null)
-        return Results.BadRequest();
-
         var resultado = await _identityService.Login(usuarioLogin);
         if(resultado.Sucesso)
         return Results.Ok(resultado);
