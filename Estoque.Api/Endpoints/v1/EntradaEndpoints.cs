@@ -2,6 +2,7 @@ using Carter;
 using Estoque.Domain.Interfaces.Service;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
+using MiniValidation;
 
 namespace Estoque.Api.Endpoints.v1;
 
@@ -76,10 +77,8 @@ public class EntradaEndpoints : ICarterModule
     {
         var entradas = await _entradaService.ObterPorIdEntradasDeTransportadoraAsync(id);
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
-         var entradasResponse = entradas.Select(entrada =>
+        var entradasResponse = entradas.Select(entrada =>
         entrada.ConverterParaResponse());
-#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(entradasResponse);
     }
@@ -90,10 +89,8 @@ public class EntradaEndpoints : ICarterModule
     {
         var entradas = await _entradaService.ObterPorNomeEntradasDeTransportadoraAsync(nome);
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
          var entradasResponse = entradas.Select(entrada =>
         entrada.ConverterParaResponse());
-#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(entradasResponse);
     }
@@ -102,6 +99,9 @@ public class EntradaEndpoints : ICarterModule
     InsercaoEntradaRequest insercaoEntrada,
     IEntradaService _entradaService)
     {
+        if (!MiniValidator.TryValidate(insercaoEntrada, out var errors))
+            return Results.ValidationProblem(errors);
+
         var entrada = EntradaMap.ConverterParaEntidade(insercaoEntrada);
 
         var id = (int)await _entradaService.AdicionarAsync(entrada);
@@ -114,6 +114,9 @@ public class EntradaEndpoints : ICarterModule
     AtualizacaoEntradaRequest atualizacaoEntrada,
     IEntradaService _entradaService)
     {
+        if (!MiniValidator.TryValidate(atualizacaoEntrada, out var errors))
+            return Results.ValidationProblem(errors);
+
         var entrada = EntradaMap.ConverterParaEntidade(atualizacaoEntrada);
 
         await _entradaService.AtualizarAsync(entrada);
