@@ -2,6 +2,7 @@ using Carter;
 using Estoque.Domain.Interfaces.Service;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
+using MiniValidation;
 
 namespace Estoque.Api.Endpoints.v1;
 
@@ -86,10 +87,8 @@ public class SaidaEndpoints : ICarterModule
     {
         var saidas = await _saidaService.ObterPorIdSaidasDeTransportadoraAsync(id);
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
         var saidasResponse = saidas.Select(saida =>
        saida.ConverterParaResponse());
-#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(saidasResponse);
     }
@@ -100,10 +99,8 @@ public class SaidaEndpoints : ICarterModule
     {
         var saidas = await _saidaService.ObterPorNomeSaidasDeTransportadoraAsync(nome);
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
         var saidasResponse = saidas.Select(saida =>
        saida.ConverterParaResponse());
-#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(saidasResponse);
     }
@@ -114,10 +111,8 @@ public class SaidaEndpoints : ICarterModule
     {
         var saidas = await _saidaService.ObterPorIdSaidasDeLojaAsync(id);
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
         var saidasResponse = saidas.Select(saida =>
        saida.ConverterParaResponse());
-#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(saidasResponse);
     }
@@ -128,10 +123,8 @@ public class SaidaEndpoints : ICarterModule
     {
         var saidas = await _saidaService.ObterPorNomeSaidasDeLojaAsync(nome);
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
         var saidasResponse = saidas.Select(saida =>
        saida.ConverterParaResponse());
-#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(saidasResponse);
     }
@@ -140,6 +133,9 @@ public class SaidaEndpoints : ICarterModule
     InsercaoSaidaRequest insercaoSaida,
     ISaidaService _saidaService)
     {
+        if (!MiniValidator.TryValidate(insercaoSaida, out var errors))
+            return Results.ValidationProblem(errors);
+
         var saida = SaidaMap.ConverterParaEntidade(insercaoSaida);
 
         var id = (int)await _saidaService.AdicionarAsync(saida);
@@ -152,6 +148,9 @@ public class SaidaEndpoints : ICarterModule
     AtualizacaoSaidaRequest atualizacaoSaida,
     ISaidaService _saidaService)
     {
+        if (!MiniValidator.TryValidate(atualizacaoSaida, out var errors))
+            return Results.ValidationProblem(errors);
+
         var saida = SaidaMap.ConverterParaEntidade(atualizacaoSaida);
 
         await _saidaService.AtualizarAsync(saida);
