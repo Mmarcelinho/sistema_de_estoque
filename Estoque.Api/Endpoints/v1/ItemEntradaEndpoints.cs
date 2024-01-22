@@ -2,6 +2,7 @@ using Carter;
 using Estoque.Domain.Interfaces.Service;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
+using MiniValidation;
 
 namespace Estoque.Api.Endpoints.v1;
 
@@ -98,10 +99,8 @@ public class ItemEntradaEndpoints : ICarterModule
     {
         var itemEntradas = await _itemEntradaService.ObterPorIdItemEntradasDeEntradaAsync(id);
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
          var itemEntradasResponse = itemEntradas.Select(itemEntrada => 
          itemEntrada.ConverterParaResponse());
-#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(itemEntradasResponse);
     }
@@ -112,10 +111,8 @@ public class ItemEntradaEndpoints : ICarterModule
     {
         var itemEntradas = await _itemEntradaService.ObterPorIdItemEntradasDeProdutoAsync(id);
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
          var itemEntradasResponse = itemEntradas.Select(itemEntrada => 
          itemEntrada.ConverterParaResponse());
-#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(itemEntradasResponse);
     }
@@ -124,6 +121,9 @@ public class ItemEntradaEndpoints : ICarterModule
     InsercaoItemEntradaRequest insercaoItemEntrada,
     IItemEntradaService _itemEntradaService)
     {
+        if (!MiniValidator.TryValidate(insercaoItemEntrada, out var errors))
+            return Results.ValidationProblem(errors);
+
         var itemEntrada = ItemEntradaMap.ConverterParaEntidade(insercaoItemEntrada);
 
         var id = (int)await _itemEntradaService.AdicionarAsync(itemEntrada);
@@ -136,6 +136,9 @@ public class ItemEntradaEndpoints : ICarterModule
     AtualizacaoItemEntradaRequest atualizacaoItemEntrada,
     IItemEntradaService _itemEntradaService)
     {
+        if (!MiniValidator.TryValidate(atualizacaoItemEntrada, out var errors))
+            return Results.ValidationProblem(errors);
+
         var itemEntrada = ItemEntradaMap.ConverterParaEntidade(atualizacaoItemEntrada);
 
         await _itemEntradaService.AtualizarAsync(itemEntrada);

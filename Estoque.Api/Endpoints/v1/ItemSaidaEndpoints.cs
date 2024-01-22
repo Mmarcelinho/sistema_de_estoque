@@ -2,6 +2,7 @@ using Carter;
 using Estoque.Domain.Interfaces.Service;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
+using MiniValidation;
 
 namespace Estoque.Api.Endpoints.v1;
 
@@ -78,10 +79,8 @@ public class ItemSaidaEndpoints : ICarterModule
     {
         var itemSaidas = await _itemSaidaService.ObterPorIdItemSaidasDeSaidaAsync(id);
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
          var itemSaidasResponse = itemSaidas.Select(itemSaida => 
          itemSaida.ConverterParaResponse());
-#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(itemSaidasResponse);
     }
@@ -92,10 +91,8 @@ public class ItemSaidaEndpoints : ICarterModule
     {
         var itemSaidas = await _itemSaidaService.ObterPorIdItemSaidasDeProdutoAsync(id);
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
          var itemSaidasResponse = itemSaidas.Select(itemSaida => 
          itemSaida.ConverterParaResponse());
-#pragma warning restore CS8604 // Possível argumento de referência nula.
 
         return Results.Ok(itemSaidasResponse);
     }
@@ -104,6 +101,9 @@ public class ItemSaidaEndpoints : ICarterModule
     InsercaoItemSaidaRequest insercaoItemSaida,
     IItemSaidaService _itemSaidaService)
     {
+        if (!MiniValidator.TryValidate(insercaoItemSaida, out var errors))
+            return Results.ValidationProblem(errors);
+
         var itemSaida = ItemSaidaMap.ConverterParaEntidade(insercaoItemSaida);
 
         var id = (int)await _itemSaidaService.AdicionarAsync(itemSaida);
@@ -116,6 +116,9 @@ public class ItemSaidaEndpoints : ICarterModule
     AtualizacaoItemSaidaRequest atualizacaoItemSaida,
     IItemSaidaService _itemSaidaService)
     {
+        if (!MiniValidator.TryValidate(atualizacaoItemSaida, out var errors))
+            return Results.ValidationProblem(errors);
+
         var itemSaida = ItemSaidaMap.ConverterParaEntidade(atualizacaoItemSaida);
 
         await _itemSaidaService.AtualizarAsync(itemSaida);
