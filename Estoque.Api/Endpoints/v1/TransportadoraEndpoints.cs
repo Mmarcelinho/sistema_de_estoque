@@ -2,6 +2,7 @@ using Carter;
 using Estoque.Domain.Interfaces.Service;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
+using MiniValidation;
 
 namespace Estoque.Api.Endpoints.v1;
 
@@ -83,6 +84,9 @@ public class TransportadoraEndpoints : ICarterModule
     InsercaoTransportadoraRequest insercaoTransportadora,
     ITransportadoraService _transportadoraService)
     {
+        if (!MiniValidator.TryValidate(insercaoTransportadora, out var errors))
+            return Results.ValidationProblem(errors);
+
         var transportadora = TransportadoraMap.ConverterParaEntidade(insercaoTransportadora);
 
         var id = (int)await _transportadoraService.AdicionarAsync(transportadora);
@@ -95,6 +99,9 @@ public class TransportadoraEndpoints : ICarterModule
     AtualizacaoTransportadoraRequest atualizacaoTransportadora,
     ITransportadoraService _transportadoraService)
     {
+        if (!MiniValidator.TryValidate(atualizacaoTransportadora, out var errors))
+            return Results.ValidationProblem(errors);
+
         var transportadora = TransportadoraMap.ConverterParaEntidade(atualizacaoTransportadora);
 
         await _transportadoraService.AtualizarAsync(transportadora);
