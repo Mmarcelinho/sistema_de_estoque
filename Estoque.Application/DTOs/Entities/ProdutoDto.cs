@@ -1,22 +1,34 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Estoque.Application.DTOs.Entities;
 
     public record InsercaoProdutoRequest
     (
         int Id,
+        [Required]
         string Nome,
+        [Required]
         string Descricao,
+        [Required]
         double Peso,
+        [Required]
         bool Controlado,
+        [Required]
         int QuantMinima
     );
 
     public record AtualizacaoProdutoRequest
     (
         int Id,
+        [Required]
         string Nome,
+        [Required]
         string Descricao,
+        [Required]
         double Peso,
+        [Required]
         bool Controlado,
+        [Required]
         int QuantMinima
     );
 

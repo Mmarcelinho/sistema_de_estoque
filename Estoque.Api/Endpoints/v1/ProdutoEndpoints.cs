@@ -3,6 +3,7 @@ using Estoque.Domain.Interfaces.Service;
 using Estoque.Domain.Entities;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
+using MiniValidation;
 
 namespace Estoque.Api.Endpoints.v1;
 
@@ -86,6 +87,9 @@ public class ProdutoEndpoints : ICarterModule
     InsercaoProdutoRequest insercaoProduto,
     IProdutoService _produtoService)
     {
+        if (!MiniValidator.TryValidate(insercaoProduto, out var errors))
+            return Results.ValidationProblem(errors);
+
         var produto = ProdutoMap.ConverterParaEntidade(insercaoProduto);
 
         var id = (int)await _produtoService.AdicionarAsync(produto);
@@ -97,6 +101,9 @@ public class ProdutoEndpoints : ICarterModule
     AtualizacaoProdutoRequest atualizacaoProduto,
     IProdutoService _produtoService)
     {
+        if (!MiniValidator.TryValidate(atualizacaoProduto, out var errors))
+            return Results.ValidationProblem(errors);
+
         var produto = ProdutoMap.ConverterParaEntidade(atualizacaoProduto);
 
         await _produtoService.AtualizarAsync(produto);
