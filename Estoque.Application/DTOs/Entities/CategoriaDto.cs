@@ -5,14 +5,14 @@ namespace Estoque.Application.DTOs.Entities;
     public record InsercaoCategoriaRequest
     (
         int Id,
-        [Required, MinLength(5)]
+        [Required]
         string Titulo
     );
 
     public record AtualizacaoCategoriaRequest
     (
         int Id,
-        [Required, MinLength(5)]
+        [Required]
         string Titulo
     );
 

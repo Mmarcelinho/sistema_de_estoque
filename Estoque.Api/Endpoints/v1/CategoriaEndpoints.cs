@@ -2,8 +2,6 @@ using Carter;
 using Estoque.Domain.Interfaces.Service;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
-using Estoque.Api.Attributes;
-using Estoque.Identity.Constants;
 using MiniValidation;
 
 namespace Estoque.Api.Endpoints.v1;

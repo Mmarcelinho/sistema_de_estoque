@@ -3,6 +3,7 @@ using Estoque.Domain.Interfaces.Service;
 using Estoque.Domain.Entities;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
+using MiniValidation;
 
 namespace Estoque.Api.Endpoints.v1;
 
@@ -86,6 +87,9 @@ public class CidadeEndpoints : ICarterModule
     InsercaoCidadeRequest insercaoCidade,
     ICidadeService _cidadeService)
     {
+        if (!MiniValidator.TryValidate(insercaoCidade, out var errors))
+            return Results.ValidationProblem(errors);
+
         var cidade = CidadeMap.ConverterParaEntidade(insercaoCidade);
 
         var id = (int)await _cidadeService.AdicionarAsync(cidade);
@@ -97,6 +101,9 @@ public class CidadeEndpoints : ICarterModule
     AtualizacaoCidadeRequest atualizacaoCidade,
     ICidadeService _cidadeService)
     {
+        if (!MiniValidator.TryValidate(atualizacaoCidade, out var errors))
+            return Results.ValidationProblem(errors);
+
         var cidade = CidadeMap.ConverterParaEntidade(atualizacaoCidade);
 
         await _cidadeService.AtualizarAsync(cidade);
