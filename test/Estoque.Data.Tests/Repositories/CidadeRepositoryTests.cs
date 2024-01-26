@@ -4,7 +4,6 @@ using Estoque.Data.Repositories;
 using Estoque.Data.Tests.Database;
 using Estoque.Domain.Entities;
 using Xunit;
-using Estoque.Domain.Interfaces.Repositories;
 
 namespace Estoque.Data.Tests.Repositories;
 
@@ -92,7 +91,7 @@ public class CidadeRepositoryTests
     {
         var id = 100;
         await FluentActions.Invoking(async () => await _cidadeRepository.RemoverPorIdAsync(id))
-            .Should().ThrowAsync<Exception>("O registro não existe na base de dados.");
+            .Should().ThrowAsync<Exception>("O registro nï¿½o existe na base de dados.");
     }
 
 }

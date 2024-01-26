@@ -1,6 +1,5 @@
 using Carter;
 using Estoque.Domain.Interfaces.Service;
-using Estoque.Domain.Entities;
 using Estoque.Application.DTOs.Entities;
 using Estoque.Application.DTOs.Mappings;
 using MiniValidation;

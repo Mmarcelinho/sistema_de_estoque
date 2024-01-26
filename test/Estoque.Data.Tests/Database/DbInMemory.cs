@@ -60,9 +60,7 @@ public class DbInMemory
 
     private void CidadeFakeData(int id)
     {
-        var cidade = new Cidade(id, $"Cidade{id}", "BA");
-        _dataContext.Cidades.Add(cidade);
-        Console.WriteLine($"Added Cidade: {cidade.Id}");
+        _dataContext.Cidades.Add(new Cidade(id, $"Cidade{id}", "BA"));
     }
 
     private void ProdutoFakeData(int id)

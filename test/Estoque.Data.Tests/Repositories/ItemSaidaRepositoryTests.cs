@@ -4,7 +4,6 @@ using Estoque.Data.Repositories;
 using Estoque.Data.Tests.Database;
 using Estoque.Domain.Entities;
 using Xunit;
-using Estoque.Domain.Interfaces.Repositories;
 
 namespace Estoque.Data.Tests.Repositories;
 

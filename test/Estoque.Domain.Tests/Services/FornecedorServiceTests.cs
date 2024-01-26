@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NSubstitute;
 using Estoque.Domain.Entities;
 using Estoque.Domain.Interfaces.Repositories;
 using Estoque.Domain.Services;
 using Xunit;
-using FluentAssertions.Equivalency;
 
 namespace Estoque.Domain.Tests.Services;
 

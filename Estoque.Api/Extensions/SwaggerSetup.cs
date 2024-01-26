@@ -1,7 +1,5 @@
 using System.Reflection;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Estoque.Api.Extensions;
 
@@ -53,6 +51,4 @@ public static class SwaggerSetup
             });
         });
     }
-
-
 }
