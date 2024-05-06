@@ -1,4 +1,4 @@
-namespace SistemaDeFerias.Domain.Entidades;
+namespace SistemaDeEstoque.Domain.Entidades.Base;
 
 public abstract class Usuario : EntidadeBase
 {
