@@ -1,4 +1,4 @@
-namespace SistemaDeFerias.Domain.Entidades;
+namespace SistemaDeEstoque.Domain.Entidades;
 
     public class Admin : Usuario
     {
