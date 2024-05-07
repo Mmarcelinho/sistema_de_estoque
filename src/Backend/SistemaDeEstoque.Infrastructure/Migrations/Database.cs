@@ -1,6 +1,3 @@
-using Dapper;
-using MySqlConnector;
-
 namespace SistemaDeEstoque.Infrastructure.Migrations;
 
 public static class Database
