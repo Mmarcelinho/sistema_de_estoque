@@ -1,3 +1,6 @@
+using SistemaDeEstoque.Domain.Extension;
+using SistemaDeEstoque.Infrastructure.Migrations;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -12,5 +15,16 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+AtualizarBaseDeDados();
+
 app.Run();
 
+void AtualizarBaseDeDados()
+{
+    var conexao = builder.Configuration.GetConexao();
+
+    var nomeDatabase = builder.Configuration.GetNomeDatabase();
+
+    Database.CriarDatabase(conexao,nomeDatabase);
+}
