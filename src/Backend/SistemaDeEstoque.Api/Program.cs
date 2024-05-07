@@ -1,10 +1,13 @@
 using SistemaDeEstoque.Domain.Extension;
 using SistemaDeEstoque.Infrastructure.Migrations;
+using SistemaDeEstoque.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AdicionarInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 

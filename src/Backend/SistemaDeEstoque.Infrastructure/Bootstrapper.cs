@@ -2,9 +2,21 @@ namespace SistemaDeEstoque.Infrastructure;
 
 public static class Bootstrapper
 {
-    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static void AdicionarInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AdicionarFluentMigrator(services, configuration);
+        AdicionarContexto(services, configuration);
+    }
+
+    private static void AdicionarContexto(IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration.GetConexaoCompleta();
+        var versaoServidor = ServerVersion.AutoDetect(connectionString);
+
+        services.AddDbContext<SistemaDeEstoqueContext>(opcoes =>
+        {
+            opcoes.UseMySql(connectionString, versaoServidor);
+        });
     }
 
     private static void AdicionarFluentMigrator(IServiceCollection services, IConfiguration configuration)
