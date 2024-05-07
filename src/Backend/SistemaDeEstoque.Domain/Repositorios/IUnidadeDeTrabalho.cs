@@ -1,6 +1,6 @@
 namespace SistemaDeEstoque.Domain.Repositorios;
 
-    public interface IUnidadeDeTrabalho
-    {   
+public interface IUnidadeDeTrabalho
+{
     Task Commit();
-    }
+}
