@@ -1,5 +1,3 @@
-using System.Data;
-
 namespace SistemaDeEstoque.Infrastructure;
 
 public static class Bootstrapper
