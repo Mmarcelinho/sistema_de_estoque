@@ -13,6 +13,9 @@ global using SistemaDeEstoque.Domain.Extension;
 global using SistemaDeEstoque.Domain.Repositorios;
 global using SistemaDeEstoque.Infrastructure.AcessoRepositorio;
 
+global using SistemaDeEstoque.Domain.Repositorios.Admin;
+
+
 
 
 

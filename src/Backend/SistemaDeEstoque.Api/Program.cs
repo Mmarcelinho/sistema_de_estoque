@@ -29,7 +29,7 @@ void AtualizarBaseDeDados()
 
     var nomeDatabase = builder.Configuration.GetNomeDatabase();
 
-    Database.CriarDatabase(conexao,nomeDatabase);
+    Database.CriarDatabase(conexao, nomeDatabase);
 
     app.MigrateBancoDeDados();
 }
