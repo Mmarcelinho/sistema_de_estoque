@@ -1,3 +1,4 @@
+global using System.Data;
 global using System.Reflection;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,6 @@ global using SistemaDeEstoque.Domain.Entidades;
 global using SistemaDeEstoque.Domain.Extension;
 global using SistemaDeEstoque.Domain.Repositorios;
 global using SistemaDeEstoque.Infrastructure.AcessoRepositorio;
-
 global using SistemaDeEstoque.Domain.Repositorios.Admin;
 
 

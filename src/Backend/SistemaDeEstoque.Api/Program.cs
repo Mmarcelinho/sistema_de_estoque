@@ -1,8 +1,3 @@
-using SistemaDeEstoque.Domain.Extension;
-using SistemaDeEstoque.Infrastructure.Migrations;
-using SistemaDeEstoque.Infrastructure;
-using SistemaDeEstoque.Application;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
