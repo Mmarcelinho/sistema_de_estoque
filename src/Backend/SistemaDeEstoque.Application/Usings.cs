@@ -11,6 +11,10 @@ global using Microsoft.Extensions.Configuration;
 global using SistemaDeEstoque.Application.Servicos.Validation;
 global using SistemaDeEstoque.Application.Servicos.Criptografia;
 
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using Microsoft.IdentityModel.Tokens;
+
 
 
 
