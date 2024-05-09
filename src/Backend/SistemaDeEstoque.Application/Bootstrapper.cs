@@ -28,8 +28,11 @@ public static class Bootstrapper
 
     private static void AdicionarMediatR(IServiceCollection services)
     {
+        var myHandlers = AppDomain.CurrentDomain.Load("SistemaDeEstoque.Application");
+
         services.AddMediatR(config =>
         {
+            config.RegisterServicesFromAssemblies(myHandlers);
             config.AddOpenBehavior(typeof(ValidationsBehavior<,>));
         });
 

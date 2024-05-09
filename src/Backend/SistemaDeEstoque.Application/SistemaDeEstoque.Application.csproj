@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SistemaDeEstoque.Domain\SistemaDeEstoque.Domain.csproj" />
+    <ProjectReference Include="..\..\Shared\SistemaDeEstoque.Comunicacao\SistemaDeEstoque.Comunicacao.csproj" />
   </ItemGroup>
 
 </Project>
