@@ -1,4 +1,10 @@
+using MediatR;
+using SistemaDeEstoque.Application.UseCases.Login.FazerLogin;
+using SistemaDeEstoque.Comunicacao.Respostas.Admin;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -17,6 +23,14 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 AtualizarBaseDeDados();
+
+app.MapPost("admin/", async (IMediator _mediator, LoginAdminUseCaseCommand request) => 
+{
+    var resposta = await _mediator.Send(request);
+
+    return Results.Ok(resposta);
+})
+.Produces<RespostaLoginAdminJson>(StatusCodes.Status200OK);
 
 app.Run();
 
