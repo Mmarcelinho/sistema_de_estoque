@@ -1,7 +1,3 @@
-using MediatR;
-using SistemaDeEstoque.Application.UseCases.Login.FazerLogin;
-using SistemaDeEstoque.Comunicacao.Respostas.Admin;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpContextAccessor();
