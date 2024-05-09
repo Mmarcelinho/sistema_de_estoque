@@ -1,3 +1,5 @@
+using SistemaDeEstoque.Infrastructure.AcessoRepositorio.Repositorio;
+
 namespace SistemaDeEstoque.Infrastructure;
 
 public static class Bootstrapper
@@ -7,6 +9,13 @@ public static class Bootstrapper
         AdicionarFluentMigrator(services, configuration);
         AdicionarContexto(services, configuration);
         AdicionarDbConnection(services, configuration);
+        AdicionarUnidadeDeTrabalho(services);
+        AdicionarRepositorios(services);
+    }
+
+    private static void AdicionarFluentMigrator(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddFluentMigratorCore().ConfigureRunner(c => c.AddMySql8().WithGlobalConnectionString(configuration.GetConexaoCompleta()).ScanIn(Assembly.Load("SistemaDeEstoque.Infrastructure")).For.All());
     }
 
     private static void AdicionarContexto(IServiceCollection services, IConfiguration configuration)
@@ -20,11 +29,6 @@ public static class Bootstrapper
         });
     }
 
-    private static void AdicionarFluentMigrator(IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddFluentMigratorCore().ConfigureRunner(c => c.AddMySql8().WithGlobalConnectionString(configuration.GetConexaoCompleta()).ScanIn(Assembly.Load("SistemaDeEstoque.Infrastructure")).For.All());
-    }
-
     private static void AdicionarDbConnection(IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<IDbConnection>
@@ -34,5 +38,16 @@ public static class Bootstrapper
             connection.Open();
             return connection;
         });
+    }
+
+    private static void AdicionarUnidadeDeTrabalho(IServiceCollection services)
+    => services.AddScoped<IUnidadeDeTrabalho, UnidadeDeTrabalho>();
+
+    private static void AdicionarRepositorios(IServiceCollection services)
+    {
+        services.AddScoped<IAdminReadOnlyRepositorio, AdminRepositorio>();
+        services.AddScoped<IAdminWriteRepositorio, AdminRepositorio>();
+        services.AddScoped<IAdminUpdateOnlyRepositorio, AdminRepositorio>();
+        
     }
 }
