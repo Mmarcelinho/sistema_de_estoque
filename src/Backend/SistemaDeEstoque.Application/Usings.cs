@@ -15,6 +15,12 @@ global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using Microsoft.IdentityModel.Tokens;
 
+global using Microsoft.AspNetCore.Http;
+global using SistemaDeEstoque.Domain.Entidades;
+global using SistemaDeEstoque.Domain.Repositorios.Admin;
+global using SistemaDeEstoque.Application.Servicos.Token;
+global using SistemaDeEstoque.Application.Servicos.UsuarioLogado;
+
 
 
 

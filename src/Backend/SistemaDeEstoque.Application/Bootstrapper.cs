@@ -1,14 +1,14 @@
-using SistemaDeEstoque.Application.Servicos.Token;
-
 namespace SistemaDeEstoque.Application;
 
 public static class Bootstrapper
 {
     public static void AdicionarApplication(this IServiceCollection services, IConfiguration configuration)
     {
-        AdicionarMediatR(services);
+
         AdicionarChaveAdicionalSenha(services, configuration);
         AdicionarTokenJWT(services, configuration);
+        AdicionarMediatR(services);
+        AdicionarUsuarioLogado(services);
     }
 
     private static void AdicionarChaveAdicionalSenha(IServiceCollection services, IConfiguration configuration)
@@ -35,4 +35,7 @@ public static class Bootstrapper
 
         services.AddValidatorsFromAssembly(Assembly.Load("SistemaDeEstoque.Application"));
     }
+
+    private static void AdicionarUsuarioLogado(IServiceCollection services)
+    => services.AddScoped<IAdminLogado, AdminLogado>();
 }
