@@ -1,6 +1,10 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRouting(option => option.LowercaseUrls = true);
+
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -18,15 +22,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapControllers();
+
 AtualizarBaseDeDados();
-
-app.MapPost("admin/", async (IMediator _mediator, LoginAdminUseCaseCommand request) => 
-{
-    var resposta = await _mediator.Send(request);
-
-    return Results.Ok(resposta);
-})
-.Produces<RespostaLoginAdminJson>(StatusCodes.Status200OK);
 
 app.Run();
 
