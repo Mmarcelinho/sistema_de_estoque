@@ -1,3 +1,4 @@
+global using Microsoft.AspNetCore.Mvc;
 global using MediatR;
 global using SistemaDeEstoque.Domain.Extension;
 global using SistemaDeEstoque.Infrastructure;
