@@ -29,35 +29,35 @@ Este projeto é uma API de gerenciamento de estoque para um centro de distribui�
 
 ### Produto:
 
-- Armazenamento da quantidade mínima em estoque.
-- Associação de cada produto a um fornecedor.
-- Categorização do produto.
+- [ ] Armazenamento da quantidade mínima em estoque.
+- [ ] Associação de cada produto a um fornecedor.
+- [ ] Categorização do produto.
 
 ### Entrada:
 
-- Registro da data do pedido e da entrega.
-- Cálculo do peso total da entrada.
+- [ ] Registro da data do pedido e da entrega.
+- [ ] Cálculo do peso total da entrada.
 
 ### Saída:
 
-- Registro da loja destinatária para o fechamento de faturamento mensal.
-- Cálculo do peso total da saída.
+- [ ] Registro da loja destinatária para o fechamento de faturamento mensal.
+- [ ] Cálculo do peso total da saída.
 
 ### ItemEntrada e ItemSaída:
 
-- Controle da quantidade de itens em uma entrada ou saída.
+- [ ] Controle da quantidade de itens em uma entrada ou saída.
 
 ### Serviço de Estoque:
 
-- Listagem de produtos com estoque abaixo do mínimo.
-- Atualização do estoque após entrada e saída de produtos.
-- Identificação da categoria com mais itens em estoque.
+- [ ] Listagem de produtos com estoque abaixo do mínimo.
+- [ ] Atualização do estoque após entrada e saída de produtos.
+- [ ] Identificação da categoria com mais itens em estoque.
 
 ### Serviço de Relatórios:
 
-- Geração de histórico de movimentações de produtos.
-- Análise do tempo de permanência do pedido no estoque.
-- Identificação das transportadoras mais utilizadas.
+- [ ] Geração de histórico de movimentações de produtos.
+- [ ] Análise do tempo de permanência do pedido no estoque.
+- [ ] Identificação das transportadoras mais utilizadas.
 
 ## Autores
 
