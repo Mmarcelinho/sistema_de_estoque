@@ -1,6 +1,3 @@
-using System.Data;
-using SistemaDeEstoque.Infrastructure.AcessoRepositorio.Queries;
-
 namespace SistemaDeEstoque.Infrastructure.AcessoRepositorio.Repositorio;
 
 public class AdminRepositorio : IAdminWriteRepositorio, IAdminReadOnlyRepositorio, IAdminUpdateOnlyRepositorio
@@ -16,7 +13,6 @@ public class AdminRepositorio : IAdminWriteRepositorio, IAdminReadOnlyRepositori
 
     public async Task Adicionar(Admin admin) => await _contexto.Admins.AddAsync(admin);
     
-
     public async Task<bool> ExisteAdminComEmail(string email)
     {
         var query = AdminQueries.RecuperarAdminExistentePorEmailQuery(email);
