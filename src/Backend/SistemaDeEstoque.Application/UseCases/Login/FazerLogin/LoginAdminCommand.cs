@@ -1,8 +1,8 @@
 namespace SistemaDeEstoque.Application.UseCases.Login.FazerLogin;
 
-public record LoginAdminUseCaseCommand(RequisicaoLoginAdminJson loginAdmin) : IRequest<RespostaLoginAdminJson>;
+public record LoginAdminCommand(RequisicaoLoginAdminJson loginAdmin) : IRequest<RespostaLoginAdminJson>;
 
-public class LoginAdminUseCaseHandler : IRequestHandler<LoginAdminUseCaseCommand, RespostaLoginAdminJson>
+public class LoginAdminHandler : IRequestHandler<LoginAdminCommand, RespostaLoginAdminJson>
 {
     private readonly IAdminReadOnlyRepositorio _adminReadOnlyRepositorio;
 
@@ -11,14 +11,14 @@ public class LoginAdminUseCaseHandler : IRequestHandler<LoginAdminUseCaseCommand
     private readonly TokenController _tokenController;
 
 
-    public LoginAdminUseCaseHandler(IAdminReadOnlyRepositorio adminReadOnlyRepositorio, EncriptadorDeSenha encriptadorDeSenha, TokenController tokenController)
+    public LoginAdminHandler(IAdminReadOnlyRepositorio adminReadOnlyRepositorio, EncriptadorDeSenha encriptadorDeSenha, TokenController tokenController)
     {
         _adminReadOnlyRepositorio = adminReadOnlyRepositorio;
         _encriptadorDeSenha = encriptadorDeSenha;
         _tokenController = tokenController;
     }
 
-    public async Task<RespostaLoginAdminJson> Handle(LoginAdminUseCaseCommand request, CancellationToken cancellationToken)
+    public async Task<RespostaLoginAdminJson> Handle(LoginAdminCommand request, CancellationToken cancellationToken)
     {
         var requisicao = request.loginAdmin;
 

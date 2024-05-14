@@ -1,5 +1,3 @@
-using SistemaDeEstoque.Infrastructure.AcessoRepositorio.Repositorio;
-
 namespace SistemaDeEstoque.Infrastructure;
 
 public static class Bootstrapper
@@ -15,7 +13,10 @@ public static class Bootstrapper
 
     private static void AdicionarFluentMigrator(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddFluentMigratorCore().ConfigureRunner(c => c.AddMySql8().WithGlobalConnectionString(configuration.GetConexaoCompleta()).ScanIn(Assembly.Load("SistemaDeEstoque.Infrastructure")).For.All());
+        services.AddFluentMigratorCore()
+        .ConfigureRunner(c => c.AddMySql8()
+        .WithGlobalConnectionString(configuration.GetConexaoCompleta())
+        .ScanIn(Assembly.Load("SistemaDeEstoque.Infrastructure")).For.All());
     }
 
     private static void AdicionarContexto(IServiceCollection services, IConfiguration configuration)
@@ -48,6 +49,6 @@ public static class Bootstrapper
         services.AddScoped<IAdminReadOnlyRepositorio, AdminRepositorio>();
         services.AddScoped<IAdminWriteRepositorio, AdminRepositorio>();
         services.AddScoped<IAdminUpdateOnlyRepositorio, AdminRepositorio>();
-        
+
     }
 }
