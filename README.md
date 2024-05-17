@@ -27,6 +27,13 @@ Este projeto é uma API de gerenciamento de estoque para um centro de distribui�
 
 ## Features
 
+### Admin:
+
+- [x] Login.
+- [x] Recuperar perfil.
+- [ ] Alterar senha.
+- [ ] Registrar admins.
+
 ### Produto:
 
 - [ ] Armazenamento da quantidade mínima em estoque.
