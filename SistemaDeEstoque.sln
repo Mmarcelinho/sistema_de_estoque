@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{6075A0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaDeEstoque.Comunicacao", "src\Shared\SistemaDeEstoque.Comunicacao\SistemaDeEstoque.Comunicacao.csproj", "{D4C6528B-2B84-4E82-8EBA-536230547276}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaDeEstoque.Exceptions", "src\Shared\SistemaDeEstoque.Exceptions\SistemaDeEstoque.Exceptions.csproj", "{CE7B8A0C-6240-41FE-B67C-A1D56DFF1209}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{D4C6528B-2B84-4E82-8EBA-536230547276}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4C6528B-2B84-4E82-8EBA-536230547276}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4C6528B-2B84-4E82-8EBA-536230547276}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE7B8A0C-6240-41FE-B67C-A1D56DFF1209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE7B8A0C-6240-41FE-B67C-A1D56DFF1209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE7B8A0C-6240-41FE-B67C-A1D56DFF1209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE7B8A0C-6240-41FE-B67C-A1D56DFF1209}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AE1B5335-7754-43CC-A92A-91B8E67EB03C} = {50128C9A-BD15-4107-8318-1077B19229ED}
@@ -57,5 +63,6 @@ Global
 		{1837FE6E-233F-4463-9697-8A1876F2ED8A} = {AE1B5335-7754-43CC-A92A-91B8E67EB03C}
 		{6075A049-D26F-4BDC-B9D0-07966A54129C} = {50128C9A-BD15-4107-8318-1077B19229ED}
 		{D4C6528B-2B84-4E82-8EBA-536230547276} = {6075A049-D26F-4BDC-B9D0-07966A54129C}
+		{CE7B8A0C-6240-41FE-B67C-A1D56DFF1209} = {6075A049-D26F-4BDC-B9D0-07966A54129C}
 	EndGlobalSection
 EndGlobal
