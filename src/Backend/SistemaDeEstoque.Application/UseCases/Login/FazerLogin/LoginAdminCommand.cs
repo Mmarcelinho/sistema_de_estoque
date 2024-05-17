@@ -27,7 +27,7 @@ public class LoginAdminHandler : IRequestHandler<LoginAdminCommand, RespostaLogi
         var admin = await _adminReadOnlyRepositorio.RecuperarPorEmailSenha(requisicao.Email, senhaCriptografada);
 
         if (admin is null)
-            throw new Exception("O e-mail e/ou senha estão incorretos.");
+            throw new LoginInvalidoException();
 
         return new RespostaLoginAdminJson(admin.Nome, _tokenController.GerarToken(admin.Email));
     }

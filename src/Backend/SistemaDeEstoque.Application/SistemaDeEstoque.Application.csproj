@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SistemaDeEstoque.Domain\SistemaDeEstoque.Domain.csproj" />
     <ProjectReference Include="..\..\Shared\SistemaDeEstoque.Comunicacao\SistemaDeEstoque.Comunicacao.csproj" />
+    <ProjectReference Include="..\..\Shared\SistemaDeEstoque.Exceptions\SistemaDeEstoque.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>
