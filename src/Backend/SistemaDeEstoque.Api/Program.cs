@@ -39,6 +39,8 @@ builder.Services.AddSwaggerGen(option =>
 builder.Services.AdicionarInfrastructure(builder.Configuration);
 builder.Services.AdicionarApplication(builder.Configuration);
 
+builder.Services.AddMvc(options => options.Filters.Add(typeof(FiltroDasExceptions)));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
