@@ -27,4 +27,3 @@ global using SistemaDeEstoque.Exceptions.ExceptionsBase;
 
 
 
-

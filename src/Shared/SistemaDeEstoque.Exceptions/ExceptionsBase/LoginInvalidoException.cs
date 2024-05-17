@@ -1,3 +1,5 @@
+using SistemaDeEstoque.Exceptions.ErrorMessages;
+
 namespace SistemaDeEstoque.Exceptions.ExceptionsBase;
 
     public class LoginInvalidoException : SistemaDeEstoqueException
