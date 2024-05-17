@@ -1,4 +1,4 @@
-namespace SistemaDeEstoque.Exceptions;
+namespace SistemaDeEstoque.Exceptions.ErrorMessages;
 
 public static class UsuarioModelMensagensDeErro
 {
