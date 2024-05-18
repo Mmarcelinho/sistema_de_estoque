@@ -14,4 +14,14 @@ public class AdminController : SistemaDeEstoqueController
 
         return Ok(resposta);
     }
+
+    [HttpPut]
+    [Route("alterar-senha")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> AlterarSenha([FromBody] AlterarSenhaAdminCommand requisicao)
+    {
+        await _mediator.Send(requisicao);
+
+        return NoContent();
+    }
 }
