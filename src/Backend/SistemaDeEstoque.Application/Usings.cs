@@ -18,11 +18,13 @@ global using SistemaDeEstoque.Application.Servicos.Token;
 global using SistemaDeEstoque.Application.Servicos.UsuarioLogado;
 
 global using SistemaDeEstoque.Domain.Entidades;
+global using SistemaDeEstoque.Domain.Repositorios;
 global using SistemaDeEstoque.Domain.Repositorios.Admin;
 global using SistemaDeEstoque.Comunicacao.Requisicoes.Admin;
 global using SistemaDeEstoque.Comunicacao.Respostas.Admin;
 
 global using SistemaDeEstoque.Exceptions.ExceptionsBase;
+global using SistemaDeEstoque.Exceptions.ErrorMessages;
 
 
 
