@@ -1,6 +1,6 @@
 namespace SistemaDeEstoque.Infrastructure.AcessoRepositorio.Repositorio;
 
-public class AdminRepositorio : IAdminWriteRepositorio, IAdminReadOnlyRepositorio, IAdminUpdateOnlyRepositorio
+public class AdminRepositorio : IAdminWriteOnlyRepositorio, IAdminReadOnlyRepositorio, IAdminUpdateOnlyRepositorio
 {
     private readonly SistemaDeEstoqueContext _contexto;
 

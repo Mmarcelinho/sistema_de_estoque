@@ -1,6 +1,6 @@
 namespace SistemaDeEstoque.Domain.Repositorios.Admin;
 
-public interface IAdminWriteRepositorio
+public interface IAdminWriteOnlyRepositorio
 {
     Task Adicionar(Entidades.Admin admin);
 }

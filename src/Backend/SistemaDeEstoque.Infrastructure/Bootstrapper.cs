@@ -47,7 +47,7 @@ public static class Bootstrapper
     private static void AdicionarRepositorios(IServiceCollection services)
     {
         services.AddScoped<IAdminReadOnlyRepositorio, AdminRepositorio>();
-        services.AddScoped<IAdminWriteRepositorio, AdminRepositorio>();
+        services.AddScoped<IAdminWriteOnlyRepositorio, AdminRepositorio>();
         services.AddScoped<IAdminUpdateOnlyRepositorio, AdminRepositorio>();
 
     }
