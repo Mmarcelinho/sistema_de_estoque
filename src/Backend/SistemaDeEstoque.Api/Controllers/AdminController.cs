@@ -15,6 +15,15 @@ public class AdminController : SistemaDeEstoqueController
         return Ok(resposta);
     }
 
+    [HttpPost]
+    [ProducesResponseType(typeof(RespostaAdminRegistradoJson), StatusCodes.Status201Created)]
+    public async Task<IActionResult> RegistrarAdmin([FromBody] RegistrarAdminCommand requisicao)
+    {
+        var resposta = await _mediator.Send(requisicao);
+
+        return Created(string.Empty, resposta);
+    }
+
     [HttpPut]
     [Route("alterar-senha")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
