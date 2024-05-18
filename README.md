@@ -31,8 +31,8 @@ Este projeto Ã© uma API de gerenciamento de estoque para um centro de distribuiÃ
 
 - [x] Login.
 - [x] Recuperar perfil.
-- [ ] Alterar senha.
-- [ ] Registrar admins.
+- [x] Alterar senha.
+- [x] Registrar admins.
 
 ### Produto:
 
