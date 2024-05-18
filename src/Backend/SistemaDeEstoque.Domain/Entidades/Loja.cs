@@ -1,6 +1,6 @@
 namespace SistemaDeEstoque.Domain.Entidades;
 
-public class Loja
+public class Loja : EntidadeBase
 {
     public string Nome { get; set; }
 
