@@ -20,7 +20,7 @@ public class ValidationsBehavior<TRequisicao, TResposta> : IPipelineBehavior<TRe
             .Where(f => f != null).ToList();
 
             if (failures.Count != 0)
-                throw new FluentValidation.ValidationException(failures);
+                throw new ValidationException(failures);
         }
         return await next();
     }
