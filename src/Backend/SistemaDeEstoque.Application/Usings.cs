@@ -3,6 +3,7 @@ global using System.Text;
 global using System.Security.Cryptography;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
+global using System.Text.RegularExpressions;
 
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Configuration;
@@ -25,7 +26,6 @@ global using SistemaDeEstoque.Comunicacao.Respostas.Admin;
 
 global using SistemaDeEstoque.Exceptions.ExceptionsBase;
 global using SistemaDeEstoque.Exceptions.ErrorMessages;
-
 
 
 
