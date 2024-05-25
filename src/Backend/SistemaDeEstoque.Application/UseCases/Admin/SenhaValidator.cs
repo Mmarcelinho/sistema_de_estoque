@@ -1,5 +1,3 @@
-using SistemaDeEstoque.Exceptions.ErrorMessages;
-
 namespace SistemaDeEstoque.Application.UseCases.Admin;
 
     public class SenhaValidator : AbstractValidator<string>

@@ -1,9 +1,9 @@
 namespace SistemaDeEstoque.Application.UseCases.Admin.AlterarSenha;
 
-public class AlterarSenhaValidator : AbstractValidator<RequisicaoAlterarSenhaJson>
+public class AlterarSenhaValidator : AbstractValidator<AlterarSenhaAdminCommand>
 {
     public AlterarSenhaValidator()
     {
-        RuleFor(c => c.NovaSenha).SetValidator(new SenhaValidator());
+        RuleFor(c => c.alterarSenha.NovaSenha).SetValidator(new SenhaValidator());
     }
 }
