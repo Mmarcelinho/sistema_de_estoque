@@ -26,23 +26,21 @@ public class AlterarSenhaAdminCommandHandler : IRequestHandler<AlterarSenhaAdmin
 
         var admin = await _repositorio.RecuperarPorId(adminLogado.Id);
 
-        var requisicao = request.alterarSenha;
+        Validar(request, admin);
 
-        Validar(requisicao, admin);
-
-        admin.Senha = _encriptadorDeSenha.Criptografar(requisicao.NovaSenha);
+        admin.Senha = _encriptadorDeSenha.Criptografar(request.alterarSenha.NovaSenha);
 
         _repositorio.Atualizar(admin);
 
         await _unidadeDeTrabalho.Commit();
     }
 
-    private void Validar(RequisicaoAlterarSenhaJson requisicao, Domain.Entidades.Admin admin)
+    private void Validar(AlterarSenhaAdminCommand requisicao, Domain.Entidades.Admin admin)
     {
         var validator = new AlterarSenhaValidator();
         var resultado = validator.Validate(requisicao);
 
-        var senhaAtualCriptografada = _encriptadorDeSenha.Criptografar(requisicao.SenhaAtual);
+        var senhaAtualCriptografada = _encriptadorDeSenha.Criptografar(requisicao.alterarSenha.SenhaAtual);
 
         if (!admin.Senha.Equals(senhaAtualCriptografada))
             resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("senhaAtual", UsuarioModelMensagensDeErro.SENHA_ATUAL_INVALIDA));
