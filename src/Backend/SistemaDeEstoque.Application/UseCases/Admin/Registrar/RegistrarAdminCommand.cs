@@ -26,15 +26,14 @@ public class RegistrarAdminCommandHandler : IRequestHandler<RegistrarAdminComman
 
     public async Task<RespostaAdminRegistradoJson> Handle(RegistrarAdminCommand request, CancellationToken cancellationToken)
     {
-        var requisicao = request.registrarAdmin;
-        await Validar(requisicao);
+        await Validar(request);
 
         var entidade = new Domain.Entidades.Admin
         {
-            Nome = requisicao.Nome,
-            Email = requisicao.Email,
-            Senha = _encriptadorDeSenha.Criptografar(requisicao.Senha),
-            Telefone = requisicao.Telefone
+            Nome = request.registrarAdmin.Nome,
+            Email = request.registrarAdmin.Email,
+            Senha = _encriptadorDeSenha.Criptografar(request.registrarAdmin.Senha),
+            Telefone = request.registrarAdmin.Telefone
         };
 
         await _repositorio.Adicionar(entidade);
@@ -46,12 +45,12 @@ public class RegistrarAdminCommandHandler : IRequestHandler<RegistrarAdminComman
         return new RespostaAdminRegistradoJson(token);
     }
 
-    private async Task Validar(RequisicaoRegistrarAdminJson requisicao)
+    private async Task Validar(RegistrarAdminCommand requisicao)
     {
         var validator = new RegistrarAdminValidator();
         var resultado = validator.Validate(requisicao);
 
-        var existeAdminComEmail = await _adminReadOnlyRepositorio.ExisteAdminComEmail(requisicao.Email);
+        var existeAdminComEmail = await _adminReadOnlyRepositorio.ExisteAdminComEmail(requisicao.registrarAdmin.Email);
         if (existeAdminComEmail)
             resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("email", UsuarioModelMensagensDeErro.EMAIL_JA_REGISTRADO));
 
