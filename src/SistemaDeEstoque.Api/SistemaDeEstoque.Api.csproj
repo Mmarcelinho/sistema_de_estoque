@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SistemaDeEstoque.Infrastructure\SistemaDeEstoque.Infrastructure.csproj" />
+    <ProjectReference Include="..\SistemaDeEstoque.Application\SistemaDeEstoque.Application.csproj" />
+    <ProjectReference Include="..\SistemaDeEstoque.Exceptions\SistemaDeEstoque.Exceptions.csproj" />
+    <ProjectReference Include="..\SistemaDeEstoque.Comunicacao\SistemaDeEstoque.Comunicacao.csproj" />
+  </ItemGroup>
+
+</Project>
