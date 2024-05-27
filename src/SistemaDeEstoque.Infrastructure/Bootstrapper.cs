@@ -9,6 +9,8 @@ public static class Bootstrapper
         AdicionarDbConnection(services, configuration);
         AdicionarUnidadeDeTrabalho(services);
         AdicionarRepositorios(services);
+
+        services.AddScoped<IEncriptadorDeSenha, EncriptadorDeSenha>();
     }
 
     private static void AdicionarFluentMigrator(IServiceCollection services, IConfiguration configuration)
