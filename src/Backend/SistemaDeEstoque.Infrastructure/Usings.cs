@@ -10,6 +10,7 @@ global using FluentMigrator.Runner;
 global using FluentMigrator.Builders.Create.Table;
 global using Microsoft.EntityFrameworkCore;
 global using SistemaDeEstoque.Domain.Entidades;
+global using SistemaDeEstoque.Domain.Enum;
 global using SistemaDeEstoque.Domain.Extension;
 global using SistemaDeEstoque.Domain.Repositorios;
 global using SistemaDeEstoque.Infrastructure.AcessoRepositorio;
