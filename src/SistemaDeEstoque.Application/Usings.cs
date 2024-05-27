@@ -1,6 +1,4 @@
 global using System.Reflection;
-global using System.Text;
-global using System.Security.Cryptography;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using System.Text.RegularExpressions;
@@ -14,7 +12,6 @@ global using MediatR;
 global using FluentValidation;
 
 global using SistemaDeEstoque.Application.Servicos.Validation;
-global using SistemaDeEstoque.Application.Servicos.Criptografia;
 global using SistemaDeEstoque.Application.Servicos.Token;
 global using SistemaDeEstoque.Application.Servicos.UsuarioLogado;
 
@@ -23,6 +20,7 @@ global using SistemaDeEstoque.Domain.Repositorios;
 global using SistemaDeEstoque.Domain.Repositorios.Admin;
 global using SistemaDeEstoque.Comunicacao.Requisicoes.Admin;
 global using SistemaDeEstoque.Comunicacao.Respostas.Admin;
+global using SistemaDeEstoque.Domain.Security.Criptografia;
 
 global using SistemaDeEstoque.Exceptions.ExceptionsBase;
 global using SistemaDeEstoque.Exceptions.ErrorMessages;

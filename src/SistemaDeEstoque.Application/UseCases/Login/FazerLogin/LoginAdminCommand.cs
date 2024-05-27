@@ -6,12 +6,12 @@ public class LoginAdminHandler : IRequestHandler<LoginAdminCommand, RespostaLogi
 {
     private readonly IAdminReadOnlyRepositorio _adminReadOnlyRepositorio;
 
-    private readonly EncriptadorDeSenha _encriptadorDeSenha;
+    private readonly IEncriptadorDeSenha _encriptadorDeSenha;
 
     private readonly TokenController _tokenController;
 
 
-    public LoginAdminHandler(IAdminReadOnlyRepositorio adminReadOnlyRepositorio, EncriptadorDeSenha encriptadorDeSenha, TokenController tokenController)
+    public LoginAdminHandler(IAdminReadOnlyRepositorio adminReadOnlyRepositorio, IEncriptadorDeSenha encriptadorDeSenha, TokenController tokenController)
     {
         _adminReadOnlyRepositorio = adminReadOnlyRepositorio;
         _encriptadorDeSenha = encriptadorDeSenha;
@@ -22,7 +22,7 @@ public class LoginAdminHandler : IRequestHandler<LoginAdminCommand, RespostaLogi
     {
         var requisicao = request.loginAdmin;
 
-        var senhaCriptografada = _encriptadorDeSenha.Criptografar(requisicao.Senha);
+        var senhaCriptografada = _encriptadorDeSenha.Encriptar(requisicao.Senha);
 
         var admin = await _adminReadOnlyRepositorio.RecuperarPorEmailSenha(requisicao.Email, senhaCriptografada);
 

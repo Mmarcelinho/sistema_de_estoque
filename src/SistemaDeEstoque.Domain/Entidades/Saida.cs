@@ -10,5 +10,5 @@ namespace SistemaDeEstoque.Domain.Entidades;
 
         public int LojaId { get; set; }
 
-        public int TransportadoraId { get; set; }
+        public long TransportadoraId { get; set; }
     }
