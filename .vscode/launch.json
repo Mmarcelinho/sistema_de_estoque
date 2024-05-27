@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/Backend/SistemaDeEstoque.Api/bin/Debug/net8.0/SistemaDeEstoque.Api.dll",
+            "program": "${workspaceFolder}/src/SistemaDeEstoque.Api/bin/Debug/net8.0/SistemaDeEstoque.Api.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/Backend/SistemaDeEstoque.Api",
+            "cwd": "${workspaceFolder}/src/SistemaDeEstoque.Api",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
