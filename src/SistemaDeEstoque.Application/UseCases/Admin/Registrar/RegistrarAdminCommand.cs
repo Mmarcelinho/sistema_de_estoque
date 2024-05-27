@@ -7,13 +7,13 @@ public class RegistrarAdminCommandHandler : IRequestHandler<RegistrarAdminComman
     private readonly IAdminReadOnlyRepositorio _adminReadOnlyRepositorio;
     private readonly IAdminWriteOnlyRepositorio _repositorio;
     private readonly IUnidadeDeTrabalho _unidadeDeTrabalho;
-    private readonly EncriptadorDeSenha _encriptadorDeSenha;
+    private readonly IEncriptadorDeSenha _encriptadorDeSenha;
     private readonly TokenController _tokenController;
 
     public RegistrarAdminCommandHandler(
         IAdminWriteOnlyRepositorio repositorio,
         IUnidadeDeTrabalho unidadeDeTrabalho,
-        EncriptadorDeSenha encriptadorDeSenha,
+        IEncriptadorDeSenha encriptadorDeSenha,
         TokenController tokenController,
         IAdminReadOnlyRepositorio adminReadOnlyRepositorio)
     {
@@ -32,8 +32,9 @@ public class RegistrarAdminCommandHandler : IRequestHandler<RegistrarAdminComman
         {
             Nome = request.registrarAdmin.Nome,
             Email = request.registrarAdmin.Email,
-            Senha = _encriptadorDeSenha.Criptografar(request.registrarAdmin.Senha),
-            Telefone = request.registrarAdmin.Telefone
+            Senha = _encriptadorDeSenha.Encriptar(request.registrarAdmin.Senha),
+            Telefone = request.registrarAdmin.Telefone,
+            IdentificadorUsuario = Guid.NewGuid()
         };
 
         await _repositorio.Adicionar(entidade);

@@ -8,11 +8,11 @@ public class AlterarSenhaAdminCommandHandler : IRequestHandler<AlterarSenhaAdmin
 
     private readonly IAdminUpdateOnlyRepositorio _repositorio;
 
-    private readonly EncriptadorDeSenha _encriptadorDeSenha;
+    private readonly IEncriptadorDeSenha _encriptadorDeSenha;
 
     private readonly IUnidadeDeTrabalho _unidadeDeTrabalho;
 
-    public AlterarSenhaAdminCommandHandler(IAdminLogado adminLogado, IAdminUpdateOnlyRepositorio repositorio, EncriptadorDeSenha encriptadorDeSenha, IUnidadeDeTrabalho unidadeDeTrabalho)
+    public AlterarSenhaAdminCommandHandler(IAdminLogado adminLogado, IAdminUpdateOnlyRepositorio repositorio, IEncriptadorDeSenha encriptadorDeSenha, IUnidadeDeTrabalho unidadeDeTrabalho)
     {
         _adminLogado = adminLogado;
         _repositorio = repositorio;
@@ -28,7 +28,7 @@ public class AlterarSenhaAdminCommandHandler : IRequestHandler<AlterarSenhaAdmin
 
         Validar(request, admin);
 
-        admin.Senha = _encriptadorDeSenha.Criptografar(request.alterarSenha.NovaSenha);
+        admin.Senha = _encriptadorDeSenha.Encriptar(request.alterarSenha.NovaSenha);
 
         _repositorio.Atualizar(admin);
 
@@ -40,9 +40,9 @@ public class AlterarSenhaAdminCommandHandler : IRequestHandler<AlterarSenhaAdmin
         var validator = new AlterarSenhaValidator();
         var resultado = validator.Validate(requisicao);
 
-        var senhaAtualCriptografada = _encriptadorDeSenha.Criptografar(requisicao.alterarSenha.SenhaAtual);
+       
 
-        if (!admin.Senha.Equals(senhaAtualCriptografada))
+        if (!_encriptadorDeSenha.Verificar(requisicao.alterarSenha.SenhaAtual, admin.Senha))
             resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("senhaAtual", UsuarioModelMensagensDeErro.SENHA_ATUAL_INVALIDA));
 
         if (!resultado.IsValid)
