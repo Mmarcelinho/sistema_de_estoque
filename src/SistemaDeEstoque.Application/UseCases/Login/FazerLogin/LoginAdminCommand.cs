@@ -8,28 +8,33 @@ public class LoginAdminHandler : IRequestHandler<LoginAdminCommand, RespostaLogi
 
     private readonly IEncriptadorDeSenha _encriptadorDeSenha;
 
-    private readonly TokenController _tokenController;
+    private readonly IGeradorTokenAcesso _geradorTokenAcesso;
 
 
-    public LoginAdminHandler(IAdminReadOnlyRepositorio adminReadOnlyRepositorio, IEncriptadorDeSenha encriptadorDeSenha, TokenController tokenController)
+    public LoginAdminHandler(IAdminReadOnlyRepositorio adminReadOnlyRepositorio, IEncriptadorDeSenha encriptadorDeSenha, IGeradorTokenAcesso geradorTokenAcesso)
     {
         _adminReadOnlyRepositorio = adminReadOnlyRepositorio;
         _encriptadorDeSenha = encriptadorDeSenha;
-        _tokenController = tokenController;
+        _geradorTokenAcesso = geradorTokenAcesso;
     }
 
     public async Task<RespostaLoginAdminJson> Handle(LoginAdminCommand request, CancellationToken cancellationToken)
     {
-        var requisicao = request.loginAdmin;
-
-        var senhaCriptografada = _encriptadorDeSenha.Encriptar(requisicao.Senha);
-
-        var admin = await _adminReadOnlyRepositorio.RecuperarPorEmailSenha(requisicao.Email, senhaCriptografada);
+        var admin = await _adminReadOnlyRepositorio.RecuperarPorEmail(request.loginAdmin.Email);
 
         if (admin is null)
             throw new LoginInvalidoException();
 
-        return new RespostaLoginAdminJson(admin.Nome, _tokenController.GerarToken(admin.Email));
+        var senhaCorreta = _encriptadorDeSenha.Verificar(request.loginAdmin.Senha, admin.Senha);
+
+        if (senhaCorreta == false)
+            throw new LoginInvalidoException();
+
+        return new RespostaLoginAdminJson
+        (
+            admin.Nome,
+            _geradorTokenAcesso.Gerar(admin)
+        );
     }
 }
 

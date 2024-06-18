@@ -10,7 +10,7 @@ public abstract class Usuario : EntidadeBase
 
     public string Telefone { get; set; } = string.Empty;
 
-    public Guid IdentificadorUsuario { get; set; }
+    public Guid IdentificadorUsuario { get; set; } = Guid.Empty;
 
     public string Role { get; set; } = string.Empty;
 

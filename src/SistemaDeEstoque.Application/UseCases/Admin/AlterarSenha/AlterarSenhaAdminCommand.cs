@@ -22,7 +22,7 @@ public class AlterarSenhaAdminCommandHandler : IRequestHandler<AlterarSenhaAdmin
 
     public async Task Handle(AlterarSenhaAdminCommand request, CancellationToken cancellationToken)
     {
-        var adminLogado = await _adminLogado.RecuperarAdmin();
+        var adminLogado = await _adminLogado.Recuperar();
 
         var admin = await _repositorio.RecuperarPorId(adminLogado.Id);
 

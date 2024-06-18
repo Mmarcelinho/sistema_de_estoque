@@ -8,29 +8,35 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 # region Swagger 
-builder.Services.AddSwaggerGen(option =>
+builder.Services.AddSwaggerGen(config =>
 {
-    option.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "SISTEMA DE ESTOQUE API", Version = "1.0" });
-    option.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    config.SwaggerDoc("v1", new OpenApiInfo { Title = "SISTEMA DE ESTOQUE API", Version = "1.0" });
+    config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+        Description = @"JWT Authorization header using the Bearer scheme.
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      Example: 'Bearer 12345abcdef'",
+        In = ParameterLocation.Header,
         Scheme = "Bearer",
-        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-        Description = "JWT Authorization header utilizando o Bearer scheme. Example: \"Authorization: Bearer {token}\""
+        Type = SecuritySchemeType.ApiKey
     });
-    option.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+
+    config.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
-            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            new OpenApiSecurityScheme
             {
-                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                Reference = new OpenApiReference
                 {
-                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Type = ReferenceType.SecurityScheme,
                     Id = "Bearer"
-                }
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header
             },
-            System.Array.Empty<string>()
+            new List<string>()
         }
     });
 });
@@ -38,6 +44,27 @@ builder.Services.AddSwaggerGen(option =>
 
 builder.Services.AdicionarInfrastructure(builder.Configuration);
 builder.Services.AdicionarApplication(builder.Configuration);
+
+builder.Services.AddScoped<IProvedorDeToken, ValorTokenHttpContext>();
+
+builder.Services.AddHttpContextAccessor();
+
+var signingKey = builder.Configuration.GetValue<string>("Configuracoes:Jwt:ChaveToken");
+
+builder.Services.AddAuthentication(config =>
+{
+    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(config =>
+{
+    config.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ClockSkew = new TimeSpan(0),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey!))
+    };
+});
 
 builder.Services.AddMvc(options => options.Filters.Add(typeof(FiltroDasExceptions)));
 
