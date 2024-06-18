@@ -37,19 +37,8 @@ public class AlterarSenhaAdminCommandHandler : IRequestHandler<AlterarSenhaAdmin
 
     private void Validar(AlterarSenhaAdminCommand requisicao, Domain.Entidades.Admin admin)
     {
-        var validator = new AlterarSenhaValidator();
-        var resultado = validator.Validate(requisicao);
-
-       
-
         if (!_encriptadorDeSenha.Verificar(requisicao.alterarSenha.SenhaAtual, admin.Senha))
-            resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("senhaAtual", UsuarioModelMensagensDeErro.SENHA_ATUAL_INVALIDA));
-
-        if (!resultado.IsValid)
-        {
-            var mensagens = resultado.Errors.Select(x => x.ErrorMessage).ToList();
-            throw new ErrosDeValidacaoException(mensagens);
-        }
+            throw new Exception(UsuarioModelMensagensDeErro.SENHA_ATUAL_INVALIDA);
     }
 }
 
