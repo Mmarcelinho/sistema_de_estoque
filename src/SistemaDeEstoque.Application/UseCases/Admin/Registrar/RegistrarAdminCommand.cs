@@ -1,3 +1,5 @@
+using SistemaDeEstoque.Domain.Enum;
+
 namespace SistemaDeEstoque.Application.UseCases.Admin.Registrar;
 
 public record RegistrarAdminCommand(RequisicaoRegistrarAdminJson registrarAdmin) : IRequest<RespostaAdminRegistradoJson>;
@@ -8,19 +10,19 @@ public class RegistrarAdminCommandHandler : IRequestHandler<RegistrarAdminComman
     private readonly IAdminWriteOnlyRepositorio _repositorio;
     private readonly IUnidadeDeTrabalho _unidadeDeTrabalho;
     private readonly IEncriptadorDeSenha _encriptadorDeSenha;
-    private readonly TokenController _tokenController;
+    private readonly IGeradorTokenAcesso _geradorTokenAcesso;
 
     public RegistrarAdminCommandHandler(
         IAdminWriteOnlyRepositorio repositorio,
         IUnidadeDeTrabalho unidadeDeTrabalho,
         IEncriptadorDeSenha encriptadorDeSenha,
-        TokenController tokenController,
+        IGeradorTokenAcesso geradorTokenAcesso,
         IAdminReadOnlyRepositorio adminReadOnlyRepositorio)
     {
         _repositorio = repositorio;
         _unidadeDeTrabalho = unidadeDeTrabalho;
         _encriptadorDeSenha = encriptadorDeSenha;
-        _tokenController = tokenController;
+        _geradorTokenAcesso = geradorTokenAcesso;
         _adminReadOnlyRepositorio = adminReadOnlyRepositorio;
     }
 
@@ -28,22 +30,25 @@ public class RegistrarAdminCommandHandler : IRequestHandler<RegistrarAdminComman
     {
         await Validar(request);
 
-        var entidade = new Domain.Entidades.Admin
+        var admin = new Domain.Entidades.Admin
         {
             Nome = request.registrarAdmin.Nome,
             Email = request.registrarAdmin.Email,
             Senha = _encriptadorDeSenha.Encriptar(request.registrarAdmin.Senha),
             Telefone = request.registrarAdmin.Telefone,
-            IdentificadorUsuario = Guid.NewGuid()
+            IdentificadorUsuario = Guid.NewGuid(),
+            Role = Roles.ADMIN
         };
 
-        await _repositorio.Adicionar(entidade);
+        await _repositorio.Adicionar(admin);
 
         await _unidadeDeTrabalho.Commit();
 
-        var token = _tokenController.GerarToken(entidade.Email);
-
-        return new RespostaAdminRegistradoJson(token);
+        return new RespostaAdminRegistradoJson
+        (
+            admin.Nome,
+            _geradorTokenAcesso.Gerar(admin)
+        );
     }
 
     private async Task Validar(RegistrarAdminCommand requisicao)
