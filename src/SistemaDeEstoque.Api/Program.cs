@@ -1,3 +1,5 @@
+using SistemaDeEstoque.Api.Exceptions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRouting(option => option.LowercaseUrls = true);
@@ -42,12 +44,13 @@ builder.Services.AddSwaggerGen(config =>
 });
 # endregion
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 builder.Services.AdicionarInfrastructure(builder.Configuration);
 builder.Services.AdicionarApplication(builder.Configuration);
 
 builder.Services.AddScoped<IProvedorDeToken, ValorTokenHttpContext>();
-
-builder.Services.AddHttpContextAccessor();
 
 var signingKey = builder.Configuration.GetValue<string>("Configuracoes:Jwt:ChaveToken");
 
@@ -66,8 +69,6 @@ builder.Services.AddAuthentication(config =>
     };
 });
 
-builder.Services.AddMvc(options => options.Filters.Add(typeof(FiltroDasExceptions)));
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -75,6 +76,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 
