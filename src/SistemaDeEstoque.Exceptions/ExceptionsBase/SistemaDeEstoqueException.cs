@@ -1,6 +1,12 @@
+using System.Net;
+
 namespace SistemaDeEstoque.Exceptions.ExceptionsBase;
 
-    public class SistemaDeEstoqueException : SystemException
+    public abstract class SistemaDeEstoqueException : SystemException
     {
-        public SistemaDeEstoqueException(string mensagem) : base(mensagem) { }
+        protected SistemaDeEstoqueException(string mensagem) : base(mensagem) { }
+
+        public abstract int StatusCode { get; }
+
+        public abstract List<string> RecuperarErros();
     }
