@@ -1,3 +1,5 @@
+using SistemaDeEstoque.Domain.Servicos.AdminLogado;
+
 namespace SistemaDeEstoque.Application.UseCases.Admin.AlterarSenha;
 
 public record AlterarSenhaAdminCommand(RequisicaoAlterarSenhaJson alterarSenha) : IRequest;
@@ -22,7 +24,7 @@ public class AlterarSenhaAdminCommandHandler : IRequestHandler<AlterarSenhaAdmin
 
     public async Task Handle(AlterarSenhaAdminCommand request, CancellationToken cancellationToken)
     {
-        var adminLogado = await _adminLogado.RecuperarAdmin();
+        var adminLogado = await _adminLogado.Recuperar();
 
         var admin = await _repositorio.RecuperarPorId(adminLogado.Id);
 

@@ -1,3 +1,5 @@
+using SistemaDeEstoque.Domain.Servicos.AdminLogado;
+
 namespace SistemaDeEstoque.Application.UseCases.Admin.RecuperarPerfil;
 
 public record RecuperarPerfilAdminQuery() : IRequest<RespostaPerfilAdminJson>;
@@ -11,7 +13,7 @@ public class RecuperarPerfilAdminQueryHandler : IRequestHandler<RecuperarPerfilA
 
     public async Task<RespostaPerfilAdminJson> Handle(RecuperarPerfilAdminQuery request, CancellationToken cancellationToken)
     {
-        var admin = await _adminLogado.RecuperarAdmin();
+        var admin = await _adminLogado.Recuperar();
 
         return new RespostaPerfilAdminJson
         (
