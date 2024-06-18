@@ -1,5 +1,3 @@
-using SistemaDeEstoque.Domain.Enum;
-
 namespace SistemaDeEstoque.Application.UseCases.Admin.Registrar;
 
 public record RegistrarAdminCommand(RequisicaoRegistrarAdminJson registrarAdmin) : IRequest<RespostaAdminRegistradoJson>;

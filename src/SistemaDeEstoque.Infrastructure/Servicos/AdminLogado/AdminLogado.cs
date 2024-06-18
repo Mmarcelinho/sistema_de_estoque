@@ -1,5 +1,3 @@
-using SistemaDeEstoque.Domain.Servicos.AdminLogado;
-
 namespace SistemaDeEstoque.Infrastructure.Servicos.AdminLogado;
 
 public class AdminLogado : IAdminLogado

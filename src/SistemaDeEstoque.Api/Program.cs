@@ -1,10 +1,3 @@
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using SistemaDeEstoque.Api.Token;
-using SistemaDeEstoque.Domain.Security.Tokens;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRouting(option => option.LowercaseUrls = true);

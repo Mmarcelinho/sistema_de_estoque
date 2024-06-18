@@ -1,5 +1,3 @@
-using SistemaDeEstoque.Domain.Servicos.AdminLogado;
-
 namespace SistemaDeEstoque.Application.UseCases.Admin.RecuperarPerfil;
 
 public record RecuperarPerfilAdminQuery() : IRequest<RespostaPerfilAdminJson>;

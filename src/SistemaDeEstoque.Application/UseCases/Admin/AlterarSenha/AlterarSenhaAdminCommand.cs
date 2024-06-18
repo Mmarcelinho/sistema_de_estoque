@@ -1,5 +1,3 @@
-using SistemaDeEstoque.Domain.Servicos.AdminLogado;
-
 namespace SistemaDeEstoque.Application.UseCases.Admin.AlterarSenha;
 
 public record AlterarSenhaAdminCommand(RequisicaoAlterarSenhaJson alterarSenha) : IRequest;

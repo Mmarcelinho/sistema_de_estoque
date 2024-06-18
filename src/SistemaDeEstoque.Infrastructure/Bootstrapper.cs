@@ -1,6 +1,3 @@
-using SistemaDeEstoque.Domain.Servicos.AdminLogado;
-using SistemaDeEstoque.Infrastructure.Servicos.AdminLogado;
-
 namespace SistemaDeEstoque.Infrastructure;
 
 public static class Bootstrapper
