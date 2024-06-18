@@ -1,4 +1,4 @@
 namespace SistemaDeEstoque.Comunicacao.Respostas.Admin;
 
-    public record RespostaAdminRegistradoJson(string token);
+    public record RespostaAdminRegistradoJson(string nome, string token);
    
