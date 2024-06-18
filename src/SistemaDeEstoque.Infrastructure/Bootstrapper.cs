@@ -1,3 +1,6 @@
+using SistemaDeEstoque.Domain.Servicos.AdminLogado;
+using SistemaDeEstoque.Infrastructure.Servicos.AdminLogado;
+
 namespace SistemaDeEstoque.Infrastructure;
 
 public static class Bootstrapper
@@ -11,6 +14,16 @@ public static class Bootstrapper
         AdicionarRepositorios(services);
 
         services.AddScoped<IEncriptadorDeSenha, EncriptadorDeSenha>();
+        AdicionarToken(services, configuration);
+        services.AddScoped<IAdminLogado, AdminLogado>();
+    }
+
+    private static void AdicionarToken(IServiceCollection services, IConfiguration configuration)
+    {
+        var tempoVidaTokenMinutos = configuration.GetValue<uint>("Configuracoes:Jwt:TempoVidaTokenMinutos");
+        var chaveToken = configuration.GetValue<string>("Configuracoes:Jwt:ChaveToken");
+
+        services.AddScoped<IGeradorTokenAcesso>(config => new GeradorTokenJwt(tempoVidaTokenMinutos, chaveToken!));
     }
 
     private static void AdicionarFluentMigrator(IServiceCollection services, IConfiguration configuration)
