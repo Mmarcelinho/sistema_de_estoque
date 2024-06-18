@@ -1,4 +1,4 @@
-namespace SistemaDeEstoque.Infrastructure.Criptografia;
+namespace SistemaDeEstoque.Infrastructure.Security.Criptografia;
 
 internal class EncriptadorDeSenha : IEncriptadorDeSenha
 {
