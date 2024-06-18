@@ -51,18 +51,9 @@ public class RegistrarAdminCommandHandler : IRequestHandler<RegistrarAdminComman
 
     private async Task Validar(RegistrarAdminCommand requisicao)
     {
-        var validator = new RegistrarAdminValidator();
-        var resultado = validator.Validate(requisicao);
-
         var existeAdminComEmail = await _adminReadOnlyRepositorio.ExisteAdminComEmail(requisicao.registrarAdmin.Email);
         if (existeAdminComEmail)
-            resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("email", UsuarioModelMensagensDeErro.EMAIL_JA_REGISTRADO));
-
-        if (!resultado.IsValid)
-        {
-            var mensagensDeErro = resultado.Errors.Select(error => error.ErrorMessage).ToList();
-            throw new ErrosDeValidacaoException(mensagensDeErro);
-        }
+            throw new Exception(UsuarioModelMensagensDeErro.EMAIL_JA_REGISTRADO);
     }
 }
 
