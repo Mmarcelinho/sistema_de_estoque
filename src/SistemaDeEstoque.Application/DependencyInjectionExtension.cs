@@ -1,8 +1,8 @@
 namespace SistemaDeEstoque.Application;
 
-public static class Bootstrapper
+public static class DependencyInjectionExtension
 {
-    public static void AdicionarApplication(this IServiceCollection services, IConfiguration configuration)
+    public static void AdicionarApplication(this IServiceCollection services)
     {
         AdicionarMediatR(services);
     }

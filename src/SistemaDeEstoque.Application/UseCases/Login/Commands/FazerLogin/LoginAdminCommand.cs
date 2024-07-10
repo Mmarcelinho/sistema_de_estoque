@@ -1,4 +1,4 @@
-namespace SistemaDeEstoque.Application.UseCases.Login.FazerLogin;
+namespace SistemaDeEstoque.Application.UseCases.Login.Commands.FazerLogin;
 
 public record LoginAdminCommand(RequisicaoLoginAdminJson loginAdmin) : IRequest<RespostaLoginAdminJson>;
 

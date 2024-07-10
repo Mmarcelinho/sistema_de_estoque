@@ -1,4 +1,4 @@
-namespace SistemaDeEstoque.Application.UseCases.Admin.AlterarSenha;
+namespace SistemaDeEstoque.Application.UseCases.Admin.Commands.AlterarSenha;
 
 public class AlterarSenhaValidator : AbstractValidator<AlterarSenhaAdminCommand>
 {
