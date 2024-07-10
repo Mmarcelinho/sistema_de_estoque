@@ -48,7 +48,7 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 builder.Services.AdicionarInfrastructure(builder.Configuration);
-builder.Services.AdicionarApplication(builder.Configuration);
+builder.Services.AdicionarApplication();
 
 builder.Services.AddScoped<IProvedorDeToken, ValorTokenHttpContext>();
 
