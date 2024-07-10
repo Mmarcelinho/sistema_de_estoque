@@ -1,3 +1,3 @@
-namespace SistemaDeEstoque.Comunicacao.Requisicoes.Admin;
+namespace SistemaDeEstoque.Communication.Requisicoes.Admin;
 
     public record RequisicaoAlterarSenhaJson(string SenhaAtual, string NovaSenha);
