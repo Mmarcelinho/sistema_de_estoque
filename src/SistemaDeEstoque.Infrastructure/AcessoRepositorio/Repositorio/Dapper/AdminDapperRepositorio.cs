@@ -1,17 +1,9 @@
-namespace SistemaDeEstoque.Infrastructure.AcessoRepositorio.Repositorio;
+namespace SistemaDeEstoque.Infrastructure.AcessoRepositorio.Repositorio.Dapper;
 
-public class AdminRepositorio : IAdminWriteOnlyRepositorio, IAdminReadOnlyRepositorio, IAdminUpdateOnlyRepositorio
+    public class AdminDapperRepositorio: IAdminReadOnlyRepositorio
 {
-    private readonly SistemaDeEstoqueContext _contexto;
-
     private readonly IDbConnection _connection;
-    public AdminRepositorio(SistemaDeEstoqueContext contexto, IDbConnection connection)
-    {
-        _contexto = contexto;
-        _connection = connection;
-    }
-
-    public async Task Adicionar(Admin admin) => await _contexto.Admins.AddAsync(admin);
+    public AdminDapperRepositorio(SistemaDeEstoqueContext contexto, SqlFactory sqlFactory) => _connection = sqlFactory.CriarSqlConnection();
     
     public async Task<bool> ExisteAdminComEmail(string email)
     {
@@ -40,7 +32,4 @@ public class AdminRepositorio : IAdminWriteOnlyRepositorio, IAdminReadOnlyReposi
         var admin = await _connection.QueryFirstOrDefaultAsync<Admin>(query.Query, query.Parameters);
         return admin;
     }
-
-    public void Atualizar(Admin admin) => _contexto.Admins.Update(admin);
-    
 }
