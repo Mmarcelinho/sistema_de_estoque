@@ -19,7 +19,7 @@ global using SistemaDeEstoque.Application.UseCases.Admin.Queries.RecuperarPerfil
 global using SistemaDeEstoque.Application.UseCases.Admin.Commands.AlterarSenha;
 global using SistemaDeEstoque.Application.UseCases.Admin.Commands.Registrar;
 
-global using SistemaDeEstoque.Comunicacao.Respostas.Admin;
+global using SistemaDeEstoque.Communication.Respostas.Admin;
 
 global using SistemaDeEstoque.Api.Token;
 

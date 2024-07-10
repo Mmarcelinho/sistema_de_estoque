@@ -14,8 +14,8 @@ global using SistemaDeEstoque.Domain.Security.Criptografia;
 global using SistemaDeEstoque.Domain.Servicos.AdminLogado;
 global using SistemaDeEstoque.Application.Servicos.Validation;
 
-global using SistemaDeEstoque.Comunicacao.Requisicoes.Admin;
-global using SistemaDeEstoque.Comunicacao.Respostas.Admin;
+global using SistemaDeEstoque.Communication.Requisicoes.Admin;
+global using SistemaDeEstoque.Communication.Respostas.Admin;
 
 global using SistemaDeEstoque.Exceptions.ExceptionsBase;
 global using SistemaDeEstoque.Exceptions.ErrorMessages;
