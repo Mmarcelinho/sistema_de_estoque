@@ -1,4 +1,4 @@
-namespace SistemaDeEstoque.Application.UseCases.Admin.Registrar;
+namespace SistemaDeEstoque.Application.UseCases.Admin.Commands.Registrar;
 
 public record RegistrarAdminCommand(RequisicaoRegistrarAdminJson registrarAdmin) : IRequest<RespostaAdminRegistradoJson>;
 

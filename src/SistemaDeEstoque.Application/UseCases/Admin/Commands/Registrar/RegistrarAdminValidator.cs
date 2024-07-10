@@ -1,4 +1,4 @@
-namespace SistemaDeEstoque.Application.UseCases.Admin.Registrar;
+namespace SistemaDeEstoque.Application.UseCases.Admin.Commands.Registrar;
 
 public class RegistrarAdminValidator : AbstractValidator<RegistrarAdminCommand>
 {
