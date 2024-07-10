@@ -1,13 +1,12 @@
 namespace SistemaDeEstoque.Infrastructure;
 
-public static class Bootstrapper
+public static class DependencyInjectionExtension
 {
     public static void AdicionarInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AdicionarFluentMigrator(services, configuration);
         AdicionarContexto(services, configuration);
-        AdicionarDbConnection(services, configuration);
-        AdicionarUnidadeDeTrabalho(services);
+        AdicionarSqlFactory(services);
         AdicionarRepositorios(services);
 
         services.AddScoped<IEncriptadorDeSenha, EncriptadorDeSenha>();
@@ -42,25 +41,15 @@ public static class Bootstrapper
         });
     }
 
-    private static void AdicionarDbConnection(IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddSingleton<IDbConnection>
-        (provider =>
-        {
-            var connection = new MySqlConnection(configuration.GetConexaoCompleta());
-            connection.Open();
-            return connection;
-        });
-    }
-
-    private static void AdicionarUnidadeDeTrabalho(IServiceCollection services)
-    => services.AddScoped<IUnidadeDeTrabalho, UnidadeDeTrabalho>();
-
+    private static void AdicionarSqlFactory(IServiceCollection services)
+    => services.AddScoped<SqlFactory>();
+    
     private static void AdicionarRepositorios(IServiceCollection services)
     {
-        services.AddScoped<IAdminReadOnlyRepositorio, AdminRepositorio>();
-        services.AddScoped<IAdminWriteOnlyRepositorio, AdminRepositorio>();
-        services.AddScoped<IAdminUpdateOnlyRepositorio, AdminRepositorio>();
+        services.AddScoped<IAdminReadOnlyRepositorio, AdminDapperRepositorio>();
+        services.AddScoped<IAdminWriteOnlyRepositorio, AdminEfRepositorio>();
+        services.AddScoped<IAdminUpdateOnlyRepositorio, AdminEfRepositorio>();
 
+        services.AddScoped<IUnidadeDeTrabalho, UnidadeDeTrabalho>();
     }
 }
